@@ -331,7 +331,7 @@
   width: 100%;
   background: #ffffff;
   border-radius: 3px;
-  transition: transform 0.35s ease, opacity 0.35s ease;
+  transition: transform 0.35s ease, background 0.35s ease;
 }
 /* 
 .hamburger.fade-out {
@@ -340,7 +340,7 @@
   pointer-events: none;
 } */
 
-.hamburger.active {
+.hamburger.active span {
   background: var(--dark-bg);
 }
 
