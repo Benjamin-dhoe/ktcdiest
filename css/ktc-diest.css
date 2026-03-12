@@ -333,11 +333,15 @@
   border-radius: 3px;
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
-
+/* 
 .hamburger.fade-out {
   opacity: 0;
   transform: scale(0.8);
   pointer-events: none;
+} */
+
+.hamburger.active {
+  background: var(--dark-bg);
 }
 
 .hamburger.active span:nth-child(1) {
@@ -1805,6 +1809,7 @@
 
   .twosidecontent.withstickyside {
     align-items: center;
+    flex-direction: column-reverse;
   }
 
   .sidecontent, .sidecontent.centered.small {
