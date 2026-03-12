@@ -7,8 +7,7 @@ const closeBtn = document.getElementById("close-nav-btn");
 function restartSpin() {
   logoBall.style.display = "block";
   logoBall.classList.remove("spin");
-  // force reflow so browser “commits” the removal
-  void logoBall.offsetHeight; // or logoBall.offsetWidth
+  void logoBall.offsetHeight;
   logoBall.classList.add("spin");
 }
 let logoHandler = null;
@@ -19,18 +18,14 @@ function cleanupVideoHandlers() {
   logoHandler = null;
   endedHandler = null;
 }
-// Extra safety for iOS
 serveVid.muted = true;
 serveVid.setAttribute("playsinline", "");
 serveVid.setAttribute("webkit-playsinline", "");
 openBtn.addEventListener("click", () => {
-  openBtn.classList.add("fade-out");
-  // IMPORTANT: remove any previous handlers first
+  openBtn.classList.add("active");
   cleanupVideoHandlers();
-  // Make holder visible clearly (0.1 is almost invisible)
   serveVidHolder.style.opacity = 0.1;
   serveVidHolder.style.pointerEvents = "auto";
-  // Fully reset playback
   serveVid.pause();
   serveVid.currentTime = 0;
   serveVid.play().then(() => {
@@ -54,7 +49,6 @@ openBtn.addEventListener("click", () => {
       link.style.transition = "opacity 0.3s ease";
       link.style.opacity = 1;
     });
-    // clean reference
     endedHandler = null;
   };
   serveVid.addEventListener("timeupdate", logoHandler);
@@ -64,7 +58,6 @@ closeBtn.addEventListener("click", () => {
   navMenu.querySelectorAll(".navlink").forEach(link => {
     link.style.opacity = 0;
   });
-  // stop & reset video + hide holder to avoid “ended” firing later
   cleanupVideoHandlers();
   serveVid.pause();
   serveVid.currentTime = 0;
@@ -73,5 +66,5 @@ closeBtn.addEventListener("click", () => {
   logoBall.style.display = "none";
   logoBall.classList.remove("spin");
   navMenu.classList.remove("endopen", "startopen");
-  openBtn.classList.remove("fade-out");
+  openBtn.classList.remove("active");
 });
