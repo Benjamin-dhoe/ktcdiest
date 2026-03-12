@@ -62,17 +62,12 @@
   border-color: var(--diest-orange);
 }
 
-/* Checkmark icon */
 .custom-checkbox input:checked + .checkmark::after {
-  content: "";
-  position: absolute;
   left: 5px;
   top: 1px;
   width: 6px;
   height: 12px;
-  border: solid white;
   border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
 }
 
 .date-range-input {
