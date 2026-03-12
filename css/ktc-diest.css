@@ -2186,6 +2186,11 @@
     width: 85%;
   }
 
+  .coach.fullpage {
+    width: 100%;
+    min-height: 300px;
+  }
+
   .containcenter.centeredonphone {
     flex-flow: column;
     align-items: center;
