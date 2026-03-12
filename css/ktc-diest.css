@@ -2024,11 +2024,16 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     justify-content: center;
-    width: 100vw;
+    width: 0vw;
     height: 100vh;
     padding: 60px 25vw;
-    display: none;
     position: static;
+    overflow: none;
+    transition: 0.3s width ease;
+  }
+
+  .filters-holder.open {
+    width: 100vw;
     overflow: scroll;
   }
 
