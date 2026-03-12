@@ -2077,20 +2077,20 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     justify-content: center;
-    width: 0vw;
+    width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     overflow: auto;
-    transition: 0.3s width, padding ease;
-  }
-
-  .filters-holder.open {
-    width: 100vw;
-    overflow: auto;
     padding: 60px 25vw;
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
   }
+  
+  .filters-holder.open {
+    transform: translateX(0);
+  }  
 
   .go-back {
     justify-content: center;
