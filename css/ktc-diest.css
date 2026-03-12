@@ -27,6 +27,7 @@
   user-select: none;
   margin-bottom: 10px;
   width: 100%;
+  font-weight: 300;
 }
 
 /* Hide native checkbox */
@@ -1443,7 +1444,7 @@
   display: flex;
   position: sticky;
   top: 40px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .filter-category {
@@ -2093,7 +2094,7 @@
 
   .filters-holder.open {
     width: 100vw;
-    overflow: scroll;
+    overflow: auto;
   }
 
   .go-back {
