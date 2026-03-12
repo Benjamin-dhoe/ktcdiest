@@ -29,6 +29,9 @@
 
 /* WhatsApp grid */
 .waGrid {
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -1983,10 +1986,7 @@
   }
 
   .waGrid {
-    display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 20px;
   }
 
   .hamburger {
