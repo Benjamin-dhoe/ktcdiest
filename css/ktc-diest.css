@@ -2083,7 +2083,7 @@
     top: 0;
     left: 0;
     overflow: auto;
-    transition: 0.3s width ease;
+    transition: 0.3s width, padding ease;
   }
 
   .filters-holder.open {
