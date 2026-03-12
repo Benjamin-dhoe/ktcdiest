@@ -26,6 +26,7 @@
   color: var(--dark-bg);
   user-select: none;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 /* Hide native checkbox */
@@ -39,6 +40,8 @@
 .custom-checkbox .checkmark {
   width: 20px;
   height: 20px;
+  min-width: 20px;
+  min-height: 20px;
   border: 2px solid var(--lineslight);
   border-radius: 4px;
   display: inline-block;
@@ -2287,10 +2290,6 @@
     display: block;
     position: absolute;
     inset: auto 0% 0%;
-  }
-
-  .filters-holder {
-    display: none;
   }
 
   .filterbutton {
