@@ -2084,7 +2084,6 @@
     justify-content: center;
     width: 0vw;
     height: 100vh;
-    padding: 60px 25vw;
     position: fixed;
     top: 0;
     left: 0;
@@ -2095,6 +2094,7 @@
   .filters-holder.open {
     width: 100vw;
     overflow: auto;
+    padding: 60px 25vw;
   }
 
   .go-back {
