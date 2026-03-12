@@ -17,6 +17,101 @@
   --darkblue: #1c352d;
 }
 
+/* ===== FORM WRAPPER ===== */
+.tsFormGroup {
+  position: relative;
+  margin-bottom: 22px;
+  font-family: Poppins, sans-serif;
+}
+
+/* ===== INPUT + TEXTAREA ===== */
+.tsInput,
+.tsTextarea,
+.tsSelect {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  border: 1px solid #d7dce1;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--dark-bg);
+  transition: all 0.25s ease;
+  outline: none;
+  appearance: none;
+}
+
+/* Hover */
+.tsInput:hover,
+.tsTextarea:hover,
+.tsSelect:hover {
+  border-color: #b8c0c7;
+}
+
+/* Focus */
+.tsInput:focus,
+.tsTextarea:focus,
+.tsSelect:focus {
+  border-color: var(--main);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+}
+
+/* ===== FLOATING LABEL ===== */
+.tsLabel {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: 15px;
+  color: #777;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+/* When input has value or focus */
+.tsInput:focus + .tsLabel,
+.tsTextarea:focus + .tsLabel,
+.tsSelect:focus + .tsLabel,
+.tsInput:not(:placeholder-shown) + .tsLabel,
+.tsTextarea:not(:placeholder-shown) + .tsLabel {
+  top: -8px;
+  left: 12px;
+  font-size: 12px;
+  background: #fff;
+  padding: 0 6px;
+  color: var(--main);
+}
+
+/* ===== TEXTAREA ===== */
+.tsTextarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* ===== SELECT ARROW ===== */
+.tsSelect {
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' viewBox='0 0 14 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l6 7 6-7' stroke='%23666' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.tsFormButton {
+  padding: 12px 22px;
+  background: linear-gradient(135deg, var(--diest-orange), var(--pop-orange));
+  color: #fff;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 15px;
+}
+
+.tsFormButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
 .membershipGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -42,7 +137,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 12px;
