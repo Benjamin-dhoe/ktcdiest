@@ -17,6 +17,25 @@
   --darkblue: #1c352d;
 }
 
+.date-range-input {
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: border-color .2s ease;
+}
+
+.date-range-input:hover {
+  border-color: #0077ff;
+}
+
+.flatpickr-calendar {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
 /* Selector container */
 .ageSelector {
   display: flex;
