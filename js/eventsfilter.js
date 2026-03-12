@@ -1,6 +1,5 @@
 const openFiltersBtn = document.getElementById("open-event-filters-btn");
 const closeFiltersBtn = document.getElementById("close-event-filters-btn");
-const applyFiltersBtn = document.getElementById("apply-event-filters-btn");
 const resetFiltersBtn = document.getElementById("reset-event-filters-btn");
 const filtersDiv = document.getElementById("filters-div");
 
@@ -20,7 +19,11 @@ flatpickr(dateRangeInput, {
     if (selectedDates.length === 2) {
       selectedStart = selectedDates[0];
       selectedEnd = selectedDates[1];
+    } else {
+      selectedStart = null;
+      selectedEnd = null;
     }
+    applyFilters(); // LIVE FILTERING
   }
 });
 
@@ -39,30 +42,30 @@ closeFiltersBtn.addEventListener("click", () => {
 // RESET FILTERS
 // ----------------------
 resetFiltersBtn.addEventListener("click", () => {
+  // Reset date
   dateRangeInput.value = "";
   selectedStart = null;
   selectedEnd = null;
 
-  document.querySelectorAll(".holder-filter-checks input[type='checkbox']")
+  // Reset checkboxes
+  document.querySelectorAll(".custom-checkbox input[type='checkbox']")
     .forEach(cb => cb.checked = false);
 
   showAllEvents();
 });
 
 // ----------------------
-// APPLY FILTERS
+// LIVE FILTERING ON CHECKBOX CHANGE
 // ----------------------
-applyFiltersBtn.addEventListener("click", () => {
-  applyFilters();
-  filtersDiv.classList.remove("open");
-});
+document.querySelectorAll(".custom-checkbox input[type='checkbox']")
+  .forEach(cb => cb.addEventListener("change", applyFilters));
 
 // ----------------------
 // FILTER LOGIC
 // ----------------------
 function applyFilters() {
-  const selectedTypes = getCheckedValues("Type event");
-  const selectedAges = getCheckedValues("Leeftijd");
+  const selectedTypes = getCheckedValues("event-type");
+  const selectedAges = getCheckedValues("event-age");
 
   eventCards.forEach(card => {
     const cardStart = parseDate(card.getAttribute("filter-date-start"));
@@ -98,16 +101,12 @@ function showAllEvents() {
   eventCards.forEach(card => card.style.display = "block");
 }
 
-function getCheckedValues(sectionLabel) {
-  const section = [...document.querySelectorAll(".filter-category")]
-    .find(cat => cat.querySelector("label").textContent.trim() === sectionLabel);
-
-  return [...section.querySelectorAll("input[type='checkbox']:checked")]
-    .map(cb => cb.nextElementSibling.textContent.trim().toLowerCase());
+function getCheckedValues(name) {
+  return [...document.querySelectorAll(`input[name="${name}"]:checked`)]
+    .map(cb => cb.value.toLowerCase());
 }
 
 function parseDate(str) {
   const [day, month, year] = str.split("-").map(Number);
   return new Date(year, month - 1, day);
 }
-
