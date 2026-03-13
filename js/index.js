@@ -64,3 +64,11 @@ document.querySelectorAll('.section.withcoach').forEach((section) => {
     },
     { passive: true }
   );
+
+AOS.init({
+  duration: 1000,      // animation duration in ms
+  offset: 120,         // trigger animation when element is 120px from viewport
+  easing: 'ease-out',  // easing of animation
+  once: true,          // animation happens only once
+  mirror: false        // whether elements animate out while scrolling past
+});
