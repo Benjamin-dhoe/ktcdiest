@@ -6,6 +6,10 @@
   font-display: swap;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --dark-bg: #181717;
   --white-bg: #fdfaf5;
@@ -908,7 +912,7 @@
 }
 
 .holdernavhero {
-  z-index: 3;
+  z-index: 999;
   flex-flow: column;
   align-items: center;
   width: 100%;
@@ -1281,6 +1285,10 @@
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.35s ease;
   box-shadow: var(--shadow);
   z-index: 10;
+}
+
+.button {
+  padding: 6px 12px;
 }
 
 /* Hover: subtle lift + brighter gradient */

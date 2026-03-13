@@ -82,7 +82,7 @@
   <body class="body">
     <div class="navbarsoloholder">
       <div class="containcenter">
-        <div class="navbar">
+        <nav class="navbar">
           <a href="/index.html" class="w-inline-block"
             ><img
               loading="lazy"
@@ -96,7 +96,6 @@
             <span></span>
           </div>
           <div id="navlinks" class="holdernavlinks">
-            <div id="close-nav-btn" class="navlink close-nav">Sluit menu</div>
             <a href="/events" class="navlink w-inline-block">
               <div>Events</div>
             </a>
@@ -106,9 +105,13 @@
             <a href="/lid-worden.html" class="navlink w-inline-block">
               <div>Lid worden</div>
             </a>
-            <a href="/tennisschool.html" class="navlink w-inline-block">
-              <div>Trainingen</div> </a
-            ><a href="/contact.html" class="navlink w-inline-block">
+            <a href="/tennislessen.html" class="navlink w-inline-block">
+              <div>Trainingen</div>
+            </a>
+            <a href="/kalender.html" class="navlink w-inline-block">
+              <div>Kalender</div>
+            </a>
+            <a href="/contact.html" class="navlink w-inline-block">
               <div>Contact</div>
             </a>
             <div id="serve-vid-holder" class="serve-gif w-embed">
@@ -120,7 +123,7 @@
                 webkit-playsinline=""
               >
                 <source src="/images/serve-silhouette.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
+                ..
               </video>
             </div>
             <img
@@ -131,21 +134,54 @@
               class="logoball"
             />
           </div>
+        </nav>
+      </div>
+    </div>
+    <section class="section nopaddbottom">
+      <div class="containcenter">
+        <div class="twosidecontent phonereverse">
+          <div class="sidecontent infrontcoach">
+            <div class="stackedimagesholder">
+              <img
+                src="/images/tennislessen-hero-1.jpg"
+                loading="lazy"
+                alt=""
+                class="secondstackedimage"
+              /><img
+                src="/images/tennislessen-hero-2.jpg"
+                loading="lazy"
+                alt=""
+                class="mainstackedimage"
+              />
+            </div>
+          </div>
+          <div class="sidecontent">
+            <div class="textsidecontent">
+              <div class="blockoption-content">
+                <div class="blockoption-title" style="border-radius: 5px;">
+                  <div>Onze trainers</div>
+                </div>
+                <div class="blockoption-undertitle">Enthousiaste en gediplomeerde coaches</div>
+              </div>
+              <p>
+                Ontdek hier ons team van enthousiaste en gediplomeerde trainers
+                (A-trainers, B-trainers, instructeurs en initiators).
+              </p>
+              <p>
+                Dankzij een groot trainersteam met
+                enthousiaste en gediplomeerde trainers (4 A – trainers, enkele
+                B- trainers, vele instructeurs en initiators) staan we elke dag
+                klaar voor elk tennissend lid.
+              </p>
+              <a href="#coaches-list" class="button w-button">Ontdek onze coaches</a>
+              <div class="spacer"></div>
+              <div class="spacer"></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="coaches-intro w-embed">
-      <div class="intro-card">
-        <span class="intro-label">TEAM</span>
-        <h1 class="breathing-header">Onze Coaches</h1>
-        <p class="intro-subtitle">Enthousiaste en gediplomeerde coaches</p>
-        <p class="intro-description">
-          Ontdek hier ons team van enthousiaste en gediplomeerde trainers
-          (A-trainers, B-trainers, instructeurs en initiators).
-        </p>
-      </div>
-    </div>
-    <section class="section">
+    </section>
+    <section class="section" id="coaches-list">
       <div class="containcenter centered">
         <div class="full-coach-list">
           <a href="/coach-detail.html" class="coach fullpage w-inline-block"

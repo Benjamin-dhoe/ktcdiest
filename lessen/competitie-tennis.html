@@ -47,7 +47,7 @@
   <body class="body">
     <div class="navbarsoloholder">
       <div class="containcenter">
-        <div class="navbar">
+        <nav class="navbar">
           <a href="/index.html" class="w-inline-block"
             ><img
               loading="lazy"
@@ -61,7 +61,6 @@
             <span></span>
           </div>
           <div id="navlinks" class="holdernavlinks">
-            <div id="close-nav-btn" class="navlink close-nav">Sluit menu</div>
             <a href="/events" class="navlink w-inline-block">
               <div>Events</div>
             </a>
@@ -71,9 +70,13 @@
             <a href="/lid-worden.html" class="navlink w-inline-block">
               <div>Lid worden</div>
             </a>
-            <a href="/tennisschool.html" class="navlink w-inline-block">
-              <div>Trainingen</div> </a
-            ><a href="/contact.html" class="navlink w-inline-block">
+            <a href="/tennislessen.html" class="navlink w-inline-block">
+              <div>Trainingen</div>
+            </a>
+            <a href="/kalender.html" class="navlink w-inline-block">
+              <div>Kalender</div>
+            </a>
+            <a href="/contact.html" class="navlink w-inline-block">
               <div>Contact</div>
             </a>
             <div id="serve-vid-holder" class="serve-gif w-embed">
@@ -85,7 +88,7 @@
                 webkit-playsinline=""
               >
                 <source src="/images/serve-silhouette.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
+                ..
               </video>
             </div>
             <img
@@ -96,7 +99,7 @@
               class="logoball"
             />
           </div>
-        </div>
+        </nav>
       </div>
     </div>
     <section class="section nopaddbottom firstsection">
@@ -705,25 +708,22 @@
     <script>
       document.querySelectorAll(".ageBtn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          // Remove active state from all buttons
           document
             .querySelectorAll(".ageBtn")
             .forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
 
-          // Hide all cards + remove highlight
           document.querySelectorAll(".tsFaqPriceCard").forEach((card) => {
             card.classList.remove("highlight");
             card.style.display = "none";
           });
 
-          // Show selected card
           const targetId = btn.getAttribute("data-target");
           const card = document.getElementById(targetId);
 
           if (card) {
-            card.style.display = "block"; // show only this one
-            card.classList.add("highlight"); // add glow
+            card.style.display = "block";
+            card.classList.add("highlight");
             card.scrollIntoView({ behavior: "smooth", block: "center" });
           }
         });
