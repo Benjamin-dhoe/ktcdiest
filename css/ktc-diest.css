@@ -793,6 +793,26 @@ html {
   box-shadow: 0 0 3px 1px #3898ec;
 }
 
+.videoherosection video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroVideoMobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .heroVideoDesktop {
+    display: none;
+  }
+
+  .heroVideoMobile {
+    display: block;
+  }
+}
+
 .herosection {
   background-color: var(--dark-bg);
   color: var(--white-bg);
