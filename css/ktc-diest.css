@@ -2129,6 +2129,9 @@ html {
     align-items: center;
     display: flex;
   }
+  .hamburger {
+    display: flex;
+  }
 
   .holdernavlinks.startopen {
     display: flex;
@@ -2245,10 +2248,6 @@ html {
 
   .waGrid {
     grid-template-columns: 1fr;
-  }
-
-  .hamburger {
-    display: flex;
   }
 
   .twosidecontent {
