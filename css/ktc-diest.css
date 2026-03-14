@@ -2123,6 +2123,13 @@ html {
     z-index: 999;
   }
 
+  .hamburger-icon {
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
   .holdernavlinks.startopen {
     display: flex;
     left: auto;
@@ -2200,13 +2207,6 @@ html {
 
   .logoball.spin {
     transform: rotateX(360deg) rotateY(0) rotateZ(360deg);
-  }
-
-  .hamburger-icon {
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-    display: flex;
   }
 
   .headingonwhite {
