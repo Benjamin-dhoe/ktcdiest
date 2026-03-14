@@ -111,7 +111,12 @@
       <div class="overlayhero">
         <div class="containcenter">
           <div class="texthero">
-            <h1 class="gelica">KTC Diest</h1>
+            <div class="blockoption-content">
+              <h1 class="blockoption-title" style="border-radius: 5px;">
+                Bruisende tennisclub
+              </h1>
+              <h2 class="blockoption-undertitle">KTC Diest</h2>
+            </div>
             <p>
               KTC Diest is een bruisende tennisclub in het hart van Diest waar
               sport, plezier en gemeenschapszin hand in hand gaan. Onze club
@@ -416,7 +421,7 @@
           <div class="filterbutton" id="open-event-filters-btn">
             <img
               loading="lazy"
-              src="https://uploads-ssl.webflow.com/63fb30fb8bb36983eb1750b1/641228a4b5e1ab91713e7812_9040443_filter_icon.svg"
+              src="/images/filter-icon.svg"
               alt=""
               class="icon-filter"
             />
@@ -550,7 +555,71 @@
                 Neem deel aan ons zomertornooi in augustus, we organiseren
                 verschillende heren, dames en jeugdreeksen.
               </p>
-              <a href="/event-detail.html" class="button small w-button"
+              <a href="/event-detail.html" class="button small dark w-button"
+                >Meer info</a
+              >
+            </div>
+            <div class="event-holder"
+              filter-date-start="01-06-2026"
+              filter-date-end="03-06-2026"
+              filter-type="kampen"
+              filter-leeftijd='["kids"]'>
+              <img
+                src="/images/kidskamp.jpeg"
+                loading="lazy"
+                sizes="(max-width: 1080px) 100vw, 1080px"
+                srcset="
+                  /images/kidskamp-p-500.jpeg  500w,
+                  /images/kidskamp-p-800.jpeg  800w,
+                  /images/kidskamp.jpeg       1080w
+                "
+                alt=""
+                class="event-im"
+              />
+              <div class="gradientimevent"></div>
+              <div class="holdericonwithsubtitle">
+                <img
+                  src="/images/icon-ballmachine-bl.png"
+                  loading="lazy"
+                  alt=""
+                  class="icon small"
+                />
+                <div>
+                  <h3 class="subtitle thin">Kidskamp</h3>
+                  <div class="smalltext">01-06-2026 tot 03-06-2026</div>
+                </div>
+              </div>
+              <p>Voor onze kids geboren in 2019-2020-2021-2022.</p>
+              <a href="/event-detail.html" class="button small dark w-button"
+                >Meer info</a
+              >
+            </div>
+            <div class="event-holder"
+              filter-date-start="13-04-2026"
+              filter-date-end="17-04-2026"
+              filter-type="stages"
+              filter-leeftijd='["kids", "jeugd"]'>
+              <img
+                src="/images/paasstage.jpeg"
+                loading="lazy"
+                alt=""
+                class="event-im"
+              />
+              <div class="gradientimevent"></div>
+              <div class="holdericonwithsubtitle">
+                <img
+                  src="/images/icon-ballmachine-bl.png"
+                  loading="lazy"
+                  alt=""
+                  class="icon small"
+                />
+                <div>
+                  <h3 class="subtitle thin">Paasstage</h3>
+                  <div class="smalltext">13-04-2026 tot 17-04-2026</div>
+                </div>
+              </div>
+              <p>Voor alle onze competitiespelers</p>
+              <a href="/event-detail.html" class="button small dark w-button"
                 >Meer info</a
               >
             </div>
@@ -578,7 +647,7 @@
         />
       </div>
     </section>
-    <section class="sectiondark" data-aos="fade-up">
+    <section class="sectiondark">
       <div class="containcenter withdark">
         <div class="darkbox">
           <h2 class="breathing-header centered">Onze locaties</h2>
@@ -586,7 +655,7 @@
             Bij KTC Diest kan je een heel jaar door tenissen. In de winter gaan
             onze trainingen door in de indoorhal van Karteria.
           </p>
-          <div class="holder-locations">
+          <div class="holder-locations" data-aos="fade-up">
             <div class="locationdiv">
               <img
                 src="/images/karteria.JPG"
@@ -627,9 +696,20 @@
       <div class="containcenter centered">
         <div class="breathing-header centered">Onze trainers</div>
       </div>
+      <div class="holderfilterbtn">
+        <a href="/coaches.html" class="filterbutton" id="open-event-filters-btn">
+          <img
+            loading="lazy"
+            src="/images/icon-list.png"
+            alt=""
+            class="icon-filter"
+          />
+          <div>Bekijk alle coaches</div>
+        </a>
+      </div>
       <div class="partners-holder">
         <div class="box-partners">
-          <div id="partners" class="slider-partner">
+          <div class="slider-partner" id="coachesreel">
             <a href="/coach-detail.html" class="coach w-inline-block"
               ><img
                 width="207"
@@ -667,6 +747,18 @@
             <a href="/coach-detail.html" class="coach w-inline-block"
               ><img
                 width="207"
+                alt=""
+                src="/images/Nick-Vanmechelen-2.JPG"
+                loading="eager"
+                class="coachimageinslider"
+              />
+              <div class="namecoachinslider">
+                <div>Nick Vanmechelen</div>
+              </div>
+            </a>
+            <a href="/coach-detail.html" class="coach w-inline-block"
+              ><img
+                width="207"
                 sizes="(max-width: 479px) 100vw, 207px"
                 alt=""
                 src="/images/olivie-rojas.jpg"
@@ -681,6 +773,30 @@
                 <div>Olivier Rojas</div>
               </div>
             </a>
+            <a href="/coach-detail.html" class="coach w-inline-block"
+              ><img
+                width="207"
+                alt=""
+                src="/images/Steffi-Distelmans-2.JPG"
+                loading="eager"
+                class="coachimageinslider"
+              />
+              <div class="namecoachinslider">
+                <div>Steffi Distelmans</div>
+              </div>
+            </a>
+            <a href="/coach-detail.html" class="coach w-inline-block"
+              ><img
+                width="207"
+                alt=""
+                src="/images/Kay-Abbing-2.JPG"
+                loading="eager"
+                class="coachimageinslider"
+              />
+              <div class="namecoachinslider">
+                <div>Kay Abbing</div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -690,7 +806,7 @@
         <div class="colouredcontainer socials">
           <div class="socialmediaholder">
             <div class="holdertitleandsocialmedialinks">
-              <h2>
+              <h2 class="socialmediatitle">
                 <span class="breathing-span">Volg ons</span> <br />op sociale
                 media
               </h2>

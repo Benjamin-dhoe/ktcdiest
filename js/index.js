@@ -72,3 +72,23 @@ AOS.init({
   once: true,          // animation happens only once
   mirror: false        // whether elements animate out while scrolling past
 });
+
+  const reel = document.getElementById("coachesreel");
+
+  if (reel) {
+    const coaches = Array.from(reel.children);
+
+    // duplicate content for infinite loop
+    coaches.forEach((el) => {
+      const clone = el.cloneNode(true);
+      reel.appendChild(clone);
+    });
+
+    // calculate width
+    const coachCount = coaches.length;
+    const speedPerCoach = 3; // seconds per coach (adjust)
+
+    const duration = coachCount * speedPerCoach;
+
+    reel.style.animationDuration = duration + "s";
+  }
