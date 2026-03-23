@@ -183,211 +183,251 @@
     </div>  
 <script src="/js/dash.js" type="text/javascript"></script>
 <script type="module">
-    import { app } from "/js/firebase.js";
-    import { createLoadingSpinner, showLoadingSpinner } from "/js/Spinner.js";
-    import { getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-    
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-    const listHolder = document.getElementById("holdercoaches");
-    const addCoachForm = document.getElementById("add-coach-form");
-    const editCoachForm = document.getElementById("edit-coach-popup");
-    const closeDeleteModalButton = document.getElementById("close-delete-modal");
-    const deleteCoachModal = document.getElementById("delete-coach-modal");
-    const deleteConfirmButton = document.getElementById("delete-confirm-button");
+  import { app } from "/js/firebase.js";
+  import { createLoadingSpinner, showLoadingSpinner } from "/js/Spinner.js";
+  import { 
+    getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc 
+  } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+  import { 
+    getStorage, ref, uploadBytes, getDownloadURL 
+  } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
+  
+  const db = getFirestore(app);
+  const storage = getStorage(app);
+  const listHolder = document.getElementById("holdercoaches");
+  const addCoachForm = document.getElementById("add-coach-form");
+  const editCoachForm = document.getElementById("edit-coach-popup");
+  const closeDeleteModalButton = document.getElementById("close-delete-modal");
+  const deleteCoachModal = document.getElementById("delete-coach-modal");
+  const deleteConfirmButton = document.getElementById("delete-confirm-button");
+  
+  let currentDeleteDocId = null;
+  const loadingSpinner = showLoadingSpinner(listHolder);
 
-  function addAchievement(containerId) {
+  // Helper: achievement toevoegen
+  function addAchievement(containerId, value = "") {
     const container = document.getElementById(containerId);
     const div = document.createElement("div");
     div.className = "achievement-item";
     div.innerHTML = `
-      <input type="text" placeholder="Achievement">
-      <button class="remove-ach-btn">X</button>
+      <input type="text" value="${value ? value.replace(/"/g, "&quot;") : ""}" placeholder="Achievement">
+      <button class="remove-ach-btn" type="button">X</button>
     `;
     container.appendChild(div);
-  
+
     div.querySelector(".remove-ach-btn").addEventListener("click", () => {
       div.remove();
     });
   }
 
+  // Load coaches from Firestore
+  async function loadCoaches() {
+    const querySnapshot = await getDocs(collection(db, "Coaches"));
+    listHolder.innerHTML = "";
+    querySnapshot.forEach((docSnap) => {
+      const coachData = docSnap.data();
+      const coachId = docSnap.id;
+      const coachItem = document.createElement("div");
+      coachItem.className = "collection-items-basic flex-hor-spaced";
+      coachItem.innerHTML = `
+        <div class="flexhorizontal">
+          <div class="coachhold">
+            <img loading="lazy" width="40" src="${coachData.imageUrl}" alt="${coachData.naam}">
+          </div>
+          <div class="bold-text">${coachData.naam}</div>
+        </div>
+        <div class="holderactionbtns">
+            <button class="actionbtn edit-btn" data-id="${coachId}"><img src="/images/edit.svg"></button>
+            <button class="actionbtn delete-btn" data-id="${coachId}"><img src="/images/delete.svg"></button>
+        </div>
+      `;
+      listHolder.appendChild(coachItem);
+    });
+
+    document.querySelectorAll(".edit-btn").forEach((button) => {
+      button.addEventListener("click", openEditPopup);
+    });
+
+    document.querySelectorAll(".delete-btn").forEach((button) => {
+      button.addEventListener("click", openDeleteModal);
+    });
+  }
+
+  // Open the add coach form
+  document.getElementById("add-coach-btn").addEventListener("click", () => {
+    addCoachForm.style.display = "flex";
+    document.getElementById("coachname").value = "";
+    document.getElementById("coachsummary").value = "";
+    document.getElementById("coachimageupload").value = "";
+    document.getElementById("add-achievements-list").innerHTML = "";
+  });
+
+  // Achievements knoppen
   document.getElementById("add-achievement-btn").addEventListener("click", () => {
     addAchievement("add-achievements-list");
   });
-  
+
   document.getElementById("edit-add-achievement-btn").addEventListener("click", () => {
     addAchievement("edit-achievements-list");
   });
 
+  // Handle adding a new coach
+  document.getElementById("submit-coach-btn").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("coachname").value;
+    const summary = document.getElementById("coachsummary").value;
+    const imageFile = document.getElementById("coachimageupload").files[0];
 
-    
-    let currentDeleteDocId = null;
-    const loadingSpinner = showLoadingSpinner(listHolder);
-    
-    // Load coaches from Firestore
-    async function loadCoaches() {
-      const querySnapshot = await getDocs(collection(db, "Coaches"));
-      listHolder.innerHTML = "";
-      querySnapshot.forEach((doc) => {
-        const coachData = doc.data();
-        const coachId = doc.id;
-        const coachItem = document.createElement("div");
-        coachItem.className = "collection-items-basic flex-hor-spaced";
-        coachItem.innerHTML = `
-          <div class="flexhorizontal">
-            <div class="coachhold">
-              <img loading="lazy" width="40" src="${coachData.imageUrl}" alt="${coachData.naam}">
-            </div>
-            <div class="bold-text">${coachData.naam}</div>
-          </div>
-          <div class="holderactionbtns">
-              <button class="actionbtn edit-btn" data-id="${coachId}"><img src="/images/edit.svg"></button>
-              <button class="actionbtn delete-btn" data-id="${coachId}"><img src="/images/delete.svg"></button>
-          </div>
-        `;
-        listHolder.appendChild(coachItem);
-      });
-    
-      // Attach click listeners to each edit button
-      document.querySelectorAll(".edit-btn").forEach((button) => {
-        button.addEventListener("click", openEditPopup);
-      });
-    
-      document.querySelectorAll(".delete-btn").forEach((button) => {
-        button.addEventListener("click", openDeleteModal);
-      });
+    // achievements ophalen
+    const achievementsInputs = document.querySelectorAll("#add-achievements-list .achievement-item input");
+    const achievements = Array.from(achievementsInputs)
+      .map(i => i.value.trim())
+      .filter(v => v.length > 0);
+
+    let imageUrl = "";
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile);
+      if (!imageUrl) return; // upload faalde
     }
-    
-    // Open the add coach form
-    document.getElementById("add-coach-btn").addEventListener("click", () => {
-      addCoachForm.style.display = "block";
-      document.getElementById("coachname").value = "";
-      document.getElementById("coachimageupload").value = "";
+
+    await addDoc(collection(db, "Coaches"), { 
+      naam: name, 
+      summary,
+      imageUrl,
+      achievements
     });
-    
-    // Handle adding a new coach
-    document.getElementById("submit-coach-btn").addEventListener("click", async (e) => {
-      e.preventDefault();
-      const name = document.getElementById("coachname").value;
-      const imageFile = document.getElementById("coachimageupload").files[0];
-      
-      if (imageFile && imageFile.size <= 1048576) { // 1MB limit
-        const imageUrl = await uploadImage(imageFile);
-        await addDoc(collection(db, "Coaches"), { naam: name, imageUrl });
-        addCoachForm.style.display = "none";
-        loadCoaches(); // Reload coaches
-      } else {
-        document.getElementById("filelarge").style.display = "block";
-      }
-    });
-    
-    deleteConfirmButton.addEventListener("click", handleDelete);
-    
-    // Function to open the edit popup
-    async function openEditPopup(event) {
-      const button = event.target.closest("button[data-id]");
-      const coachId = button.getAttribute("data-id");
-    
-      const coachRef = doc(db, "Coaches", coachId);
-    
-      try {
-        const coachSnapshot = await getDoc(coachRef);
-        if (coachSnapshot.exists()) {
-          const coachData = coachSnapshot.data();
-    
-          // Populate form fields with current data
-          document.getElementById("edit-coachname").value = coachData.naam;
-    
-          // Show current image in the preview
-          document.getElementById("current-coach-image").src = coachData.imageUrl;
-    
-          // Set up the form submission event for updating the coach
-          document.getElementById("edit-coach-form").onsubmit = (e) => handleEditCoach(e, coachId);
-    
-          // Display the edit form
-          editCoachForm.style.display = "flex";
-        } else {
-          console.error("No such coach document!");
-        }
-      } catch (error) {
-        console.error("Error opening edit popup:", error);
-      }
-    }
-    
-    // Handle editing a coach
-    async function handleEditCoach(e, coachId) {
-      e.preventDefault();
-      const name = document.getElementById("edit-coachname").value;
-      const imageFile = document.getElementById("edit-coachimageupload").files[0];
-      let imageUrl;
-    
-      if (imageFile && imageFile.size <= 1048576) { // 1MB limit
-        imageUrl = await uploadImage(imageFile);
-      }
-    
-      const coachRef = doc(db, "Coaches", coachId);
-      const updatedData = { naam: name };
-      if (imageUrl) updatedData.imageUrl = imageUrl;
-    
-      await updateDoc(coachRef, updatedData);
-      editCoachForm.style.display = "none";
-      loadCoaches(); // Reload coaches
-    }
-    
-    // Upload image to Firebase Storage and return URL
-    async function uploadImage(file) {
-      const MAX_FILE_SIZE = 1048576; // 1MB in bytes
-      const previewImage = document.getElementById("current-coach-image");
-      const fileError = document.getElementById("filelarge");
-    
-      // Check if file size exceeds 1MB
-      if (file.size > MAX_FILE_SIZE) {
-        fileError.style.display = "block"; // Show error message
-        setTimeout(() => {
-          fileError.style.display = "none";
-        }, 10000);
-        return null; // Return null to indicate upload failure
-      } else {
-        fileError.style.display = "none"; // Hide error message if size is valid
-        previewImage.src = "";
-      }
-    
-      try {
-        const storageRef = ref(storage, 'coaches/' + file.name);
-        await uploadBytes(storageRef, file); // Upload file
-        return await getDownloadURL(storageRef); // Get URL of uploaded file
-      } catch (error) {
-        console.error("File upload error:", error);
-        return null;
-      }
-    }
-    
-    function openDeleteModal(event) {
-      const docId = event.target.closest("button").dataset.id;
-      currentDeleteDocId = docId;
-      deleteCoachModal.style.display = "flex";
-    }
-    
-    async function handleDelete() {
-      if (currentDeleteDocId) {
-        const coachRef = doc(db, "Coaches", currentDeleteDocId);
-        await deleteDoc(coachRef);
-        loadCoaches();
-      }
-      deleteCoachModal.style.display = "none";
-    }
-    
-    
-    // Initial load of coaches
+
+    addCoachForm.style.display = "none";
     loadCoaches();
-    document.getElementById("closeEditBtn").addEventListener("click", function() {
-      editCoachForm.style.display = "none";
-    });
-    
-    closeDeleteModalButton.addEventListener("click", function() {
-      deleteCoachModal.style.display = "none";
-    });
+  });
+
+  deleteConfirmButton.addEventListener("click", handleDelete);
+
+  // Function to open the edit popup
+  async function openEditPopup(event) {
+    const button = event.target.closest("button[data-id]");
+    const coachId = button.getAttribute("data-id");
+
+    const coachRef = doc(db, "Coaches", coachId);
+
+    try {
+      const coachSnapshot = await getDoc(coachRef);
+      if (coachSnapshot.exists()) {
+        const coachData = coachSnapshot.data();
+
+        document.getElementById("edit-coachname").value = coachData.naam || "";
+        document.getElementById("edit-coachsummary").value = coachData.summary || "";
+        document.getElementById("current-coach-image").src = coachData.imageUrl || "";
+
+        // achievements vullen
+        const editContainer = document.getElementById("edit-achievements-list");
+        editContainer.innerHTML = "";
+        (coachData.achievements || []).forEach(a => addAchievement("edit-achievements-list", a));
+
+        // Save button koppelen
+        document.getElementById("save-edit-btn").onclick = (e) => handleEditCoach(e, coachId);
+
+        editCoachForm.style.display = "flex";
+      } else {
+        console.error("No such coach document!");
+      }
+    } catch (error) {
+      console.error("Error opening edit popup:", error);
+    }
+  }
+
+  // Handle editing a coach
+  async function handleEditCoach(e, coachId) {
+    e.preventDefault();
+    const name = document.getElementById("edit-coachname").value;
+    const summary = document.getElementById("edit-coachsummary").value;
+    const imageFile = document.getElementById("edit-coachimageupload").files[0];
+    let imageUrl;
+
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile);
+      if (!imageUrl) return;
+    }
+
+    // achievements ophalen
+    const achievementsInputs = document.querySelectorAll("#edit-achievements-list .achievement-item input");
+    const achievements = Array.from(achievementsInputs)
+      .map(i => i.value.trim())
+      .filter(v => v.length > 0);
+
+    const coachRef = doc(db, "Coaches", coachId);
+    const updatedData = { 
+      naam: name,
+      summary,
+      achievements
+    };
+    if (imageUrl) updatedData.imageUrl = imageUrl;
+
+    await updateDoc(coachRef, updatedData);
+    editCoachForm.style.display = "none";
+    loadCoaches();
+  }
+
+  // Upload image to Firebase Storage and return URL
+  async function uploadImage(file) {
+    const MAX_FILE_SIZE = 1048576; // 1MB
+    const fileError = document.getElementById("filelarge");
+
+    if (file.size > MAX_FILE_SIZE) {
+      fileError.style.display = "block";
+      setTimeout(() => {
+        fileError.style.display = "none";
+      }, 10000);
+      return null;
+    } else {
+      fileError.style.display = "none";
+    }
+
+    try {
+      const storageRef = ref(storage, 'coaches/' + file.name);
+      await uploadBytes(storageRef, file);
+      return await getDownloadURL(storageRef);
+    } catch (error) {
+      console.error("File upload error:", error);
+      return null;
+    }
+  }
+
+  function openDeleteModal(event) {
+    const docId = event.target.closest("button").dataset.id;
+    currentDeleteDocId = docId;
+    deleteCoachModal.style.display = "flex";
+  }
+
+  async function handleDelete() {
+    if (currentDeleteDocId) {
+      const coachRef = doc(db, "Coaches", currentDeleteDocId);
+      await deleteDoc(coachRef);
+      loadCoaches();
+    }
+    deleteCoachModal.style.display = "none";
+  }
+
+  // Initial load of coaches
+  loadCoaches();
+
+  // Close buttons
+  document.getElementById("closeEditBtn").addEventListener("click", function() {
+    editCoachForm.style.display = "none";
+  });
+
+  document.getElementById("closeEditBtnTop").addEventListener("click", function() {
+    editCoachForm.style.display = "none";
+  });
+
+  closeDeleteModalButton.addEventListener("click", function() {
+    deleteCoachModal.style.display = "none";
+  });
+
+  document.getElementById("close-delete-modal-top").addEventListener("click", function() {
+    deleteCoachModal.style.display = "none";
+  });
 </script>
+
 </body>
 </html>
