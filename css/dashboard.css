@@ -265,6 +265,14 @@
   position: relative;
 }
 
+.top-of-the-pane-dashboard {
+    align-items: center;
+    height: 100px;
+    margin-bottom: 20px;
+    display: flex;
+    position: relative;
+}
+
 .label-dashboard {
   margin-top: 20px;
   font-size: 14px;
