@@ -82,75 +82,83 @@
             </div>
             <div id="holdercoaches" class="coach-list"></div>
 
-            <button id="add-coach-btn" class="primary-btn">Coach toevoegen</button>
-            
-            <!-- ADD COACH POPUP -->
-            <div id="add-coach-form" class="popup">
-              <div class="popup-content">
-                <h2>Coach toevoegen</h2>
-            
-                <label>Naam</label>
-                <input type="text" id="coachname">
-            
-                <label>Samenvatting</label>
-                <textarea id="coachsummary"></textarea>
-            
-                <label>Foto uploaden</label>
-                <input type="file" id="coachimageupload" accept="image/*">
-            
-                <div id="filelarge" class="error">Bestand is te groot (max 1MB)</div>
-            
-                <h3>Achievements</h3>
-                <div id="add-achievements-list"></div>
-                <button id="add-achievement-btn" class="secondary-btn">Achievement toevoegen</button>
-            
-                <div class="popup-actions">
-                  <button id="submit-coach-btn" class="primary-btn">Opslaan</button>
-                  <button class="close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">Annuleren</button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- EDIT COACH POPUP -->
-            <div id="edit-coach-popup" class="popup">
-              <div class="popup-content">
-                <h2>Coach bewerken</h2>
-            
-                <label>Naam</label>
-                <input type="text" id="edit-coachname">
-            
-                <label>Samenvatting</label>
-                <textarea id="edit-coachsummary"></textarea>
-            
-                <label>Huidige foto</label>
-                <img id="current-coach-image" class="preview-img">
-            
-                <label>Nieuwe foto uploaden</label>
-                <input type="file" id="edit-coachimageupload" accept="image/*">
-            
-                <h3>Achievements</h3>
-                <div id="edit-achievements-list"></div>
-                <button id="edit-add-achievement-btn" class="secondary-btn">Achievement toevoegen</button>
-            
-                <div class="popup-actions">
-                  <button id="save-edit-btn" class="primary-btn">Opslaan</button>
-                  <button id="closeEditBtn" class="close-btn">Sluiten</button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- DELETE CONFIRMATION -->
-            <div id="delete-coach-modal" class="popup">
-              <div class="popup-content small">
-                <h3>Coach verwijderen?</h3>
-                <p>Deze actie kan niet ongedaan worden gemaakt.</p>
-            
-                <div class="popup-actions">
-                  <button id="delete-confirm-button" class="danger-btn">Verwijderen</button>
-                  <button id="close-delete-modal" class="close-btn">Annuleren</button>
-                </div>
-              </div>
-            </div>
+<button id="add-coach-btn" class="primary-btn" style="margin-top:20px;">Coach toevoegen</button>
+
+<!-- ADD COACH POPUP -->
+<div id="add-coach-form" class="popup">
+  <div class="popup-content">
+    <button class="popup-close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">✕</button>
+    <h2>Coach toevoegen</h2>
+
+    <label>Naam</label>
+    <input type="text" id="coachname">
+
+    <label>Samenvatting</label>
+    <textarea id="coachsummary"></textarea>
+
+    <label>Foto uploaden</label>
+    <input type="file" id="coachimageupload" accept="image/*">
+
+    <div id="filelarge" class="error">Bestand is te groot (max 1MB)</div>
+
+    <div class="achievements-header">
+      <h3>Achievements</h3>
+      <button id="add-achievement-btn" class="circle-add-btn">+</button>
+    </div>
+    <div id="add-achievements-list"></div>
+
+    <div class="popup-actions">
+      <button id="submit-coach-btn" class="primary-btn">Opslaan</button>
+      <button class="close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">Annuleren</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT COACH POPUP -->
+<div id="edit-coach-popup" class="popup">
+  <div class="popup-content">
+    <button class="popup-close-btn" id="closeEditBtnTop">✕</button>
+    <h2>Coach bewerken</h2>
+
+    <label>Naam</label>
+    <input type="text" id="edit-coachname">
+
+    <label>Samenvatting</label>
+    <textarea id="edit-coachsummary"></textarea>
+
+    <label>Huidige foto</label>
+    <img id="current-coach-image" class="preview-img">
+
+    <label>Nieuwe foto uploaden</label>
+    <input type="file" id="edit-coachimageupload" accept="image/*">
+
+    <div class="achievements-header">
+      <h3>Achievements</h3>
+      <button id="edit-add-achievement-btn" class="circle-add-btn">+</button>
+    </div>
+    <div id="edit-achievements-list"></div>
+
+    <div class="popup-actions">
+      <button id="save-edit-btn" class="primary-btn">Opslaan</button>
+      <button id="closeEditBtn" class="close-btn">Sluiten</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRMATION -->
+<div id="delete-coach-modal" class="popup">
+  <div class="popup-content small">
+    <button class="popup-close-btn" id="close-delete-modal-top">✕</button>
+    <h3>Coach verwijderen?</h3>
+    <p>Deze actie kan niet ongedaan worden gemaakt.</p>
+
+    <div class="popup-actions">
+      <button id="delete-confirm-button" class="danger-btn">Verwijderen</button>
+      <button id="close-delete-modal" class="close-btn">Annuleren</button>
+    </div>
+  </div>
+</div>
+
 
           </div>
             
