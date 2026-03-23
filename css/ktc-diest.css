@@ -28,7 +28,7 @@ html {
 }
 
 .paswoord-forget {
-  color: #fff;
+  color: var(--grey);
   text-decoration: none;
   font-size: 12px;
 }
