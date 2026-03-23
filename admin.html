@@ -272,7 +272,7 @@
   } else {
     const token = getCookie('token');
     if (token) {
-      window.location.href = '/users/home';
+      window.location.href = '/admin/coaches';
     }
   }
 
@@ -300,7 +300,7 @@
         document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=36000`;
         document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict; Max-Age=36000`;
 
-        const redirectUrl = urlParams.get('redirect') || '/users/home';
+        const redirectUrl = urlParams.get('redirect') || '/admin/coaches';
         window.location.href = redirectUrl;
       })
       .catch((error) => {
