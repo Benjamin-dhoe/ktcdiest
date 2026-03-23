@@ -123,7 +123,7 @@
     <label>Naam</label>
     <input type="text" id="edit-coachname">
 
-    <label>Samenvatting</label>
+    <label>Intro text</label>
     <textarea id="edit-coachsummary"></textarea>
 
     <label>Huidige foto</label>
@@ -133,7 +133,7 @@
     <input type="file" id="edit-coachimageupload" accept="image/*">
 
     <div class="achievements-header">
-      <h3>Achievements</h3>
+      <h3>Prestaties</h3>
       <button id="edit-add-achievement-btn" class="circle-add-btn">+</button>
     </div>
     <div id="edit-achievements-list"></div>
@@ -275,7 +275,7 @@
   document.getElementById("submit-coach-btn").addEventListener("click", async (e) => {
     e.preventDefault();
     const name = document.getElementById("coachname").value;
-    const summary = document.getElementById("coachsummary").value;
+    const intro = document.getElementById("coachsummary").value;
     const imageFile = document.getElementById("coachimageupload").files[0];
 
     // achievements ophalen
@@ -315,8 +315,8 @@
       if (coachSnapshot.exists()) {
         const coachData = coachSnapshot.data();
 
-        document.getElementById("edit-coachname").value = coachData.naam || "";
-        document.getElementById("edit-coachsummary").value = coachData.summary || "";
+        document.getElementById("edit-coachname").value = coachData.name || "";
+        document.getElementById("edit-coachsummary").value = coachData.intro || "";
         document.getElementById("current-coach-image").src = coachData.imageUrl || "";
 
         // achievements vullen
@@ -340,7 +340,7 @@
   async function handleEditCoach(e, coachId) {
     e.preventDefault();
     const name = document.getElementById("edit-coachname").value;
-    const summary = document.getElementById("edit-coachsummary").value;
+    const intro = document.getElementById("edit-coachsummary").value;
     const imageFile = document.getElementById("edit-coachimageupload").files[0];
     let imageUrl;
 
