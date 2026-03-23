@@ -41,6 +41,7 @@
     </script>
     <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon" />
     <link href="/images/webclip.png" rel="apple-touch-icon" />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
   </head>
   <body class="body">
     <div class="navbarsoloholder">
@@ -120,6 +121,9 @@
               <a href="paswoord-vergeten" class="paswoord-forget">Paswoord vergeten?</a>
             </div>
             <div id="error-message" class="error-melding"></div>
+            <div class="loading-ui" id="loading-ui">
+                  <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="">
+                  </lottie-player>
             </div>
 
             <button class="tsFormButton"  id="loginbtn">Inloggen</button>
