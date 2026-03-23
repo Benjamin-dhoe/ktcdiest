@@ -21,6 +21,23 @@ html {
   --darkblue: #1c352d;
 }
 
+.pasword-forget-holder {
+  justify-content: flex-end;
+  margin-top: -10px;
+  display: flex;
+}
+
+.paswoord-forget {
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.loading-ui {
+  display: none;
+  width: 100px;
+}
+
 #coachesreel {
   animation: scroll-left linear infinite;
 }
