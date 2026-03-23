@@ -80,43 +80,78 @@
             <div class="top-of-the-pane-dashboard">
             <h2 class="heading-dashboard">Coaches</h2>
             </div>
-            <div id="delete-coach-modal" class="popuptraining">
-                <div class="innerpopupdark">
-                    <span id="close-delete-modal" class="close-button w-button">×</span>
-                    <div>Zeker dat je deze coach wilt verwijderen?</div>
-                    <button id="delete-confirm-button" class="save-button-dashboard insideform delete">Ja, verwijder</button>
-                </div>
-                </div>
-            <div class="popuptraining" id="edit-coach-popup" style="display: none;">
+            <div id="holdercoaches" class="coach-list"></div>
+
+            <button id="add-coach-btn" class="primary-btn">Coach toevoegen</button>
             
-            <form id="edit-coach-form" class="innerpopup">
-                <button class="close-button w-button" id="closeEditBtn">X</button>
-                <label>Voornaam Naam</label>
-                <input class="rounded-select dark w-input" maxlength="256" type="text" id="edit-coachname" required="">
-                <label>Afbeelding</label>
-                <input type="file" id="edit-coachimageupload" style="width: 90%; padding-bottom: 20px;" accept="image/*">
-                <div id="edit-coach-image-preview">
-                <img id="current-coach-image" src="https://firebasestorage.googleapis.com/v0/b/robin-physical-coaching.firebasestorage.app/o/coaches%2Fcandice.png?alt=media&amp;token=099bfa0a-4fc6-41e3-bc38-d87e68dfd03e" alt="Current Coach Image" width="100">
+            <!-- ADD COACH POPUP -->
+            <div id="add-coach-form" class="popup">
+              <div class="popup-content">
+                <h2>Coach toevoegen</h2>
+            
+                <label>Naam</label>
+                <input type="text" id="coachname">
+            
+                <label>Samenvatting</label>
+                <textarea id="coachsummary"></textarea>
+            
+                <label>Foto uploaden</label>
+                <input type="file" id="coachimageupload" accept="image/*">
+            
+                <div id="filelarge" class="error">Bestand is te groot (max 1MB)</div>
+            
+                <h3>Achievements</h3>
+                <div id="add-achievements-list"></div>
+                <button id="add-achievement-btn" class="secondary-btn">Achievement toevoegen</button>
+            
+                <div class="popup-actions">
+                  <button id="submit-coach-btn" class="primary-btn">Opslaan</button>
+                  <button class="close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">Annuleren</button>
                 </div>
-                <div class="spacer"></div>
-                <div class="spacer"></div>
-                <input type="submit" class="submit-button fullwidth w-button" value="Bijwerken">
-            </form>
+              </div>
             </div>
-            <div class="w-dyn-list">
-              <div class="w-dyn-items" id="holdercoaches"></div>
+            
+            <!-- EDIT COACH POPUP -->
+            <div id="edit-coach-popup" class="popup">
+              <div class="popup-content">
+                <h2>Coach bewerken</h2>
+            
+                <label>Naam</label>
+                <input type="text" id="edit-coachname">
+            
+                <label>Samenvatting</label>
+                <textarea id="edit-coachsummary"></textarea>
+            
+                <label>Huidige foto</label>
+                <img id="current-coach-image" class="preview-img">
+            
+                <label>Nieuwe foto uploaden</label>
+                <input type="file" id="edit-coachimageupload" accept="image/*">
+            
+                <h3>Achievements</h3>
+                <div id="edit-achievements-list"></div>
+                <button id="edit-add-achievement-btn" class="secondary-btn">Achievement toevoegen</button>
+            
+                <div class="popup-actions">
+                  <button id="save-edit-btn" class="primary-btn">Opslaan</button>
+                  <button id="closeEditBtn" class="close-btn">Sluiten</button>
+                </div>
+              </div>
             </div>
-            <button class="submit-button w-button" id="add-coach-btn">+ coach toevoegen</button>
-            <div style="display:none" id="add-coach-form">
-                <div class="spacer"></div>
-                <div class="spacer"></div>
-                <label>Voornaam Naam</label>
-                <input class="rounded-select w-input" maxlength="256" placeholder="" type="text" id="coachname">
-                <label>Afbeelding</label>
-                <input type="file" id="coachimageupload" style="width: 90%; padding-bottom: 20px;">
-                <div class="spacer"></div>
-                <button type="button" class="submit-button fullwidth w-button" id="submit-coach-btn">Coach toevoegen</button>
+            
+            <!-- DELETE CONFIRMATION -->
+            <div id="delete-coach-modal" class="popup">
+              <div class="popup-content small">
+                <h3>Coach verwijderen?</h3>
+                <p>Deze actie kan niet ongedaan worden gemaakt.</p>
+            
+                <div class="popup-actions">
+                  <button id="delete-confirm-button" class="danger-btn">Verwijderen</button>
+                  <button id="close-delete-modal" class="close-btn">Annuleren</button>
+                </div>
+              </div>
             </div>
+
           </div>
             
         </div>
@@ -153,6 +188,31 @@
     const closeDeleteModalButton = document.getElementById("close-delete-modal");
     const deleteCoachModal = document.getElementById("delete-coach-modal");
     const deleteConfirmButton = document.getElementById("delete-confirm-button");
+
+  function addAchievement(containerId) {
+    const container = document.getElementById(containerId);
+    const div = document.createElement("div");
+    div.className = "achievement-item";
+    div.innerHTML = `
+      <input type="text" placeholder="Achievement">
+      <button class="remove-ach-btn">X</button>
+    `;
+    container.appendChild(div);
+  
+    div.querySelector(".remove-ach-btn").addEventListener("click", () => {
+      div.remove();
+    });
+  }
+
+  document.getElementById("add-achievement-btn").addEventListener("click", () => {
+    addAchievement("add-achievements-list");
+  });
+  
+  document.getElementById("edit-add-achievement-btn").addEventListener("click", () => {
+    addAchievement("edit-achievements-list");
+  });
+
+
     
     let currentDeleteDocId = null;
     const loadingSpinner = showLoadingSpinner(listHolder);
