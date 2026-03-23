@@ -75,6 +75,48 @@
           <a href="/admin/coaches" class="dashboard-side-link w-inline-block w-tab-link">
             <div class="text-dashboard-link">Coaches</div>
           </a>
+          <div class="tabs-content-dashboard">
+            <div class="top-of-the-pane-dashboard">
+            <h2 class="heading-dashboard">Coaches</h2>
+            </div>
+            <div id="delete-coach-modal" class="popuptraining">
+                <div class="innerpopupdark">
+                    <span id="close-delete-modal" class="close-button w-button">×</span>
+                    <div>Zeker dat je deze coach wilt verwijderen?</div>
+                    <button id="delete-confirm-button" class="save-button-dashboard insideform delete">Ja, verwijder</button>
+                </div>
+                </div>
+            <div class="popuptraining" id="edit-coach-popup" style="display: none;">
+            
+            <form id="edit-coach-form" class="innerpopup">
+                <button class="close-button w-button" id="closeEditBtn">X</button>
+                <label>Voornaam Naam</label>
+                <input class="rounded-select dark w-input" maxlength="256" type="text" id="edit-coachname" required="">
+                <label>Afbeelding</label>
+                <input type="file" id="edit-coachimageupload" style="width: 90%; padding-bottom: 20px;" accept="image/*">
+                <div id="edit-coach-image-preview">
+                <img id="current-coach-image" src="https://firebasestorage.googleapis.com/v0/b/robin-physical-coaching.firebasestorage.app/o/coaches%2Fcandice.png?alt=media&amp;token=099bfa0a-4fc6-41e3-bc38-d87e68dfd03e" alt="Current Coach Image" width="100">
+                </div>
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <input type="submit" class="submit-button fullwidth w-button" value="Bijwerken">
+            </form>
+            </div>
+            <div class="w-dyn-list">
+              <div class="w-dyn-items" id="holdercoaches"></div>
+            </div>
+            <button class="submit-button w-button" id="add-coach-btn">+ coach toevoegen</button>
+            <div style="display:none" id="add-coach-form">
+                <div class="spacer"></div>
+                <div class="spacer"></div>
+                <label>Voornaam Naam</label>
+                <input class="rounded-select w-input" maxlength="256" placeholder="" type="text" id="coachname">
+                <label>Afbeelding</label>
+                <input type="file" id="coachimageupload" style="width: 90%; padding-bottom: 20px;">
+                <div class="spacer"></div>
+                <button type="button" class="submit-button fullwidth w-button" id="submit-coach-btn">Coach toevoegen</button>
+            </div>
+        </div>
           <div class="spacer"></div>
           <button id="logoutBtn" class="button-log-out w-inline-block">
             <div class="html-icon-dashboard w-embed"><svg id="_3669343_exit_app_to_ic_icon" data-name="3669343_exit_app_to_ic_icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewbox="0 0 48 48">
