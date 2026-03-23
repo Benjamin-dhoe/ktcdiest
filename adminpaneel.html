@@ -222,7 +222,7 @@
 
   // Load coaches from Firestore
   async function loadCoaches() {
-    const querySnapshot = await getDocs(collection(db, "Coaches"));
+    const querySnapshot = await getDocs(collection(db, "coaches"));
     listHolder.innerHTML = "";
     querySnapshot.forEach((docSnap) => {
       const coachData = docSnap.data();
@@ -290,9 +290,9 @@
       if (!imageUrl) return; // upload faalde
     }
 
-    await addDoc(collection(db, "Coaches"), { 
-      naam: name, 
-      summary,
+    await addDoc(collection(db, "coaches"), { 
+      name: name, 
+      intro,
       imageUrl,
       achievements
     });
@@ -308,7 +308,7 @@
     const button = event.target.closest("button[data-id]");
     const coachId = button.getAttribute("data-id");
 
-    const coachRef = doc(db, "Coaches", coachId);
+    const coachRef = doc(db, "coaches", coachId);
 
     try {
       const coachSnapshot = await getDoc(coachRef);
@@ -355,10 +355,10 @@
       .map(i => i.value.trim())
       .filter(v => v.length > 0);
 
-    const coachRef = doc(db, "Coaches", coachId);
+    const coachRef = doc(db, "coaches", coachId);
     const updatedData = { 
-      naam: name,
-      summary,
+      name: name,
+      intro,
       achievements
     };
     if (imageUrl) updatedData.imageUrl = imageUrl;
@@ -401,7 +401,7 @@
 
   async function handleDelete() {
     if (currentDeleteDocId) {
-      const coachRef = doc(db, "Coaches", currentDeleteDocId);
+      const coachRef = doc(db, "coaches", currentDeleteDocId);
       await deleteDoc(coachRef);
       loadCoaches();
     }
