@@ -9,9 +9,31 @@
   display: flex;
 }
 
-/* -----------------------------------
-   Custom Radio Button Group
------------------------------------ */
+.hint {
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffffb0;
+  margin-bottom: 6px;
+  margin-top: -2px;
+  padding-left: 2px;
+  font-style: italic;
+}
+
+.required-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--dark-bg);
+  margin-top: -4px;
+}
+
+.required-toggle input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
 .radio-group {
   display: flex;
   gap: 12px;
