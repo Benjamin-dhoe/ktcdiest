@@ -93,9 +93,37 @@
       <img id="event-current-main-image" style="width:80px; display:none;">
       <input type="file" id="event-main-image">
 
+      <label>Banner afbeelding (optioneel)</label>
+      <div class="hint">Deze afbeelding is zichtbaar op de event pagina in een strook bovenaan. Kies hier een foto die goed past als achtergrond en idealiter een brede afbeelding (vb resolutie 1200 breed - 300 hoog)</div>
+      <img id="event-current-banner-image" style="width:80px; display:none;">
+      <input type="file" id="event-banner-image">
+
       <label>Extra afbeeldingen</label>
       <div id="event-existing-extra-images"></div>
       <input type="file" id="event-extra-images" multiple>
+
+      <h3>Locatie</h3>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="location" value="warandepark">
+          <span class="radio-visual">Warandepark</span>
+        </label>
+      
+        <label class="radio-option">
+          <input type="radio" name="location" value="karteria">
+          <span class="radio-visual">Karteria</span>
+        </label>
+
+        <label class="radio-option">
+          <input type="radio" name="location" value="other">
+          <span class="radio-visual">Andere</span>
+        </label>
+      </div>
+
+      <div id="other-location-section" style="display:none;">
+        <label>Adres of locatie</label>
+        <input type="text" id="event-other-location">
+      </div>
 
       <h3>Inschrijfmethode</h3>
       <div class="radio-group">
@@ -111,7 +139,7 @@
       </div>
 
       <div id="external-link-section" style="display:none;">
-        <div class="smalltext">Vb: link naar TennisVlaanderen</div>
+        <div class="hint">Vb: link naar TennisVlaanderen</div>
         <label>Externe link</label>
         <input type="text" id="event-external-link">
       </div>
@@ -134,13 +162,13 @@
         </div>
 
         <h3>Formulier velden</h3>
-        <div class="smalltext">Welke informatie moet er ingevuld worden bij inschrijving?</div>
+        <div class="hint">Welke informatie moet er ingevuld worden bij inschrijving?</div>
         <button id="add-form-field-btn" type="button">+</button>
         <div id="event-form-fields"></div>
       </div>
 
       <h3>Extra informatie</h3>
-      <div class="smalltext">Dit is extra informatie die op de event pagina verschijnt</div>
+      <div class="hint">Dit is extra informatie die op de event pagina verschijnt</div>
       <button id="add-extra-info-btn" type="button">+</button>
       <div id="event-extra-info"></div>
 
@@ -207,6 +235,10 @@
 
   const eventsCol = collection(db, "events");
 
+  /* ------------------------------
+      ELEMENT REFERENCES
+  ------------------------------ */
+
   const listHolder = document.getElementById("holder-events");
 
   const eventPopup = document.getElementById("event-popup");
@@ -214,10 +246,19 @@
 
   const titleInput = document.getElementById("event-title");
   const introInput = document.getElementById("event-intro");
+
   const mainImageInput = document.getElementById("event-main-image");
-  const currentMainImage = document.getElementById("event-current-main-image");
+  const currentMainImage = document.querySelector("#event-popup img#event-current-main-image");
+
+  const bannerImageInput = document.getElementById("event-banner-image");
+  const currentBannerImage = document.getElementById("event-current-banner-image");
+
   const extraImagesInput = document.getElementById("event-extra-images");
   const existingExtraImages = document.getElementById("event-existing-extra-images");
+
+  const locationRadios = document.querySelectorAll("input[name='location']");
+  const otherLocationSection = document.getElementById("other-location-section");
+  const otherLocationInput = document.getElementById("event-other-location");
 
   const inscriptionRadios = document.querySelectorAll("input[name='inscription-method']");
   const externalLinkSection = document.getElementById("external-link-section");
@@ -226,6 +267,7 @@
   const formSection = document.getElementById("form-section");
   const paymentEnabledCheckbox = document.getElementById("event-payment-enabled");
   const paymentOptionsSection = document.getElementById("payment-options-section");
+
   const priceOptionsContainer = document.getElementById("event-price-options");
   const addPriceOptionBtn = document.getElementById("add-price-option-btn");
 
@@ -251,11 +293,13 @@
   let currentEventId = null;
   let currentDeleteEventId = null;
 
-  // ---------- Helpers ----------
+  /* ------------------------------
+      HELPERS
+  ------------------------------ */
 
   async function uploadImage(file, folder = "events") {
-    const MAX_FILE_SIZE = 1048576; // 1MB
     if (!file) return null;
+    const MAX_FILE_SIZE = 1048576;
     if (file.size > MAX_FILE_SIZE) return null;
 
     const storageRef = ref(storage, `${folder}/${Date.now()}-${file.name}`);
@@ -271,35 +315,39 @@
     container.appendChild(div);
 
     const removeBtn = div.querySelector(".remove-btn");
-    if (removeBtn) {
-      removeBtn.addEventListener("click", () => div.remove());
-    }
+    if (removeBtn) removeBtn.addEventListener("click", () => div.remove());
   }
 
   function priceTemplate(item = { label: "", price: "" }) {
     return `
-      <input class="price-label" type="text" placeholder="Omschrijving" value="${item.label || ""}">
-      <input class="price-value" type="text" placeholder="Prijs" value="${item.price || ""}">
+      <input class="price-label" type="text" placeholder="Omschrijving" value="${item.label}">
+      <input class="price-value" type="text" placeholder="Prijs" value="${item.price}">
       <button class="remove-btn" type="button">X</button>
     `;
   }
 
-  function fieldTemplate(item = { label: "", type: "text" }) {
+  function fieldTemplate(item = { label: "", type: "text", required: false }) {
     return `
-      <input class="field-label" type="text" placeholder="Veldlabel" value="${item.label || ""}">
+      <input class="field-label" type="text" placeholder="Veldlabel" value="${item.label}">
       <select class="field-type">
         <option value="text" ${item.type === "text" ? "selected" : ""}>Tekst</option>
         <option value="checkbox" ${item.type === "checkbox" ? "selected" : ""}>Checkbox</option>
         <option value="radio" ${item.type === "radio" ? "selected" : ""}>Radio</option>
       </select>
+
+      <label class="required-toggle">
+        <input type="checkbox" class="field-required" ${item.required ? "checked" : ""}>
+        <span>Verplicht</span>
+      </label>
+
       <button class="remove-btn" type="button">X</button>
     `;
   }
 
   function infoTemplate(item = { title: "", text: "" }) {
     return `
-      <input class="info-title" type="text" placeholder="Sectietitel" value="${item.title || ""}">
-      <textarea class="info-text" placeholder="Tekst">${item.text || ""}</textarea>
+      <input class="info-title" type="text" placeholder="Sectietitel" value="${item.title}">
+      <textarea class="info-text" placeholder="Tekst">${item.text}</textarea>
       <button class="remove-btn" type="button">X</button>
     `;
   }
@@ -310,6 +358,18 @@
     (list || []).forEach(item => addDynamicItem(containerId, templateFn(item)));
   }
 
+  function collectFormFields() {
+    const items = formFieldsContainer.querySelectorAll(".dynamic-item");
+    const result = [];
+    items.forEach(div => {
+      const label = div.querySelector(".field-label")?.value.trim();
+      const type = div.querySelector(".field-type")?.value;
+      const required = div.querySelector(".field-required")?.checked;
+      if (label) result.push({ label, type, required });
+    });
+    return result;
+  }
+
   function collectPriceOptions() {
     const items = priceOptionsContainer.querySelectorAll(".dynamic-item");
     const result = [];
@@ -317,17 +377,6 @@
       const label = div.querySelector(".price-label")?.value.trim();
       const price = div.querySelector(".price-value")?.value.trim();
       if (label && price) result.push({ label, price });
-    });
-    return result;
-  }
-
-  function collectFormFields() {
-    const items = formFieldsContainer.querySelectorAll(".dynamic-item");
-    const result = [];
-    items.forEach(div => {
-      const label = div.querySelector(".field-label")?.value.trim();
-      const type = div.querySelector(".field-type")?.value;
-      if (label) result.push({ label, type });
     });
     return result;
   }
@@ -346,14 +395,21 @@
   function resetEventPopup() {
     titleInput.value = "";
     introInput.value = "";
+
     mainImageInput.value = "";
-    extraImagesInput.value = "";
     currentMainImage.style.display = "none";
-    currentMainImage.src = "";
+
+    bannerImageInput.value = "";
+    currentBannerImage.style.display = "none";
+
+    extraImagesInput.value = "";
     existingExtraImages.innerHTML = "";
 
-    externalLinkInput.value = "";
+    otherLocationSection.style.display = "none";
+    otherLocationInput.value = "";
+
     externalLinkSection.style.display = "none";
+    externalLinkInput.value = "";
 
     formSection.style.display = "none";
     paymentEnabledCheckbox.checked = false;
@@ -366,23 +422,31 @@
     startDateInput.value = "";
     endDateInput.value = "";
 
-    // default inscription method
+    locationRadios.forEach(r => r.checked = false);
     inscriptionRadios.forEach(r => r.checked = false);
   }
 
-  function openEventPopupForAdd() {
+  /* ------------------------------
+      OPEN POPUP (ADD)
+  ------------------------------ */
+  addEventBtn?.addEventListener("click", () => {
     currentEventId = null;
     resetEventPopup();
     popupTitle.innerText = "Nieuw Event";
-    // default to form
+
+    // Default inscription method = form
     const formRadio = document.querySelector("input[name='inscription-method'][value='form']");
     if (formRadio) {
       formRadio.checked = true;
       formSection.style.display = "block";
     }
-    eventPopup.style.display = "flex";
-  }
 
+    eventPopup.style.display = "flex";
+  });
+
+  /* ------------------------------
+      OPEN POPUP (EDIT)
+  ------------------------------ */
   async function openEventPopupForEdit(id) {
     currentEventId = id;
     resetEventPopup();
@@ -402,13 +466,28 @@
       currentMainImage.style.display = "block";
     }
 
+    if (data.bannerImage) {
+      currentBannerImage.src = data.bannerImage;
+      currentBannerImage.style.display = "block";
+    }
+
     existingExtraImages.innerHTML = "";
     (data.extraImages || []).forEach(url => {
       const div = document.createElement("div");
       div.className = "existing-image";
-      div.innerHTML = `<img src="${url}" width="60">`;
+      div.innerHTML = `<img src="${url}" width="70">`;
       existingExtraImages.appendChild(div);
     });
+
+    if (data.location) {
+      const radio = document.querySelector(`input[name='location'][value='${data.location}']`);
+      if (radio) radio.checked = true;
+
+      if (data.location === "other") {
+        otherLocationSection.style.display = "block";
+        otherLocationInput.value = data.otherLocation || "";
+      }
+    }
 
     if (data.inscriptionMethod) {
       const radio = document.querySelector(`input[name='inscription-method'][value='${data.inscriptionMethod}']`);
@@ -440,23 +519,28 @@
     eventPopup.style.display = "flex";
   }
 
+  /* ------------------------------
+      SAVE NEW EVENT
+  ------------------------------ */
   async function saveNewEvent() {
     const title = titleInput.value.trim();
     const intro = introInput.value.trim();
 
     const mainFile = mainImageInput.files[0];
+    const bannerFile = bannerImageInput.files[0];
     const extraFiles = extraImagesInput.files;
 
-    let mainImage = "";
-    if (mainFile) {
-      mainImage = await uploadImage(mainFile);
-    }
+    let mainImage = mainFile ? await uploadImage(mainFile) : "";
+    let bannerImage = bannerFile ? await uploadImage(bannerFile) : "";
 
     const extraImages = [];
     for (let f of extraFiles) {
       const url = await uploadImage(f);
       if (url) extraImages.push(url);
     }
+
+    const location = document.querySelector("input[name='location']:checked")?.value || "";
+    const otherLocation = location === "other" ? otherLocationInput.value.trim() : "";
 
     const inscriptionMethod = document.querySelector("input[name='inscription-method']:checked")?.value || "form";
 
@@ -471,9 +555,7 @@
 
     if (inscriptionMethod === "form") {
       paymentEnabled = paymentEnabledCheckbox.checked;
-      if (paymentEnabled) {
-        priceOptions = collectPriceOptions();
-      }
+      if (paymentEnabled) priceOptions = collectPriceOptions();
       formFields = collectFormFields();
     }
 
@@ -486,7 +568,10 @@
       title,
       intro,
       mainImage,
+      bannerImage,
       extraImages,
+      location,
+      otherLocation,
       inscriptionMethod,
       externalLink,
       paymentEnabled,
@@ -498,6 +583,9 @@
     });
   }
 
+  /* ------------------------------
+      SAVE EDITED EVENT
+  ------------------------------ */
   async function saveEditedEvent(id) {
     const ref = doc(db, "events", id);
     const snap = await getDoc(ref);
@@ -508,6 +596,7 @@
     const intro = introInput.value.trim();
 
     const mainFile = mainImageInput.files[0];
+    const bannerFile = bannerImageInput.files[0];
     const extraFiles = extraImagesInput.files;
 
     let mainImage = existing.mainImage || "";
@@ -516,11 +605,20 @@
       if (url) mainImage = url;
     }
 
+    let bannerImage = existing.bannerImage || "";
+    if (bannerFile) {
+      const url = await uploadImage(bannerFile);
+      if (url) bannerImage = url;
+    }
+
     const extraImages = Array.isArray(existing.extraImages) ? [...existing.extraImages] : [];
     for (let f of extraFiles) {
       const url = await uploadImage(f);
       if (url) extraImages.push(url);
     }
+
+    const location = document.querySelector("input[name='location']:checked")?.value || "";
+    const otherLocation = location === "other" ? otherLocationInput.value.trim() : "";
 
     const inscriptionMethod = document.querySelector("input[name='inscription-method']:checked")?.value || "form";
 
@@ -535,9 +633,7 @@
 
     if (inscriptionMethod === "form") {
       paymentEnabled = paymentEnabledCheckbox.checked;
-      if (paymentEnabled) {
-        priceOptions = collectPriceOptions();
-      }
+      if (paymentEnabled) priceOptions = collectPriceOptions();
       formFields = collectFormFields();
     }
 
@@ -550,7 +646,10 @@
       title,
       intro,
       mainImage,
+      bannerImage,
       extraImages,
+      location,
+      otherLocation,
       inscriptionMethod,
       externalLink,
       paymentEnabled,
@@ -562,11 +661,105 @@
     });
   }
 
+  /* ------------------------------
+      SAVE BUTTON
+  ------------------------------ */
+  saveEventBtn.addEventListener("click", async () => {
+    if (currentEventId === null) {
+      await saveNewEvent();
+    } else {
+      await saveEditedEvent(currentEventId);
+    }
+    eventPopup.style.display = "none";
+    await loadEvents();
+  });
+
+  /* ------------------------------
+      CLOSE POPUP
+  ------------------------------ */
+  function closeEventPopup() {
+    eventPopup.style.display = "none";
+  }
+
+  closeEventBtn.addEventListener("click", closeEventPopup);
+  closeEventBtnTop.addEventListener("click", closeEventPopup);
+
+  /* ------------------------------
+      LOCATION LOGIC
+  ------------------------------ */
+  locationRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      if (radio.value === "other") {
+        otherLocationSection.style.display = "block";
+      } else {
+        otherLocationSection.style.display = "none";
+      }
+    });
+  });
+
+  /* ------------------------------
+      INSCRIPTION METHOD LOGIC
+  ------------------------------ */
+  inscriptionRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      if (!radio.checked) return;
+
+      if (radio.value === "external") {
+        externalLinkSection.style.display = "block";
+        formSection.style.display = "none";
+      } else {
+        externalLinkSection.style.display = "none";
+        formSection.style.display = "block";
+      }
+    });
+  });
+
+  /* ------------------------------
+      PAYMENT TOGGLE
+  ------------------------------ */
+  paymentEnabledCheckbox.addEventListener("change", () => {
+    paymentOptionsSection.style.display = paymentEnabledCheckbox.checked ? "block" : "none";
+  });
+
+  /* ------------------------------
+      ADD DYNAMIC ITEMS
+  ------------------------------ */
+  addPriceOptionBtn.addEventListener("click", () => {
+    addDynamicItem("event-price-options", priceTemplate());
+  });
+
+  addFormFieldBtn.addEventListener("click", () => {
+    addDynamicItem("event-form-fields", fieldTemplate());
+  });
+
+  addExtraInfoBtn.addEventListener("click", () => {
+    addDynamicItem("event-extra-info", infoTemplate());
+  });
+
+  /* ------------------------------
+      DELETE EVENT
+  ------------------------------ */
+  deleteEventConfirmBtn.addEventListener("click", async () => {
+    if (currentDeleteEventId) {
+      await deleteDoc(doc(db, "events", currentDeleteEventId));
+      currentDeleteEventId = null;
+      await loadEvents();
+    }
+    deleteEventModal.style.display = "none";
+  });
+
+  closeDeleteEventModalBtn.addEventListener("click", () => {
+    deleteEventModal.style.display = "none";
+  });
+
+  /* ------------------------------
+      LOAD EVENTS
+  ------------------------------ */
   async function loadEvents() {
     const snap = await getDocs(eventsCol);
     listHolder.innerHTML = "";
 
-    snap.forEach(docSnap => {
+        snap.forEach(docSnap => {
       const data = docSnap.data();
       const id = docSnap.id;
 
@@ -585,6 +778,7 @@
       listHolder.appendChild(item);
     });
 
+    // Attach edit listeners
     listHolder.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const id = e.currentTarget.dataset.id;
@@ -592,6 +786,7 @@
       });
     });
 
+    // Attach delete listeners
     listHolder.querySelectorAll(".delete-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         currentDeleteEventId = e.currentTarget.dataset.id;
@@ -600,74 +795,10 @@
     });
   }
 
-  // ---------- Event listeners ----------
-
-  addEventBtn?.addEventListener("click", openEventPopupForAdd);
-
-  saveEventBtn.addEventListener("click", async () => {
-    if (currentEventId === null) {
-      await saveNewEvent();
-    } else {
-      await saveEditedEvent(currentEventId);
-    }
-    eventPopup.style.display = "none";
-    await loadEvents();
-  });
-
-  function closeEventPopup() {
-    eventPopup.style.display = "none";
-  }
-
-  closeEventBtn.addEventListener("click", closeEventPopup);
-  closeEventBtnTop.addEventListener("click", closeEventPopup);
-
-  inscriptionRadios.forEach(radio => {
-    radio.addEventListener("change", () => {
-      const value = radio.value;
-      if (!radio.checked) return;
-
-      if (value === "external") {
-        externalLinkSection.style.display = "block";
-        formSection.style.display = "none";
-      } else if (value === "form") {
-        externalLinkSection.style.display = "none";
-        formSection.style.display = "block";
-      }
-    });
-  });
-
-  paymentEnabledCheckbox.addEventListener("change", () => {
-    paymentOptionsSection.style.display = paymentEnabledCheckbox.checked ? "block" : "none";
-  });
-
-  addPriceOptionBtn.addEventListener("click", () => {
-    addDynamicItem("event-price-options", priceTemplate());
-  });
-
-  addFormFieldBtn.addEventListener("click", () => {
-    addDynamicItem("event-form-fields", fieldTemplate());
-  });
-
-  addExtraInfoBtn.addEventListener("click", () => {
-    addDynamicItem("event-extra-info", infoTemplate());
-  });
-
-  deleteEventConfirmBtn.addEventListener("click", async () => {
-    if (currentDeleteEventId) {
-      await deleteDoc(doc(db, "events", currentDeleteEventId));
-      currentDeleteEventId = null;
-      await loadEvents();
-    }
-    deleteEventModal.style.display = "none";
-  });
-
-  closeDeleteEventModalBtn.addEventListener("click", () => {
-    deleteEventModal.style.display = "none";
-  });
-
-  // ---------- Initial load ----------
+  // Initial load
   loadEvents();
 </script>
+
 
 
 
