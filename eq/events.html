@@ -93,7 +93,14 @@
         </div>
 
         <div class="event-question">
+          <label>Intro (kort)</label>
+          <div class="hint">Korte text van max 160 tekens, dit is zichtbaar in het overzicht van alle events.</div>
+          <textarea id="event-intro-short" maxlength="160"></textarea>
+        </div>
+
+        <div class="event-question">
           <label>Intro</label>
+          <div class="hint">Dit is zichtbaar op de pagina van het event.</div>
           <textarea id="event-intro"></textarea>
         </div>
     
@@ -196,6 +203,62 @@
     
         </div>
       </div>
+
+      <div class="event-section">
+        <h3 class="section-title">Filter tags</h3>
+
+        <div class="event-question">
+          <label>Type event</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="type-event" value="tornooien">
+              <span class="radio-visual">Tornooi</span>
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="type-event" value="stages">
+              <span class="radio-visual">Stages</span>
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="type-event" value="kampen">
+              <span class="radio-visual">Kampen</span>
+            </label>
+
+            <label class="radio-option">
+              <input type="radio" name="type-event" value="andere">
+              <span class="radio-visual">Andere</span>
+            </label>
+      
+          </div>
+        </div>
+
+        <div class="event-question">
+          <label>Leeftijden</label>
+          <div class="event-question flexhorizontal" style="gap: 10px; align-items: center;">
+            <label class="toggle-switch" for="event-age-kids">
+              <input type="checkbox" id="event-age-kids">
+              <span class="slider"></span>
+            </label>
+            <div class="hint">Kids</div>
+          </div>
+          <div class="event-question flexhorizontal" style="gap: 10px; align-items: center;">
+            <label class="toggle-switch" for="event-age-jeugd">
+              <input type="checkbox" id="event-age-jeugd">
+              <span class="slider"></span>
+            </label>
+            <div class="hint">Jeugd</div>
+          </div>
+          <div class="event-question flexhorizontal" style="gap: 10px; align-items: center;">
+            <label class="toggle-switch" for="event-age-volwassenen">
+              <input type="checkbox" id="event-age-volwassenen">
+              <span class="slider"></span>
+            </label>
+            <div class="hint">Volwassenen</div>
+          </div>
+        </div>
+
+      </div>
     
       <!-- SECTION: Extra Info -->
       <div class="event-section">
@@ -289,6 +352,7 @@
 
   const titleInput = document.getElementById("event-title");
   const introInput = document.getElementById("event-intro");
+  const introShortInput = document.getElementById("event-intro-short");
 
   const mainImageInput = document.getElementById("event-main-image");
   const currentMainImage = document.querySelector("#event-popup img#event-current-main-image");
@@ -310,6 +374,12 @@
   const formSection = document.getElementById("form-section");
   const paymentEnabledCheckbox = document.getElementById("event-payment-enabled");
   const paymentOptionsSection = document.getElementById("payment-options-section");
+
+  const typeEventRadios = document.querySelectorAll("input[name='type-event']");
+
+  const kidsEnabled = document.getElementById("event-age-kids");
+  const jeugdEnabled = document.getElementById("event-age-jeugd");
+  const volwassenenEnabled = document.getElementById("event-age-volwassenen");
 
   const priceOptionsContainer = document.getElementById("event-price-options");
   const addPriceOptionBtn = document.getElementById("add-price-option-btn");
@@ -443,6 +513,7 @@
   function resetEventPopup() {
     titleInput.value = "";
     introInput.value = "";
+    introShortInput.value = "";
 
     mainImageInput.value = "";
     currentMainImage.style.display = "none";
@@ -472,6 +543,11 @@
 
     locationRadios.forEach(r => r.checked = false);
     inscriptionRadios.forEach(r => r.checked = false);
+    typeEventRadios.forEach(r => r.checked = false);
+
+    kidsEnabled.checked = false;
+    jeugdEnabled.checked = false;
+    volwassenenEnabled.checked = false
   }
 
   /* ------------------------------
@@ -508,6 +584,7 @@
 
     titleInput.value = data.title || "";
     introInput.value = data.intro || "";
+    introShortInput.value = data.introShort || "";
 
     if (data.mainImage) {
       currentMainImage.src = data.mainImage;
@@ -535,6 +612,21 @@
         otherLocationSection.style.display = "block";
         otherLocationInput.value = data.otherLocation || "";
       }
+    }
+
+    // type-event
+    if (data.typeEvent) {
+      const r = document.querySelector(`input[name='type-event'][value='${data.typeEvent}']`);
+      if (r) r.checked = true;
+    }
+    
+    // age groups
+    if (data.ageGroups) {
+      const groups = data.ageGroups.split(",").map(s => s.trim());
+    
+      kidsEnabled.checked = groups.includes("kids");
+      jeugdEnabled.checked = groups.includes("jeugd");
+      volwassenenEnabled.checked = groups.includes("volwassenen");
     }
 
     if (data.inscriptionMethod) {
@@ -573,6 +665,7 @@
   async function saveNewEvent() {
     const title = titleInput.value.trim();
     const intro = introInput.value.trim();
+    const introShort = introShortInput.value.trim();
 
     const mainFile = mainImageInput.files[0];
     const bannerFile = bannerImageInput.files[0];
@@ -589,6 +682,14 @@
 
     const location = document.querySelector("input[name='location']:checked")?.value || "";
     const otherLocation = location === "other" ? otherLocationInput.value.trim() : "";
+
+    const typeEvent = document.querySelector("input[name='type-event']:checked")?.value || "";
+
+    const ageGroups = [];
+    if (kidsEnabled.checked) ageGroups.push("kids");
+    if (jeugdEnabled.checked) ageGroups.push("jeugd");
+    if (volwassenenEnabled.checked) ageGroups.push("volwassenen");
+
 
     const inscriptionMethod = document.querySelector("input[name='inscription-method']:checked")?.value || "form";
 
@@ -615,11 +716,14 @@
     await addDoc(eventsCol, {
       title,
       intro,
+      introShort,
       mainImage,
       bannerImage,
       extraImages,
       location,
       otherLocation,
+      typeEvent,
+      ageGroups: ageGroups.join(","),
       inscriptionMethod,
       externalLink,
       paymentEnabled,
@@ -642,6 +746,7 @@
 
     const title = titleInput.value.trim();
     const intro = introInput.value.trim();
+    const introShort = introShortInput.value.trim();
 
     const mainFile = mainImageInput.files[0];
     const bannerFile = bannerImageInput.files[0];
@@ -668,6 +773,14 @@
     const location = document.querySelector("input[name='location']:checked")?.value || "";
     const otherLocation = location === "other" ? otherLocationInput.value.trim() : "";
 
+    const typeEvent = document.querySelector("input[name='type-event']:checked")?.value || "";
+
+    const ageGroups = [];
+    if (kidsEnabled.checked) ageGroups.push("kids");
+    if (jeugdEnabled.checked) ageGroups.push("jeugd");
+    if (volwassenenEnabled.checked) ageGroups.push("volwassenen");
+
+
     const inscriptionMethod = document.querySelector("input[name='inscription-method']:checked")?.value || "form";
 
     let externalLink = "";
@@ -693,11 +806,14 @@
     await updateDoc(ref, {
       title,
       intro,
+      introShort,
       mainImage,
       bannerImage,
       extraImages,
       location,
       otherLocation,
+      typeEvent,
+      ageGroups: ageGroups.join(","),
       inscriptionMethod,
       externalLink,
       paymentEnabled,
