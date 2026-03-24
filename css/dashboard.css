@@ -439,8 +439,9 @@
 }
 
 .innerpopup {
-  overflow: auto;
-  height: 100%;
+  overflow-y: auto; /* <-- scrolling happens here */
+  max-height: calc(80vh - 50px); /* adjust for header/buttons */
+  padding-right: 10px;
 }
 
 .tab-menu-dashboard {
