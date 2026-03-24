@@ -61,15 +61,6 @@
         </lottie-player>
       </div>
       <div class="tabs">
-        <div class="popup">
-            <div class="innerpopup">
-              <span id="order-details-popup-close" class="close-button w-button">X</span>
-              <h3>Order Details</h3>
-              <p><strong>Item:</strong> <span class="order-details-name"></span></p>
-              <p><strong>Price:</strong> <span class="order-details-price"></span></p>
-              <p><strong>Quantity:</strong> <span class="order-details-quantity"></span></p>
-            </div>
-        </div>
         
         <div id="tabmenu" class="tab-menu-dashboard w-tab-menu">
           <a href="/admin/coaches" class="dashboard-side-link w-inline-block w-tab-link">
@@ -116,7 +107,15 @@
       </div>
 
       <div id="form-section" style="display:none;">
-        <label><input type="checkbox" id="event-payment-enabled"> Betaling via website</label>
+        <div class="flexhorizontal" style="gap: 10px; align-items: center;">
+          <div class="holdertoggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" class="toggle-opened" id="edit-event-opened">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="smalltext">Staat open in agenda</div>
+          </div>
 
         <div id="payment-options-section" style="display:none;">
           <h3>Prijsopties</h3>
