@@ -86,22 +86,43 @@
     
       <!-- SECTION: Basic Info -->
       <div class="event-section">
-    
+        <h3 class="section-title">Algemeen</h3>
         <div class="event-question">
           <label>Titel</label>
           <input type="text" id="event-title">
         </div>
     
         <div class="event-question">
-          <label>Intro</label>
-          <textarea id="event-intro"></textarea>
+          <label>Locatie</label>
+    
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="location" value="warandepark">
+              <span class="radio-visual">Warandepark</span>
+            </label>
+      
+            <label class="radio-option">
+              <input type="radio" name="location" value="karteria">
+              <span class="radio-visual">Karteria</span>
+            </label>
+      
+            <label class="radio-option">
+              <input type="radio" name="location" value="other">
+              <span class="radio-visual">Andere</span>
+            </label>
+          </div>
+      
+          <div id="other-location-section" class="event-question" style="display:none;">
+            <label>Adres of locatie</label>
+            <input type="text" id="event-other-location">
+          </div>
         </div>
     
       </div>
     
       <!-- SECTION: Images -->
       <div class="event-section">
-    
+        <h3 class="section-title">Afbeeldingen</h3>
         <div class="event-question">
           <label>Hoofdafbeelding</label>
           <img id="event-current-main-image" style="width:80px; display:none;">
@@ -121,33 +142,6 @@
           <input type="file" id="event-extra-images" multiple>
         </div>
     
-      </div>
-    
-      <!-- SECTION: Location -->
-      <div class="event-section">
-        <h3 class="section-title">Locatie</h3>
-    
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="location" value="warandepark">
-            <span class="radio-visual">Warandepark</span>
-          </label>
-    
-          <label class="radio-option">
-            <input type="radio" name="location" value="karteria">
-            <span class="radio-visual">Karteria</span>
-          </label>
-    
-          <label class="radio-option">
-            <input type="radio" name="location" value="other">
-            <span class="radio-visual">Andere</span>
-          </label>
-        </div>
-    
-        <div id="other-location-section" class="event-question" style="display:none;">
-          <label>Adres of locatie</label>
-          <input type="text" id="event-other-location">
-        </div>
       </div>
     
       <!-- SECTION: Inscription -->
