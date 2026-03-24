@@ -959,7 +959,10 @@
       item.innerHTML = `
         <div class="flexhorizontal" style="gap: 12px">
           <img loading="lazy" width="40" src="${data.mainImage || "/images/placeholder.jpg"}" alt="${data.title || ""}">
-          <div class="bold-text">${data.title || ""}</div>
+          <div>
+            <div><strong>${data.title || ""}</strong></div>
+            <div class="smalltext">${data.startDate || ""} ${data.endDate ? "-" : ""} ${data.endDate || ""}</div>
+          </div>
         </div>
         <div class="holderactionbtns">
           <button class="actionbtn edit-btn" data-id="${id}"><img src="/images/edit.svg"></button>
