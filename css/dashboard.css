@@ -29,6 +29,13 @@
   box-shadow: 0 0 12px #00000090;
 }
 
+.flex-hor-spaced {
+  text-align: left;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
 .coachhold img {
   width: 45px;
   height: 45px;
@@ -38,12 +45,17 @@
 }
 
 .actionbtn {
-  background: transparent;
-  border: none;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 6px;
-  transition: 0.2s ease;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 12px;
+  display: flex;
+  border: 1px solid transparent;
+  background-color: transparent;
+  transition: all 0.5s ease;
 }
 
 .actionbtn:hover {
