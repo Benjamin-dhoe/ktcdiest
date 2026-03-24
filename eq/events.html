@@ -81,109 +81,153 @@
     <button class="popup-close-btn" id="closeEventBtnTop">✕</button>
 
     <div class="innerpopup">
+
       <h2 id="event-popup-title">Nieuw Event</h2>
-
-      <label>Titel</label>
-      <input type="text" id="event-title">
-
-      <label>Intro</label>
-      <textarea id="event-intro"></textarea>
-
-      <label>Hoofdafbeelding</label>
-      <img id="event-current-main-image" style="width:80px; display:none;">
-      <input type="file" id="event-main-image">
-
-      <label>Banner afbeelding (optioneel)</label>
-      <div class="hint">Deze afbeelding is zichtbaar op de event pagina in een strook bovenaan. Kies hier een foto die goed past als achtergrond en idealiter een brede afbeelding (vb resolutie 1200 breed - 300 hoog)</div>
-      <img id="event-current-banner-image" style="width:80px; display:none;">
-      <input type="file" id="event-banner-image">
-
-      <label>Extra afbeeldingen</label>
-      <div id="event-existing-extra-images"></div>
-      <input type="file" id="event-extra-images" multiple>
-
-      <h3>Locatie</h3>
-      <div class="radio-group">
-        <label class="radio-option">
-          <input type="radio" name="location" value="warandepark">
-          <span class="radio-visual">Warandepark</span>
-        </label>
-      
-        <label class="radio-option">
-          <input type="radio" name="location" value="karteria">
-          <span class="radio-visual">Karteria</span>
-        </label>
-
-        <label class="radio-option">
-          <input type="radio" name="location" value="other">
-          <span class="radio-visual">Andere</span>
-        </label>
-      </div>
-
-      <div id="other-location-section" style="display:none;">
-        <label>Adres of locatie</label>
-        <input type="text" id="event-other-location">
-      </div>
-
-      <h3>Inschrijfmethode</h3>
-      <div class="radio-group">
-        <label class="radio-option">
-          <input type="radio" name="inscription-method" value="form">
-          <span class="radio-visual">Formulier</span>
-        </label>
-      
-        <label class="radio-option">
-          <input type="radio" name="inscription-method" value="external">
-          <span class="radio-visual">Externe link</span>
-        </label>
-      </div>
-
-      <div id="external-link-section" style="display:none;">
-        <div class="hint">Vb: link naar TennisVlaanderen</div>
-        <label>Externe link</label>
-        <input type="text" id="event-external-link">
-      </div>
-
-      <div id="form-section" style="display:none;">
-        <div class="flexhorizontal" style="gap: 10px; align-items: center;">
-          <div class="holdertoggle">
-                <label class="toggle-switch" for="event-payment-enabled">
-                    <input type="checkbox" class="toggle-opened" id="event-payment-enabled">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="smalltext">Betalingen via website</div>
-          </div>
-
-        <div id="payment-options-section" style="display:none;">
-          <h3>Prijsopties</h3>
-          <button id="add-price-option-btn" type="button">+</button>
-          <div id="event-price-options"></div>
+    
+      <!-- SECTION: Basic Info -->
+      <div class="event-section">
+    
+        <div class="event-question">
+          <label>Titel</label>
+          <input type="text" id="event-title">
         </div>
-
-        <h3>Formulier velden</h3>
-        <div class="hint">Welke informatie moet er ingevuld worden bij inschrijving?</div>
-        <button id="add-form-field-btn" type="button">+</button>
-        <div id="event-form-fields"></div>
+    
+        <div class="event-question">
+          <label>Intro</label>
+          <textarea id="event-intro"></textarea>
+        </div>
+    
       </div>
-
-      <h3>Extra informatie</h3>
-      <div class="hint">Dit is extra informatie die op de event pagina verschijnt</div>
-      <button id="add-extra-info-btn" type="button">+</button>
-      <div id="event-extra-info"></div>
-
-      <h3>Datum</h3>
-      <label>Startdatum</label>
-      <input type="date" id="event-start-date">
-
-      <label>Einddatum (optioneel)</label>
-      <input type="date" id="event-end-date">
-
+    
+      <!-- SECTION: Images -->
+      <div class="event-section">
+    
+        <div class="event-question">
+          <label>Hoofdafbeelding</label>
+          <img id="event-current-main-image" style="width:80px; display:none;">
+          <input type="file" id="event-main-image">
+        </div>
+    
+        <div class="event-question">
+          <label>Banner afbeelding (optioneel)</label>
+          <div class="hint">Deze afbeelding is zichtbaar op de event pagina in een strook bovenaan. Kies hier een foto die goed past als achtergrond en idealiter een brede afbeelding (vb resolutie 1200 breed - 300 hoog)</div>
+          <img id="event-current-banner-image" style="width:80px; display:none;">
+          <input type="file" id="event-banner-image">
+        </div>
+    
+        <div class="event-question">
+          <label>Extra afbeeldingen</label>
+          <div id="event-existing-extra-images"></div>
+          <input type="file" id="event-extra-images" multiple>
+        </div>
+    
+      </div>
+    
+      <!-- SECTION: Location -->
+      <div class="event-section">
+        <h3 class="section-title">Locatie</h3>
+    
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="location" value="warandepark">
+            <span class="radio-visual">Warandepark</span>
+          </label>
+    
+          <label class="radio-option">
+            <input type="radio" name="location" value="karteria">
+            <span class="radio-visual">Karteria</span>
+          </label>
+    
+          <label class="radio-option">
+            <input type="radio" name="location" value="other">
+            <span class="radio-visual">Andere</span>
+          </label>
+        </div>
+    
+        <div id="other-location-section" class="event-question" style="display:none;">
+          <label>Adres of locatie</label>
+          <input type="text" id="event-other-location">
+        </div>
+      </div>
+    
+      <!-- SECTION: Inscription -->
+      <div class="event-section">
+        <h3 class="section-title">Inschrijfmethode</h3>
+    
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="inscription-method" value="form">
+            <span class="radio-visual">Formulier</span>
+          </label>
+    
+          <label class="radio-option">
+            <input type="radio" name="inscription-method" value="external">
+            <span class="radio-visual">Externe link</span>
+          </label>
+        </div>
+    
+        <div id="external-link-section" class="event-question" style="display:none;">
+          <div class="hint">Vb: link naar TennisVlaanderen</div>
+          <label>Externe link</label>
+          <input type="text" id="event-external-link">
+        </div>
+    
+        <div id="form-section" style="display:none;">
+    
+          <div class="event-question flexhorizontal" style="gap: 10px; align-items: center;">
+            <label class="toggle-switch" for="event-payment-enabled">
+              <input type="checkbox" id="event-payment-enabled">
+              <span class="slider"></span>
+            </label>
+            <div class="hint">Betalingen via website</div>
+          </div>
+    
+          <div id="payment-options-section" class="event-question" style="display:none;">
+            <h4 class="subsection-title">Prijsopties</h4>
+            <button id="add-price-option-btn" type="button">+</button>
+            <div id="event-price-options"></div>
+          </div>
+    
+          <div class="event-question">
+            <h4 class="subsection-title">Formulier velden</h4>
+            <div class="hint">Welke informatie moet er ingevuld worden bij inschrijving?</div>
+            <button id="add-form-field-btn" type="button">+</button>
+            <div id="event-form-fields"></div>
+          </div>
+    
+        </div>
+      </div>
+    
+      <!-- SECTION: Extra Info -->
+      <div class="event-section">
+        <h3 class="section-title">Extra informatie</h3>
+        <div class="hint">Dit is extra informatie die op de event pagina verschijnt</div>
+        <button id="add-extra-info-btn" type="button">+</button>
+        <div id="event-extra-info"></div>
+      </div>
+    
+      <!-- SECTION: Dates -->
+      <div class="event-section">
+        <h3 class="section-title">Datum</h3>
+    
+        <div class="event-question">
+          <label>Startdatum</label>
+          <input type="date" id="event-start-date">
+        </div>
+    
+        <div class="event-question">
+          <label>Einddatum (optioneel)</label>
+          <input type="date" id="event-end-date">
+        </div>
+      </div>
+    
       <div class="popup-actions">
         <button id="save-event-btn" class="primary-btn">Opslaan</button>
         <button id="closeEventBtn" class="close-btn">Sluiten</button>
       </div>
+    
     </div>
+
   </div>
 </div>
 
