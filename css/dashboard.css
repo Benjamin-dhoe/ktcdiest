@@ -44,6 +44,14 @@
   border: 2px solid var(--diest-orange);
 }
 
+.holderactionbtns {
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  max-width: 100px;
+  display: flex;
+}
+
 .actionbtn {
   cursor: pointer;
   border-radius: 50%;
