@@ -232,9 +232,9 @@
       coachItem.innerHTML = `
         <div class="flexhorizontal">
           <div class="coachhold">
-            <img loading="lazy" width="40" src="${coachData.imageUrl}" alt="${coachData.naam}">
+            <img loading="lazy" width="40" src="${coachData.imageUrl || "/images/placeholder.jpg"}" alt="${coachData.name}">
           </div>
-          <div class="bold-text">${coachData.naam}</div>
+          <div class="bold-text">${coachData.name}</div>
         </div>
         <div class="holderactionbtns">
             <button class="actionbtn edit-btn" data-id="${coachId}"><img src="/images/edit.svg"></button>
