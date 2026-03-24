@@ -25,6 +25,13 @@ html {
   width: 36px;
 }
 
+.flexhorizontal {
+  flex-flow: wrap;
+  align-items: center;
+  max-width: 100%;
+  display: flex;
+}
+
 .pasword-forget-holder {
   justify-content: flex-end;
   margin-top: -10px;
