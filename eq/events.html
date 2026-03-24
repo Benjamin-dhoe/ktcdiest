@@ -335,10 +335,15 @@
         <option value="radio" ${item.type === "radio" ? "selected" : ""}>Radio</option>
       </select>
 
-      <label class="required-toggle">
-        <input type="checkbox" class="field-required" ${item.required ? "checked" : ""}>
-        <span>Verplicht</span>
-      </label>
+     <div class="flexhorizontal" style="gap: 10px; align-items: center;">
+      <div class="holdertoggle">
+            <label class="toggle-switch">
+                <input type="checkbox" class="field-required">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="smalltext">Verplicht in te vullen</div>
+      </div>
 
       <button class="remove-btn" type="button">X</button>
     `;
