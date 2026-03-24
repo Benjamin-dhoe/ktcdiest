@@ -10,8 +10,55 @@
 }
 
 /* -----------------------------------
-   Dynamic List Items (Price, Fields, Info)
+   Custom Radio Button Group
 ----------------------------------- */
+.radio-group {
+  display: flex;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.radio-option {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+.radio-visual {
+  padding: 10px 16px;
+  border-radius: 30px;
+  border: 2px solid var(--diest-orange);
+  background: transparent;
+  color: var(--diest-orange);
+  font-weight: 600;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect */
+.radio-option:hover .radio-visual {
+  background: #f6892920;
+}
+
+/* Selected state */
+.radio-option input[type="radio"]:checked + .radio-visual {
+  background: linear-gradient(145deg, var(--diest-orange), var(--pop-orange));
+  color: var(--white-bg);
+  border-color: var(--pop-orange);
+  box-shadow: 0 0 8px #00000050;
+}
+
+/* Focus ring for accessibility */
+.radio-option input[type="radio"]:focus + .radio-visual {
+  outline: 3px solid #ffffff80;
+}
+
 .dynamic-item {
   display: flex;
   flex-direction: column;
