@@ -88,28 +88,30 @@
 <div id="add-coach-form" class="popup">
   <div class="popup-content">
     <button class="popup-close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">✕</button>
-    <h2>Coach toevoegen</h2>
-
-    <label>Naam</label>
-    <input type="text" id="coachname">
-
-    <label>Samenvatting</label>
-    <textarea id="coachsummary"></textarea>
-
-    <label>Foto uploaden</label>
-    <input type="file" id="coachimageupload" accept="image/*">
-
-    <div id="filelarge" class="error">Bestand is te groot (max 1MB)</div>
-
-    <div class="achievements-header">
-      <h3>Achievements</h3>
-      <button id="add-achievement-btn" class="circle-add-btn">+</button>
-    </div>
-    <div id="add-achievements-list"></div>
-
-    <div class="popup-actions">
-      <button id="submit-coach-btn" class="primary-btn">Opslaan</button>
-      <button class="close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">Annuleren</button>
+    <div class="innerpopup">
+      <h2>Coach toevoegen</h2>
+  
+      <label>Naam</label>
+      <input type="text" id="coachname">
+  
+      <label>Samenvatting</label>
+      <textarea id="coachsummary"></textarea>
+  
+      <label>Foto uploaden</label>
+      <input type="file" id="coachimageupload" accept="image/*">
+  
+      <div id="filelarge" class="error">Bestand is te groot (max 1MB)</div>
+  
+      <div class="achievements-header">
+        <h3>Achievements</h3>
+        <button id="add-achievement-btn" class="circle-add-btn">+</button>
+      </div>
+      <div id="add-achievements-list"></div>
+  
+      <div class="popup-actions">
+        <button id="submit-coach-btn" class="primary-btn">Opslaan</button>
+        <button class="close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">Annuleren</button>
+      </div>
     </div>
   </div>
 </div>
