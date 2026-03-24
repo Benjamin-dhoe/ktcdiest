@@ -1670,8 +1670,8 @@ html {
 }
 
 .smalltext {
-  color: var(--linesdark);
-  font-size: 14px;
+  opacity: 0.8;
+  font-size: 0.8rem;
 }
 
 .gradientimevent {
