@@ -21,6 +21,10 @@ html {
   --darkblue: #1c352d;
 }
 
+.loading-spinner {
+  width: 36px;
+}
+
 .pasword-forget-holder {
   justify-content: flex-end;
   margin-top: -10px;
