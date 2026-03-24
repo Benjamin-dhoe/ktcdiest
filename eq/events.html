@@ -98,8 +98,17 @@
       <input type="file" id="event-extra-images" multiple>
 
       <h3>Inschrijfmethode</h3>
-      <label><input type="radio" name="inscription-method" value="form"> Formulier</label>
-      <label><input type="radio" name="inscription-method" value="external"> Externe link</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="inscription-method" value="form">
+          <span class="radio-visual">Formulier</span>
+        </label>
+      
+        <label class="radio-option">
+          <input type="radio" name="inscription-method" value="external">
+          <span class="radio-visual">Externe link</span>
+        </label>
+      </div>
 
       <div id="external-link-section" style="display:none;">
         <label>Externe link</label>
