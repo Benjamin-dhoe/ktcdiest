@@ -323,7 +323,7 @@
 <script type="module">
   import { app } from "/js/firebase.js";
   import { 
-    getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc 
+    getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc, Timestamp, query, orderBy
   } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
   import { 
     getStorage, ref, uploadBytes, getDownloadURL 
@@ -402,6 +402,25 @@
   /* ------------------------------
       HELPERS
   ------------------------------ */
+
+  function formatDateToDDMMYYYY(dateStr) {
+    if (!dateStr) return "";
+    const [yyyy, mm, dd] = dateStr.split("-");
+    return `${dd}-${mm}-${yyyy}`;
+  }
+
+  function formatDateToYYYYMMDD(dateStr) {
+    if (!dateStr) return "";
+    const [dd, mm, yyyy] = dateStr.split("-");
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+
+  function dateToTimestamp(dateStr) {
+  if (!dateStr) return null;
+  const [yyyy, mm, dd] = dateStr.split("-");
+  return Timestamp.fromDate(new Date(yyyy, mm - 1, dd));
+
 
   async function uploadImage(file, folder = "events") {
     if (!file) return null;
@@ -646,8 +665,8 @@
 
     fillDynamicList("event-extra-info", data.extraInfo, infoTemplate);
 
-    startDateInput.value = data.startDate || "";
-    endDateInput.value = data.endDate || "";
+    startDateInput.value = formatDateToYYYYMMDD(data.startDate);
+    endDateInput.value = formatDateToYYYYMMDD(data.endDate);
 
     eventPopup.style.display = "flex";
   }
@@ -703,8 +722,14 @@
 
     const extraInfo = collectExtraInfo();
 
-    const startDate = startDateInput.value || "";
-    const endDate = endDateInput.value || "";
+    const startDateRaw = startDateInput.value || "";
+    const endDateRaw = endDateInput.value || "";
+    
+    const startDate = formatDateToDDMMYYYY(startDateRaw);
+    const endDate = formatDateToDDMMYYYY(endDateRaw);
+    
+    const startDateTimestamp = dateToTimestamp(startDateRaw);
+
 
     await addDoc(eventsCol, {
       title,
@@ -724,7 +749,8 @@
       formFields,
       extraInfo,
       startDate,
-      endDate
+      endDate,
+      startDateTimestamp
     });
   }
 
@@ -793,8 +819,14 @@
 
     const extraInfo = collectExtraInfo();
 
-    const startDate = startDateInput.value || "";
-    const endDate = endDateInput.value || "";
+    const startDateRaw = startDateInput.value || "";
+    const endDateRaw = endDateInput.value || "";
+    
+    const startDate = formatDateToDDMMYYYY(startDateRaw);
+    const endDate = formatDateToDDMMYYYY(endDateRaw);
+    
+    const startDateTimestamp = dateToTimestamp(startDateRaw);
+
 
     await updateDoc(ref, {
       title,
@@ -814,7 +846,8 @@
       formFields,
       extraInfo,
       startDate,
-      endDate
+      endDate,
+      startDateTimestamp,
     });
   }
 
@@ -913,7 +946,8 @@
       LOAD EVENTS
   ------------------------------ */
   async function loadEvents() {
-    const snap = await getDocs(eventsCol);
+    const q = query(eventsCol, orderBy("startDateTimestamp", "desc"));
+    const snap = await getDocs(q);
     listHolder.innerHTML = "";
 
         snap.forEach(docSnap => {
