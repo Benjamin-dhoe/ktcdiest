@@ -345,7 +345,7 @@ input:checked + .slider::before {
   background: var(--white-bg);
   color: var(--dark-bg);
   border-radius: 10px;
-  width: 420px;
+  width: 700px;
   max-width: 90%;
   padding: 25px;
   box-shadow: 0 0 20px #00000080;
