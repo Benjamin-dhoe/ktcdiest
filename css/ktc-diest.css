@@ -22,14 +22,14 @@ html {
 }
 
 .holder-achievement-front {
-  background: linear-gradient(135deg, var(--darkblue), var(--dark-bg));
-  border: 1px solid var(--linesdark);
-  border-radius: 8px;
-  padding: 14px;
+  background: #ffffff;
+  border: 1px solid var(--lineslight);
+  border-radius: 10px;
+  padding: 14px 16px;
   margin-bottom: 12px;
-  color: var(--white-bg);
-  box-shadow: 0 0 8px #00000060;
-  transition: 0.3s ease;
+  color: var(--dark-bg);
+  box-shadow: 0 2px 6px #00000015;
+  transition: 0.25s ease;
   width: 100%;
 }
 
