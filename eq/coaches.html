@@ -366,7 +366,7 @@ async function openEditPopup(e) {
 
   additionalImages.forEach(url => addAdditionalImage(url, true));
 
-  fillDynamicList("event-extra-info", data.extraInfo, infoTemplate);
+  fillDynamicList("coach-extra-info", data.extraInfo, infoTemplate);
   // Discover image
   if (data.discoverImageUrl) {
     discoverImagePreview.src = data.discoverImageUrl;
