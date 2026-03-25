@@ -1135,6 +1135,11 @@ html {
   display: flex;
 }
 
+.sidecontent.centered.sticking-on-large {
+  position: sticky;
+  top: 0;
+}
+
 .sidecontent.centered.small {
   width: 25%;
 }
@@ -2369,6 +2374,10 @@ html {
   .sidecontent,
   .sidecontent.centered.small {
     width: 100%;
+  }
+
+  .sidecontent.centered.sticking-on-large {
+    position: static;
   }
 
   .sidecontent.centered.small.sticky {
