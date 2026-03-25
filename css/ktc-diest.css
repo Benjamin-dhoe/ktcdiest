@@ -21,6 +21,25 @@ html {
   --darkblue: #1c352d;
 }
 
+.holder-achievement-front {
+  background: linear-gradient(135deg, #ffffff10, var(--dark-bg));
+  border: 1px solid var(--linesdark);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+  color: var(--white-bg);
+  box-shadow: 0 0 8px #00000060;
+  transition: 0.3s ease;
+}
+
+.achievement-icon img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--diest-orange);
+}
+
 .holder-images {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
