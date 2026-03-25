@@ -512,6 +512,7 @@
 
       <div class="options-container" style="display:${item.type === "text" ? "none" : "block"};">
         <div class="options-list">
+          <div class="hint">Opties:</div>
           ${(item.options || [])
             .map(opt => optionTemplate(opt))
             .join("")}
