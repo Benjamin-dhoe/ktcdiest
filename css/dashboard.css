@@ -217,32 +217,6 @@
 }
 
 /* -----------------------------------
-   Add Buttons (+)
------------------------------------ */
-#add-price-option-btn,
-#add-form-field-btn,
-#add-extra-info-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: none;
-  background: var(--diest-orange);
-  color: var(--dark-bg);
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-}
-
-#add-price-option-btn:hover,
-#add-form-field-btn:hover,
-#add-extra-info-btn:hover {
-  background: var(--pop-orange);
-}
-
-/* -----------------------------------
    Toggle Switch (Betaling via website)
    Updated to use your color palette
 ----------------------------------- */
