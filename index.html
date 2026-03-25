@@ -685,7 +685,7 @@
         <div class="breathing-header centered">Onze trainers</div>
       </div>
       <div class="holderfilterbtn">
-        <a href="/coaches.html" class="filterbutton" style="display: block">
+        <a href="/coaches.html" class="filterbutton" style="display: flex">
           <img
             loading="lazy"
             src="/images/icon-list.png"
@@ -698,93 +698,7 @@
       <div class="partners-holder">
         <div class="box-partners">
           <div class="slider-partner" id="coachesreel">
-            <a href="/coach-detail.html" class="coach w-inline-block"
-              ><img
-                width="207"
-                sizes="(max-width: 479px) 100vw, 207px"
-                alt=""
-                src="/images/stijn-meulemans.jpg"
-                loading="eager"
-                srcset="
-                  /images/stijn-meulemans-p-500.jpg 500w,
-                  /images/stijn-meulemans.jpg       600w
-                "
-                class="coachimageinslider"
-              />
-              <div class="namecoachinslider">
-                <div>Stijn Meulemans</div>
-              </div>
-            </a>
-            <a href="/coach-detail.html" class="coach w-inline-block"
-              ><img
-                width="207"
-                sizes="(max-width: 479px) 100vw, 207px"
-                alt=""
-                src="/images/michiel-antheunis.jpg"
-                loading="eager"
-                srcset="
-                  /images/michiel-antheunis-p-500.jpg 500w,
-                  /images/michiel-antheunis.jpg       600w
-                "
-                class="coachimageinslider"
-              />
-              <div class="namecoachinslider">
-                <div>Michiel Antheunis</div>
-              </div>
-            </a>
-            <a href="/coach-detail.html" class="coach w-inline-block"
-              ><img
-                width="207"
-                alt=""
-                src="/images/Nick-Vanmechelen-2.JPG"
-                loading="eager"
-                class="coachimageinslider"
-              />
-              <div class="namecoachinslider">
-                <div>Nick Vanmechelen</div>
-              </div>
-            </a>
-            <a href="/coach-detail.html" class="coach w-inline-block"
-              ><img
-                width="207"
-                sizes="(max-width: 479px) 100vw, 207px"
-                alt=""
-                src="/images/olivie-rojas.jpg"
-                loading="eager"
-                srcset="
-                  /images/olivie-rojas-p-500.jpg 500w,
-                  /images/olivie-rojas.jpg       600w
-                "
-                class="coachimageinslider"
-              />
-              <div class="namecoachinslider">
-                <div>Olivier Rojas</div>
-              </div>
-            </a>
-            <a href="/coach-detail.html" class="coach w-inline-block"
-              ><img
-                width="207"
-                alt=""
-                src="/images/Steffi-Distelmans-2.JPG"
-                loading="eager"
-                class="coachimageinslider"
-              />
-              <div class="namecoachinslider">
-                <div>Steffi Distelmans</div>
-              </div>
-            </a>
-            <a href="/coach-detail.html" class="coach w-inline-block"
-              ><img
-                width="207"
-                alt=""
-                src="/images/Kay-Abbing-2.JPG"
-                loading="eager"
-                class="coachimageinslider"
-              />
-              <div class="namecoachinslider">
-                <div>Kay Abbing</div>
-              </div>
-            </a>
+
           </div>
         </div>
       </div>
@@ -1054,6 +968,12 @@
     <script src="/js/index.js" type="text/javascript"></script>
     <script src="/js/eventsfilter.js" type="text/javascript"></script>
     <script>
+      import { app } from "/js/firebase.js";
+      import { 
+        getFirestore, collection, getDocs
+      } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    
+      const db = getFirestore(app);
       async function coachesReel() {
         const coachesReelElement = document.getElementById('coachesreel');
         if (!coachesReelElement) return;
