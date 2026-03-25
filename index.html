@@ -991,7 +991,7 @@
             coachElement.href = `/coach/${coach.slug}`;
     
             coachElement.innerHTML = `
-              <img width="207" alt="${coach.name}" src="${coach.imageUrl}" loading="eager" class="coachimageinslider">
+              <img width="207" alt="${coach.name}" src="${coach.imageUrl || '/images/coach-placeholder.jpg'}" loading="eager" class="coachimageinslider">
               <div class="namecoachinslider">
                 <div>${coach.name}</div>
               </div>
