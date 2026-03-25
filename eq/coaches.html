@@ -207,13 +207,13 @@ const addExtraInfoBtn = document.getElementById("add-extra-info-btn");
 const discoverImageInput = document.getElementById("coach-discover-image");
 const discoverImagePreview = document.getElementById("coach-discover-image-preview");
 
-
 const saveBtn = document.getElementById("save-coach-btn");
 
-let popupMode = "add"; // "add" or "edit"
+let popupMode = "add";
 let currentCoachId = null;
-let additionalImages = []; // URLs
-let removedImages = []; // URLs to delete
+let additionalImages = [];
+let removedImages = [];
+let objectUrls = [];
 
 // -------------------------------
 // Helper: Add achievement input
@@ -229,10 +229,13 @@ function addAchievement(value = "") {
   achievementsList.appendChild(div);
 }
 
-// helper: get to know coach
+// -------------------------------
+// Extra info (Q&A)
+// -------------------------------
 addExtraInfoBtn.addEventListener("click", () => {
   addDynamicItem("coach-extra-info", infoTemplate());
 });
+
 function collectExtraInfo() {
   const items = extraInfoContainer.querySelectorAll(".dynamic-item");
   const result = [];
@@ -243,6 +246,7 @@ function collectExtraInfo() {
   });
   return result;
 }
+
 function infoTemplate(item = { title: "", text: "" }) {
   return `
     <input class="info-title" type="text" placeholder="Sectietitel" value="${item.title}">
@@ -268,18 +272,22 @@ function addDynamicItem(containerId, html) {
   if (removeBtn) removeBtn.addEventListener("click", () => div.remove());
 }
 
+// -------------------------------
+// Discover image preview
+// -------------------------------
 discoverImageInput.onchange = () => {
   const file = discoverImageInput.files[0];
   if (!file) return;
 
   const url = URL.createObjectURL(file);
+  objectUrls.push(url);
+
   discoverImagePreview.src = url;
   discoverImagePreview.style.display = "block";
 };
-  
 
 // -------------------------------
-// Helper: Add additional image preview
+// Additional images preview
 // -------------------------------
 function addAdditionalImage(url, isExisting = false) {
   const wrapper = document.createElement("div");
@@ -292,6 +300,8 @@ function addAdditionalImage(url, isExisting = false) {
 
   wrapper.querySelector(".remove-additional-img-btn").onclick = () => {
     if (isExisting) removedImages.push(url);
+    else URL.revokeObjectURL(url);
+
     additionalImages = additionalImages.filter(img => img !== url);
     wrapper.remove();
   };
@@ -337,7 +347,7 @@ async function loadCoaches() {
 }
 
 // -------------------------------
-// Open popup in ADD mode
+// ADD popup
 // -------------------------------
 document.getElementById("add-coach-btn").onclick = () => {
   popupMode = "add";
@@ -359,7 +369,7 @@ document.getElementById("add-coach-btn").onclick = () => {
 };
 
 // -------------------------------
-// Open popup in EDIT mode
+// EDIT popup
 // -------------------------------
 async function openEditPopup(e) {
   popupMode = "edit";
@@ -369,7 +379,6 @@ async function openEditPopup(e) {
 
   const refDoc = doc(db, "coaches", currentCoachId);
   const snap = await getDoc(refDoc);
-
   if (!snap.exists()) return;
 
   const data = snap.data();
@@ -377,17 +386,14 @@ async function openEditPopup(e) {
   nameInput.value = data.name || "";
   introInput.value = data.intro || "";
 
-  // Main image
   if (data.imageUrl) {
     mainImagePreview.src = data.imageUrl;
     mainImagePreview.style.display = "block";
   }
 
-  // Achievements
   achievementsList.innerHTML = "";
   (data.achievements || []).forEach(a => addAchievement(a));
 
-  // Additional images
   additionalImagesContainer.innerHTML = "";
   additionalImages = [...(data.additionalImages || [])];
   removedImages = [];
@@ -395,16 +401,15 @@ async function openEditPopup(e) {
   additionalImages.forEach(url => addAdditionalImage(url, true));
 
   fillDynamicList("coach-extra-info", data.extraInfo, infoTemplate);
-  // Discover image
+
   if (data.discoverImageUrl) {
     discoverImagePreview.src = data.discoverImageUrl;
     discoverImagePreview.style.display = "block";
   } else {
     discoverImagePreview.style.display = "none";
   }
+
   discoverImageInput.value = "";
-
-
   popup.style.display = "flex";
 }
 
@@ -418,13 +423,26 @@ async function uploadImage(file, path) {
 }
 
 // -------------------------------
-// Save coach (add or edit)
+// SAVE coach
 // -------------------------------
 saveBtn.onclick = async () => {
   const name = nameInput.value.trim();
   const intro = introInput.value.trim();
-  let discoverImageUrl = null;
 
+  if (!name) {
+    alert("Naam is verplicht");
+    return;
+  }
+
+  const extraInfo = collectExtraInfo();
+
+  let docData = {};
+  if (popupMode === "edit") {
+    const snap = await getDoc(doc(db, "coaches", currentCoachId));
+    docData = snap.data();
+  }
+
+  let discoverImageUrl = docData.discoverImageUrl || null;
   if (discoverImageInput.files[0]) {
     discoverImageUrl = await uploadImage(
       discoverImageInput.files[0],
@@ -432,15 +450,7 @@ saveBtn.onclick = async () => {
     );
   }
 
-
-  const achievements = Array.from(
-    achievementsList.querySelectorAll("input")
-  )
-    .map(i => i.value.trim())
-    .filter(v => v.length > 0);
-
-  let mainImageUrl = null;
-
+  let mainImageUrl = docData.imageUrl || null;
   if (mainImageInput.files[0]) {
     mainImageUrl = await uploadImage(
       mainImageInput.files[0],
@@ -448,7 +458,12 @@ saveBtn.onclick = async () => {
     );
   }
 
-  // Upload new additional images
+  const achievements = Array.from(
+    achievementsList.querySelectorAll("input")
+  )
+    .map(i => i.value.trim())
+    .filter(v => v.length > 0);
+
   const newUploads = [];
   for (const file of additionalImageUpload.files) {
     const url = await uploadImage(
@@ -469,13 +484,10 @@ saveBtn.onclick = async () => {
     intro,
     achievements,
     additionalImages: finalAdditionalImages,
+    extraInfo,
+    discoverImageUrl,
+    imageUrl: mainImageUrl
   };
-
-  if (discoverImageUrl) {
-    payload.discoverImageUrl = discoverImageUrl;
-  }
-
-  if (mainImageUrl) payload.imageUrl = mainImageUrl;
 
   if (popupMode === "add") {
     await addDoc(collection(db, "coaches"), payload);
@@ -483,20 +495,34 @@ saveBtn.onclick = async () => {
     await updateDoc(doc(db, "coaches", currentCoachId), payload);
   }
 
+  // cleanup object URLs
+  objectUrls.forEach(url => URL.revokeObjectURL(url));
+  objectUrls = [];
+
   popup.style.display = "none";
   loadCoaches();
 };
 
+// -------------------------------
+// Additional images upload trigger
+// -------------------------------
 addAdditionalImageBtn.onclick = () => additionalImageUpload.click();
 
-additionalImageUpload.onchange = async () => {
-  const file = additionalImageUpload.files[0];
-  if (!file) return;
+additionalImageUpload.onchange = () => {
+  const files = Array.from(additionalImageUpload.files);
 
-  const url = URL.createObjectURL(file);
-  addAdditionalImage(url, false);
+  files.forEach(file => {
+    const url = URL.createObjectURL(file);
+    objectUrls.push(url);
+    addAdditionalImage(url, false);
+  });
+
+  additionalImageUpload.value = "";
 };
 
+// -------------------------------
+// Delete
+// -------------------------------
 function openDeleteModal(e) {
   const id = e.target.closest("button").dataset.id;
   if (confirm("Coach verwijderen?")) {
@@ -504,12 +530,15 @@ function openDeleteModal(e) {
   }
 }
 
+// -------------------------------
+// Close popup
+// -------------------------------
 document.getElementById("closePopupBtn").onclick =
 document.getElementById("closePopupBtnTop").onclick =
   () => popup.style.display = "none";
 
+// -------------------------------
 loadCoaches();
-
 </script>
 
 </body></html>
