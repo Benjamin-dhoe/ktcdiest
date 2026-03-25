@@ -329,6 +329,16 @@
   }
 
   document.getElementById('loginbtn').addEventListener('click', login);
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('unauth')) {
+    deleteCookie('token');
+    deleteCookie('userId');
+  } else {
+    const token = getCookie('token');
+    if (token) {
+      window.location.href = '/admin/coaches';
+    }
+  }
 </script>
   </body>
 </html>
