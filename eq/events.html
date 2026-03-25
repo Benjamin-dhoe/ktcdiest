@@ -636,9 +636,9 @@
     // age groups
     if (data.ageGroups) {
     
-      kidsEnabled.checked = ageGroups.includes("kids");
-      jeugdEnabled.checked = ageGroups.includes("jeugd");
-      volwassenenEnabled.checked = ageGroups.includes("volwassenen");
+      kidsEnabled.checked = data.ageGroups.includes("kids");
+      jeugdEnabled.checked = data.ageGroups.includes("jeugd");
+      volwassenenEnabled.checked = data.ageGroups.includes("volwassenen");
     }
 
     if (data.inscriptionMethod) {
