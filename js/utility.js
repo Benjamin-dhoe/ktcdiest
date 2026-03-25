@@ -9,7 +9,7 @@ export function getCookie(name) {
   return null;
 }
 
-function slugify(text) {
+export function slugify(text) {
   return text
     .toString()
     .normalize("NFD")
