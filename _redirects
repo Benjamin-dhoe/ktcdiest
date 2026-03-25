@@ -1,2 +1,3 @@
 /admin/:page https://getadminpages-eqi5l3wztq-ew.a.run.app?page=:page 200
 /event/:id https://geteventpage-eqi5l3wztq-ew.a.run.app?id=:id 200
+/coach/:slug https://getcoachpage-eqi5l3wztq-ew.a.run.app?slug=:slug 200
