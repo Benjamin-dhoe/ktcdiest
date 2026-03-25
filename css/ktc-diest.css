@@ -1836,6 +1836,11 @@ html {
   align-items: center;
 }
 
+.icon-filter {
+  width: 15px;
+  margin-right: 10px;
+}
+
 .smallcenteredparagraf {
   text-align: center;
   width: 400px;
@@ -2487,11 +2492,6 @@ html {
 
   .filterbutton {
     display: flex;
-  }
-
-  .icon-filter {
-    width: 15px;
-    margin-right: 10px;
   }
 
   .holderfilterbtn {
