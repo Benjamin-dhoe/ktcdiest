@@ -55,6 +55,12 @@ html {
   width: 100px;
 }
 
+.alwaysflexhorizontal {
+  align-items: center;
+  max-width: 100%;
+  display: flex;
+}
+
 .flexhorizontal {
   flex-flow: wrap;
   align-items: center;
