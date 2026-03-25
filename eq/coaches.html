@@ -94,18 +94,26 @@
     <div class="innerpopup">
       <h2 id="popup-title">Coach toevoegen</h2>
 
-      <label>Naam</label>
-      <input type="text" id="coach-name">
+      <div class="event-question">
+        <label>Naam</label>
+        <input type="text" id="coach-name">
+      </div>
 
-      <label>Intro text</label>
-      <textarea id="coach-intro"></textarea>
+      <div class="event-question">
+        <label>Intro text</label>
+        <textarea id="coach-intro"></textarea>
+      </div>
 
-      <label>Hoofdfoto</label>
-      <img id="coach-main-image-preview" class="preview-img" style="display:none;">
-      <input type="file" id="coach-main-image" accept="image/*">
+      <div class="event-question">
+        <label>Hoofdfoto</label>
+        <img id="coach-main-image-preview" class="preview-img" style="display:none;">
+        <input type="file" id="coach-main-image" accept="image/*">
+      </div>
 
-      <h3>Extra foto's</h3>
-      <div id="additional-images-container"></div>
+      <div class="event-question">
+        <label>Extra foto's</label>
+        <div id="additional-images-container"></div>
+      </div>
 
       <button id="add-additional-image-btn" class="circle-add-btn">+</button>
       <input type="file" id="additional-image-upload" accept="image/*" style="display:none;">
@@ -115,6 +123,15 @@
         <button id="add-achievement-btn" class="circle-add-btn">+</button>
       </div>
       <div id="achievements-list"></div>
+
+      <div class="event-section">
+        <label class="section-title">Get to know coach</label>
+        <button id="add-extra-info-btn" type="button">+</button>
+        <div id="coach-extra-info"></div>
+        <label>Hoofdfoto</label>
+        <img id="coach-discover-image-preview" class="preview-img" style="display:none;">
+        <input type="file" id="coach-discover-image" accept="image/*">
+      </div>
 
       <div class="popup-actions">
         <button id="save-coach-btn" class="primary-btn">Opslaan</button>
@@ -168,6 +185,9 @@ const additionalImagesContainer = document.getElementById("additional-images-con
 const addAdditionalImageBtn = document.getElementById("add-additional-image-btn");
 const additionalImageUpload = document.getElementById("additional-image-upload");
 
+const extraInfoContainer = document.getElementById("event-extra-info");
+const addExtraInfoBtn = document.getElementById("add-extra-info-btn");
+
 const saveBtn = document.getElementById("save-coach-btn");
 
 let popupMode = "add"; // "add" or "edit"
@@ -188,6 +208,44 @@ function addAchievement(value = "") {
   div.querySelector(".remove-ach-btn").onclick = () => div.remove();
   achievementsList.appendChild(div);
 }
+
+// helper: get to know coach
+addExtraInfoBtn.addEventListener("click", () => {
+  addDynamicItem("event-extra-info", infoTemplate());
+});
+function collectExtraInfo() {
+  const items = extraInfoContainer.querySelectorAll(".dynamic-item");
+  const result = [];
+  items.forEach(div => {
+    const title = div.querySelector(".info-title")?.value.trim();
+    const text = div.querySelector(".info-text")?.value.trim();
+    if (title && text) result.push({ title, text });
+  });
+  return result;
+}
+function infoTemplate(item = { title: "", text: "" }) {
+  return `
+    <input class="info-title" type="text" placeholder="Sectietitel" value="${item.title}">
+    <textarea class="info-text" placeholder="Tekst">${item.text}</textarea>
+    <button class="remove-btn" type="button">X</button>
+  `;
+}
+
+function fillDynamicList(containerId, list, templateFn) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  (list || []).forEach(item => addDynamicItem(containerId, templateFn(item)));
+}
+
+discoverImageInput.onchange = () => {
+  const file = discoverImageInput.files[0];
+  if (!file) return;
+
+  const url = URL.createObjectURL(file);
+  discoverImagePreview.src = url;
+  discoverImagePreview.style.display = "block";
+};
+  
 
 // -------------------------------
 // Helper: Add additional image preview
@@ -305,6 +363,17 @@ async function openEditPopup(e) {
 
   additionalImages.forEach(url => addAdditionalImage(url, true));
 
+  fillDynamicList("event-extra-info", data.extraInfo, infoTemplate);
+  // Discover image
+  if (data.discoverImageUrl) {
+    discoverImagePreview.src = data.discoverImageUrl;
+    discoverImagePreview.style.display = "block";
+  } else {
+    discoverImagePreview.style.display = "none";
+  }
+  discoverImageInput.value = "";
+
+
   popup.style.display = "flex";
 }
 
@@ -323,6 +392,15 @@ async function uploadImage(file, path) {
 saveBtn.onclick = async () => {
   const name = nameInput.value.trim();
   const intro = introInput.value.trim();
+  let discoverImageUrl = null;
+
+  if (discoverImageInput.files[0]) {
+    discoverImageUrl = await uploadImage(
+      discoverImageInput.files[0],
+      `coaches/discover_${Date.now()}_${discoverImageInput.files[0].name}`
+    );
+  }
+
 
   const achievements = Array.from(
     achievementsList.querySelectorAll("input")
@@ -359,8 +437,12 @@ saveBtn.onclick = async () => {
     slug: slugify(name),
     intro,
     achievements,
-    additionalImages: finalAdditionalImages
+    additionalImages: finalAdditionalImages,
   };
+
+  if (discoverImageUrl) {
+    payload.discoverImageUrl = discoverImageUrl;
+  }
 
   if (mainImageUrl) payload.imageUrl = mainImageUrl;
 
