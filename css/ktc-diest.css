@@ -21,6 +21,16 @@ html {
   --darkblue: #1c352d;
 }
 
+.holder-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.image-in-list {
+  border-radius: 5px;
+}
+
 .loading-spinner {
   width: 100px;
 }
@@ -2533,6 +2543,15 @@ html {
 @media screen and (max-width: 479px) {
   .containcenter {
     width: 85%;
+  }
+
+  .holder-images {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-in-list {
+    width: 100%;
   }
 
   .coach.fullpage {
