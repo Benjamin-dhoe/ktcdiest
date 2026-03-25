@@ -1976,8 +1976,8 @@ html {
   border-style: solid;
   border-color: var(--lineslight);
   border-radius: 10px;
-  width: 200px;
-  min-height: 260px;
+  width: 300px;
+  min-height: 330px;
   overflow: hidden;
 }
 
