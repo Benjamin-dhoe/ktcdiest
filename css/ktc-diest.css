@@ -1982,6 +1982,7 @@ html {
   border-color: var(--lineslight);
   border-radius: 10px;
   width: 300px;
+  max-width: 100%;
   min-height: 330px;
   overflow: hidden;
 }
