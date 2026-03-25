@@ -2352,6 +2352,10 @@ html {
     line-height: 24px;
   }
 
+  .holder-images {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .waGrid {
     grid-template-columns: 1fr;
   }
