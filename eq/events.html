@@ -187,6 +187,11 @@
             <input type="radio" name="inscription-method" value="external">
             <span class="radio-visual">Externe link</span>
           </label>
+
+          <label class="radio-option">
+            <input type="radio" name="inscription-method" value="none">
+            <span class="radio-visual">Geen inschrijvingen</span>
+          </label>
         </div>
     
         <div id="external-link-section" class="event-question" style="display:none;">
@@ -217,11 +222,12 @@
           <div class="event-question">
             <h4 class="subsection-title">Formulier velden</h4>
             <div class="hint">Welke informatie moet er ingevuld worden bij inschrijving?</div>
+            
+            <div id="event-form-fields"></div>
             <div class="alwaysflexhorizontal" style="gap: 10px; cursor: pointer;" id="add-form-field-btn">
               <button class="circle-add-btn">+</button>
               <div class="smalltext">Formulierveld toevoegen</div>
             </div>
-            <div id="event-form-fields"></div>
           </div>
     
         </div>
@@ -965,9 +971,12 @@
       if (radio.value === "external") {
         externalLinkSection.style.display = "block";
         formSection.style.display = "none";
-      } else {
+      } else if (radio.value === "form") {
         externalLinkSection.style.display = "none";
         formSection.style.display = "block";
+      } else {
+        externalLinkSection.style.display = "none";
+        formSection.style.display = "none";
       }
     });
   });
