@@ -22,7 +22,7 @@ html {
 }
 
 .holder-achievement-front {
-  background: linear-gradient(135deg, #ffffff10, var(--dark-bg));
+  background: linear-gradient(135deg, var(--darkblue), var(--dark-bg));
   border: 1px solid var(--linesdark);
   border-radius: 8px;
   padding: 14px;
@@ -30,6 +30,7 @@ html {
   color: var(--white-bg);
   box-shadow: 0 0 8px #00000060;
   transition: 0.3s ease;
+  width: 100%;
 }
 
 .achievement-icon img {
