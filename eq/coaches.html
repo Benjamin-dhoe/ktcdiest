@@ -114,25 +114,36 @@
       </div>
 
       <div class="event-section">
-        <label class="section-title">Extar foto's en prestaties</label>
+        <label class="section-title">Extra foto's en prestaties</label>
         <div class="event-question">
           <label>Extra foto's</label>
           <div id="additional-images-container"></div>
         </div>
-  
-        <button id="add-additional-image-btn" class="circle-add-btn">+</button>
+
+        <div class="alwaysflexhorizontal" style="gap: 10px">
+          <button id="add-additional-image-btn" class="circle-add-btn">+</button>
+          <div class="smalltext">Extra foto toevoegen</div>
+        </div>
+        
         <input type="file" id="additional-image-upload" accept="image/*" style="display:none;">
   
-        <div class="achievements-header">
+        <div class="event-question">
           <label>Prestaties</label>
-          <button id="add-achievement-btn" class="circle-add-btn">+</button>
+          <div class="alwaysflexhorizontal" style="gap: 10px">
+            <button id="add-achievement-btn" class="circle-add-btn">+</button>
+            <div class="smalltext">Prestatie toevoegen</div>
+          </div>
+          <div id="achievements-list"></div>
         </div>
-        <div id="achievements-list"></div>
+        
       </div>
 
       <div class="event-section">
         <label class="section-title">Get to know coach</label>
-        <button id="add-extra-info-btn" type="button">+</button>
+        <div class="alwaysflexhorizontal" style="gap: 10px">
+          <button id="add-extra-info-btn" type="button">+</button>
+          <div class="smalltext">Q&A toevoegen</div>
+        </div>
         <div id="coach-extra-info"></div>
         <label>Get to know foto</label>
         <img id="coach-discover-image-preview" class="preview-img" style="display:none;">
