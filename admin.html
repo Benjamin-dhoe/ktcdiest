@@ -329,7 +329,6 @@
   }
 
   document.getElementById('loginbtn').addEventListener('click', login);
-  const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has('unauth')) {
     deleteCookie('token');
     deleteCookie('userId');
