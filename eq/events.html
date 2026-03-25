@@ -207,14 +207,20 @@
     
           <div id="payment-options-section" class="event-question" style="display:none;">
             <h4 class="subsection-title">Prijsopties</h4>
-            <button id="add-price-option-btn" type="button">+</button>
+            <div class="alwaysflexhorizontal" style="gap: 10px; cursor: pointer;" id="add-price-option-btn">
+              <button class="circle-add-btn">+</button>
+              <div class="smalltext">Prijs optie toevoegen</div>
+            </div>
             <div id="event-price-options"></div>
           </div>
     
           <div class="event-question">
             <h4 class="subsection-title">Formulier velden</h4>
             <div class="hint">Welke informatie moet er ingevuld worden bij inschrijving?</div>
-            <button id="add-form-field-btn" type="button">+</button>
+            <div class="alwaysflexhorizontal" style="gap: 10px; cursor: pointer;" id="add-form-field-btn">
+              <button class="circle-add-btn">+</button>
+              <div class="smalltext">Formulierveld toevoegen</div>
+            </div>
             <div id="event-form-fields"></div>
           </div>
     
@@ -281,7 +287,10 @@
       <div class="event-section">
         <h3 class="section-title">Extra informatie</h3>
         <div class="hint">Dit is extra informatie die op de event pagina verschijnt</div>
-        <button id="add-extra-info-btn" type="button">+</button>
+        <div class="alwaysflexhorizontal" style="gap: 10px; cursor: pointer;" id="add-extra-info-btn">
+          <button class="circle-add-btn">+</button>
+          <div class="smalltext">Extra info toevoegen</div>
+        </div>
         <div id="event-extra-info"></div>
       </div>
     
@@ -439,10 +448,41 @@
     div.className = "dynamic-item";
     div.innerHTML = html;
     container.appendChild(div);
-
-    const removeBtn = div.querySelector(".remove-btn");
-    if (removeBtn) removeBtn.addEventListener("click", () => div.remove());
+  
+    // Remove field
+    div.querySelector(".remove-btn").onclick = () => div.remove();
+  
+    // Field type change
+    const typeSelect = div.querySelector(".field-type");
+    const optionsContainer = div.querySelector(".options-container");
+  
+    typeSelect.onchange = () => {
+      if (typeSelect.value === "text") {
+        optionsContainer.style.display = "none";
+      } else {
+        optionsContainer.style.display = "block";
+      }
+    };
+  
+    // Add option
+    const addOptionBtn = div.querySelector(".add-option-btn");
+    const optionsList = div.querySelector(".options-list");
+  
+    addOptionBtn.onclick = () => {
+      const opt = document.createElement("div");
+      opt.innerHTML = optionTemplate();
+      opt.className = "option-item";
+  
+      opt.querySelector(".remove-option-btn").onclick = () => opt.remove();
+      optionsList.appendChild(opt);
+    };
+  
+    // Remove existing options
+    div.querySelectorAll(".remove-option-btn").forEach(btn => {
+      btn.onclick = () => btn.closest(".option-item").remove();
+    });
   }
+
 
   function priceTemplate(item = { label: "", price: "" }) {
     return `
@@ -452,14 +492,32 @@
     `;
   }
 
+  function optionTemplate(value = "") {
+    return `
+      <div class="option-item">
+        <input type="text" class="option-value" value="${value}">
+        <button class="remove-option-btn" type="button">X</button>
+      </div>
+    `;
+  }
+
   function fieldTemplate(item = { label: "", type: "text", required: false }) {
     return `
       <input class="field-label" type="text" placeholder="Veldlabel" value="${item.label}">
       <select class="field-type">
-        <option value="text" ${item.type === "text" ? "selected" : ""}>Tekst</option>
-        <option value="checkbox" ${item.type === "checkbox" ? "selected" : ""}>Checkbox</option>
-        <option value="radio" ${item.type === "radio" ? "selected" : ""}>Radio</option>
+        <option value="text" ${item.type === "text" ? "selected" : ""}>Vrije tekst</option>
+        <option value="list-single" ${item.type === "list" ? "selected" : ""}>Keuzelijst (1 optie)</option>
+        <option value="list-multiple" ${item.type === "list" ? "selected" : ""}>Keuzelijst (meer opties kiezen)</option>
       </select>
+
+      <div class="options-container" style="display:${item.type === "text" ? "none" : "block"};">
+        <div class="options-list">
+          ${(item.options || [])
+            .map(opt => optionTemplate(opt))
+            .join("")}
+        </div>
+        <button class="add-option-btn" type="button">+ optie</button>
+      </div>
 
      <div class="flexhorizontal" style="gap: 10px; align-items: center;">
       <div class="holdertoggle">
@@ -490,14 +548,23 @@
   }
 
   function collectFormFields() {
-    const items = formFieldsContainer.querySelectorAll(".dynamic-item");
+    const items = document.querySelectorAll("#event-fields .dynamic-item");
     const result = [];
+  
     items.forEach(div => {
-      const label = div.querySelector(".field-label")?.value.trim();
-      const type = div.querySelector(".field-type")?.value;
-      const required = div.querySelector(".field-required")?.checked;
-      if (label) result.push({ label, type, required });
+      const label = div.querySelector(".field-label").value.trim();
+      const type = div.querySelector(".field-type").value;
+  
+      let options = [];
+      if (type !== "text") {
+        options = Array.from(div.querySelectorAll(".option-value"))
+          .map(i => i.value.trim())
+          .filter(v => v.length > 0);
+      }
+  
+      result.push({ label, type, options });
     });
+  
     return result;
   }
 
