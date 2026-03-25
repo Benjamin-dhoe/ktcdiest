@@ -652,6 +652,16 @@
           <div class="holder-locations" data-aos="fade-up">
             <div class="locationdiv">
               <img
+                src="/images/diest-buiten.JPG"
+                loading="lazy"
+                alt=""
+                class="locationim"
+              />
+              <h3 class="subtitle">KTC Diest - outdoor</h3>
+              <div class="address-text">Warandepark, 3290 Diest</div>
+            </div>
+            <div class="locationdiv">
+              <img
                 src="/images/karteria.JPG"
                 loading="lazy"
                 sizes="(max-width: 1080px) 100vw, 1080px"
@@ -666,22 +676,6 @@
               <h3 class="subtitle">Karteria Diest - indoor</h3>
               <div class="address-text">Kluisbergstraat 21, 3290 Diest</div>
             </div>
-            <div class="locationdiv">
-              <img
-                src="/images/diest-buiten.JPG"
-                loading="lazy"
-                sizes="(max-width: 1080px) 100vw, 1080px"
-                srcset="
-                  /images/diest-buiten-p-500.jpg  500w,
-                  /images/diest-buiten-p-800.jpg  800w,
-                  /images/diest-buiten.JPG       1080w
-                "
-                alt=""
-                class="locationim"
-              />
-              <h3 class="subtitle">KTC Diest - outdoor</h3>
-              <div class="address-text">Warandepark, 3290 Diest</div>
-            </div>
           </div>
         </div>
       </div>
@@ -691,7 +685,7 @@
         <div class="breathing-header centered">Onze trainers</div>
       </div>
       <div class="holderfilterbtn">
-        <a href="/coaches.html" class="filterbutton" id="open-event-filters-btn">
+        <a href="/coaches.html" class="filterbutton" style="display: block">
           <img
             loading="lazy"
             src="/images/icon-list.png"
@@ -1059,5 +1053,54 @@
     <script src="/js/nav.js" type="text/javascript"></script>
     <script src="/js/index.js" type="text/javascript"></script>
     <script src="/js/eventsfilter.js" type="text/javascript"></script>
+    <script>
+      async function coachesReel() {
+        const coachesReelElement = document.getElementById('coachesreel');
+        if (!coachesReelElement) return;
+
+        const coachesSnapshot = await getDocs(collection(db, 'coaches'));
+    
+        const coachElements = [];
+    
+        coachesSnapshot.docs.forEach(doc => {
+            const coach = doc.data();
+    
+            const coachElement = document.createElement('a');
+            coachElement.className = 'coach w-inline-block';
+    
+            coachElement.href = `/coach/${coach.slug}`;
+    
+            coachElement.innerHTML = `
+              <img width="207" alt="${coach.name}" src="${coach.imageUrl}" loading="eager" class="coachimageinslider">
+              <div class="namecoachinslider">
+                <div>${coach.name}</div>
+              </div>
+            `;
+    
+            coachElements.push(coachElement);
+        });
+    
+        coachElements.forEach(element => coachesReelElement.appendChild(element));
+    
+        coachElements.forEach(element => {
+            const clone = element.cloneNode(true);
+            coachesReelElement.appendChild(clone);
+        });
+    
+        adjustScrollSpeed(coachElements.length);
+    }
+
+    function adjustScrollSpeed(partnerCount) {
+      const partnerWidth = 207;
+      const totalWidth = partnerCount * partnerWidth * 2;
+  
+      const scrollDuration = totalWidth / 200;
+  
+      // Apply inline style to #partners element
+      const coachesReelElement = document.getElementById('coachesreel');
+      coachesReelElement.style.animationDuration = `${scrollDuration}s`;
+    }
+    coachesReel();
+    </script>
   </body>
 </html>
