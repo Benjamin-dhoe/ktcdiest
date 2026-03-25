@@ -85,70 +85,45 @@
       </div>
     </div>
   </div>
-  <!-- ADD COACH POPUP -->
-<div id="add-coach-form" class="popup">
+
+<!-- ADD/EDIT COACH POPUP -->
+<div id="coach-popup" class="popup">
   <div class="popup-content">
-    <button class="popup-close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">✕</button>
+    <button class="popup-close-btn" id="closePopupBtnTop">✕</button>
+
     <div class="innerpopup">
-      <h2>Coach toevoegen</h2>
-  
+      <h2 id="popup-title">Coach toevoegen</h2>
+
       <label>Naam</label>
-      <input type="text" id="coachname">
-  
-      <label>Samenvatting</label>
-      <textarea id="coachsummary"></textarea>
-  
-      <label>Foto uploaden</label>
-      <input type="file" id="coachimageupload" accept="image/*">
-  
-      <div id="filelarge" class="error">Bestand is te groot (max 1MB)</div>
-  
+      <input type="text" id="coach-name">
+
+      <label>Intro text</label>
+      <textarea id="coach-intro"></textarea>
+
+      <label>Hoofdfoto</label>
+      <img id="coach-main-image-preview" class="preview-img" style="display:none;">
+      <input type="file" id="coach-main-image" accept="image/*">
+
+      <h3>Extra foto's</h3>
+      <div id="additional-images-container"></div>
+
+      <button id="add-additional-image-btn" class="circle-add-btn">+</button>
+      <input type="file" id="additional-image-upload" accept="image/*" style="display:none;">
+
       <div class="achievements-header">
-        <h3>Achievements</h3>
+        <h3>Prestaties</h3>
         <button id="add-achievement-btn" class="circle-add-btn">+</button>
       </div>
-      <div id="add-achievements-list"></div>
-  
+      <div id="achievements-list"></div>
+
       <div class="popup-actions">
-        <button id="submit-coach-btn" class="primary-btn">Opslaan</button>
-        <button class="close-btn" onclick="document.getElementById('add-coach-form').style.display='none'">Annuleren</button>
+        <button id="save-coach-btn" class="primary-btn">Opslaan</button>
+        <button id="closePopupBtn" class="close-btn">Sluiten</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- EDIT COACH POPUP -->
-<div id="edit-coach-popup" class="popup">
-  <div class="popup-content">
-    <button class="popup-close-btn" id="closeEditBtnTop">✕</button>
-    <div class="innerpopup">
-      <h2>Coach bewerken</h2>
-  
-      <label>Naam</label>
-      <input type="text" id="edit-coachname">
-  
-      <label>Intro text</label>
-      <textarea id="edit-coachsummary"></textarea>
-  
-      <label>Huidige foto</label>
-      <img id="current-coach-image" class="preview-img">
-  
-      <label>Nieuwe foto uploaden</label>
-      <input type="file" id="edit-coachimageupload" accept="image/*">
-  
-      <div class="achievements-header">
-        <h3>Prestaties</h3>
-        <button id="edit-add-achievement-btn" class="circle-add-btn">+</button>
-      </div>
-      <div id="edit-achievements-list"></div>
-  
-      <div class="popup-actions">
-        <button id="save-edit-btn" class="primary-btn">Opslaan</button>
-        <button id="closeEditBtn" class="close-btn">Sluiten</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- DELETE CONFIRMATION -->
 <div id="delete-coach-modal" class="popup">
@@ -165,249 +140,263 @@
 </div>
 <script src="/js/dash.js" type="text/javascript"></script>
 <script type="module">
-  import { app } from "/js/firebase.js";
-  import { createLoadingSpinner, showLoadingSpinner } from "/js/Spinner.js";
-  import { 
-    getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc 
-  } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-  import { 
-    getStorage, ref, uploadBytes, getDownloadURL 
-  } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-  import { slugify } from "/js/utility.js";
-  
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-  const listHolder = document.getElementById("holdercoaches");
-  const addCoachForm = document.getElementById("add-coach-form");
-  const editCoachForm = document.getElementById("edit-coach-popup");
-  const closeDeleteModalButton = document.getElementById("close-delete-modal");
-  const deleteCoachModal = document.getElementById("delete-coach-modal");
-  const deleteConfirmButton = document.getElementById("delete-confirm-button");
-  
-  let currentDeleteDocId = null;
-  const loadingSpinner = showLoadingSpinner(listHolder);
+import { app } from "/js/firebase.js";
+import { slugify } from "/js/utility.js";
+import {
+  getFirestore, collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import {
+  getStorage, ref, uploadBytes, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
-  // Helper: achievement toevoegen
-  function addAchievement(containerId, value = "") {
-    const container = document.getElementById(containerId);
-    const div = document.createElement("div");
-    div.className = "achievement-item";
-    div.innerHTML = `
-      <input type="text" value="${value ? value.replace(/"/g, "&quot;") : ""}" placeholder="Achievement">
-      <button class="remove-ach-btn" type="button">X</button>
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+const listHolder = document.getElementById("holdercoaches");
+const popup = document.getElementById("coach-popup");
+
+const popupTitle = document.getElementById("popup-title");
+const nameInput = document.getElementById("coach-name");
+const introInput = document.getElementById("coach-intro");
+const mainImageInput = document.getElementById("coach-main-image");
+const mainImagePreview = document.getElementById("coach-main-image-preview");
+
+const achievementsList = document.getElementById("achievements-list");
+const addAchievementBtn = document.getElementById("add-achievement-btn");
+
+const additionalImagesContainer = document.getElementById("additional-images-container");
+const addAdditionalImageBtn = document.getElementById("add-additional-image-btn");
+const additionalImageUpload = document.getElementById("additional-image-upload");
+
+const saveBtn = document.getElementById("save-coach-btn");
+
+let popupMode = "add"; // "add" or "edit"
+let currentCoachId = null;
+let additionalImages = []; // URLs
+let removedImages = []; // URLs to delete
+
+// -------------------------------
+// Helper: Add achievement input
+// -------------------------------
+function addAchievement(value = "") {
+  const div = document.createElement("div");
+  div.className = "achievement-item";
+  div.innerHTML = `
+    <input type="text" value="${value.replace(/"/g, "&quot;")}" placeholder="Achievement">
+    <button class="remove-ach-btn" type="button">X</button>
+  `;
+  div.querySelector(".remove-ach-btn").onclick = () => div.remove();
+  achievementsList.appendChild(div);
+}
+
+// -------------------------------
+// Helper: Add additional image preview
+// -------------------------------
+function addAdditionalImage(url, isExisting = false) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "additional-image-item";
+
+  wrapper.innerHTML = `
+    <img src="${url}" class="preview-img-small">
+    <button class="remove-additional-img-btn">X</button>
+  `;
+
+  wrapper.querySelector(".remove-additional-img-btn").onclick = () => {
+    if (isExisting) removedImages.push(url);
+    additionalImages = additionalImages.filter(img => img !== url);
+    wrapper.remove();
+  };
+
+  additionalImagesContainer.appendChild(wrapper);
+}
+
+// -------------------------------
+// Load coaches
+// -------------------------------
+async function loadCoaches() {
+  const querySnapshot = await getDocs(collection(db, "coaches"));
+  listHolder.innerHTML = "";
+
+  querySnapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+    const id = docSnap.id;
+
+    const item = document.createElement("div");
+    item.className = "collection-items-basic flex-hor-spaced";
+    item.innerHTML = `
+      <div class="flexhorizontal" style="gap: 12px">
+        <div class="coachhold">
+          <img loading="lazy" width="40" src="${data.imageUrl || "/images/placeholder.jpg"}">
+        </div>
+        <div class="bold-text">${data.name}</div>
+      </div>
+      <div class="holderactionbtns">
+        <button class="actionbtn edit-btn" data-id="${id}"><img src="/images/edit.svg"></button>
+        <button class="actionbtn delete-btn" data-id="${id}"><img src="/images/delete.svg"></button>
+      </div>
     `;
-    container.appendChild(div);
-
-    div.querySelector(".remove-ach-btn").addEventListener("click", () => {
-      div.remove();
-    });
-  }
-
-  // Load coaches from Firestore
-  async function loadCoaches() {
-    const querySnapshot = await getDocs(collection(db, "coaches"));
-    listHolder.innerHTML = "";
-    querySnapshot.forEach((docSnap) => {
-      const coachData = docSnap.data();
-      const coachId = docSnap.id;
-      const coachItem = document.createElement("div");
-      coachItem.className = "collection-items-basic flex-hor-spaced";
-      coachItem.innerHTML = `
-        <div class="flexhorizontal" style="gap: 12px">
-          <div class="coachhold">
-            <img loading="lazy" width="40" src="${coachData.imageUrl || "/images/placeholder.jpg"}" alt="${coachData.name}">
-          </div>
-          <div class="bold-text">${coachData.name}</div>
-        </div>
-        <div class="holderactionbtns">
-            <button class="actionbtn edit-btn" data-id="${coachId}"><img src="/images/edit.svg"></button>
-            <button class="actionbtn delete-btn" data-id="${coachId}"><img src="/images/delete.svg"></button>
-        </div>
-      `;
-      listHolder.appendChild(coachItem);
-    });
-
-    document.querySelectorAll(".edit-btn").forEach((button) => {
-      button.addEventListener("click", openEditPopup);
-    });
-
-    document.querySelectorAll(".delete-btn").forEach((button) => {
-      button.addEventListener("click", openDeleteModal);
-    });
-  }
-
-  // Open the add coach form
-  document.getElementById("add-coach-btn").addEventListener("click", () => {
-    addCoachForm.style.display = "flex";
-    document.getElementById("coachname").value = "";
-    document.getElementById("coachsummary").value = "";
-    document.getElementById("coachimageupload").value = "";
-    document.getElementById("add-achievements-list").innerHTML = "";
+    listHolder.appendChild(item);
   });
 
-  // Achievements knoppen
-  document.getElementById("add-achievement-btn").addEventListener("click", () => {
-    addAchievement("add-achievements-list");
-  });
+  document.querySelectorAll(".edit-btn").forEach(btn =>
+    btn.onclick = openEditPopup
+  );
 
-  document.getElementById("edit-add-achievement-btn").addEventListener("click", () => {
-    addAchievement("edit-achievements-list");
-  });
+  document.querySelectorAll(".delete-btn").forEach(btn =>
+    btn.onclick = openDeleteModal
+  );
+}
 
-  // Handle adding a new coach
-  document.getElementById("submit-coach-btn").addEventListener("click", async (e) => {
-    e.preventDefault();
-    const name = document.getElementById("coachname").value;
-    const intro = document.getElementById("coachsummary").value;
-    const imageFile = document.getElementById("coachimageupload").files[0];
+// -------------------------------
+// Open popup in ADD mode
+// -------------------------------
+document.getElementById("add-coach-btn").onclick = () => {
+  popupMode = "add";
+  currentCoachId = null;
 
-    // achievements ophalen
-    const achievementsInputs = document.querySelectorAll("#add-achievements-list .achievement-item input");
-    const achievements = Array.from(achievementsInputs)
-      .map(i => i.value.trim())
-      .filter(v => v.length > 0);
+  popupTitle.textContent = "Coach toevoegen";
 
-    let imageUrl = "";
-    if (imageFile) {
-      imageUrl = await uploadImage(imageFile);
-      if (!imageUrl) return; // upload faalde
-    }
+  nameInput.value = "";
+  introInput.value = "";
+  mainImageInput.value = "";
+  mainImagePreview.style.display = "none";
 
-    await addDoc(collection(db, "coaches"), { 
-      name: name,
-      slug: slugify(name),
-      intro,
-      imageUrl,
-      achievements
-    });
+  achievementsList.innerHTML = "";
+  additionalImagesContainer.innerHTML = "";
+  additionalImages = [];
+  removedImages = [];
 
-    addCoachForm.style.display = "none";
-    loadCoaches();
-  });
+  popup.style.display = "flex";
+};
 
-  deleteConfirmButton.addEventListener("click", handleDelete);
+// -------------------------------
+// Open popup in EDIT mode
+// -------------------------------
+async function openEditPopup(e) {
+  popupMode = "edit";
+  currentCoachId = e.target.closest("button").dataset.id;
 
-  // Function to open the edit popup
-  async function openEditPopup(event) {
-    const button = event.target.closest("button[data-id]");
-    const coachId = button.getAttribute("data-id");
+  popupTitle.textContent = "Coach bewerken";
 
-    const coachRef = doc(db, "coaches", coachId);
+  const refDoc = doc(db, "coaches", currentCoachId);
+  const snap = await getDoc(refDoc);
 
-    try {
-      const coachSnapshot = await getDoc(coachRef);
-      if (coachSnapshot.exists()) {
-        const coachData = coachSnapshot.data();
+  if (!snap.exists()) return;
 
-        document.getElementById("edit-coachname").value = coachData.name || "";
-        document.getElementById("edit-coachsummary").value = coachData.intro || "";
-        document.getElementById("current-coach-image").src = coachData.imageUrl || "";
+  const data = snap.data();
 
-        // achievements vullen
-        const editContainer = document.getElementById("edit-achievements-list");
-        editContainer.innerHTML = "";
-        (coachData.achievements || []).forEach(a => addAchievement("edit-achievements-list", a));
+  nameInput.value = data.name || "";
+  introInput.value = data.intro || "";
 
-        // Save button koppelen
-        document.getElementById("save-edit-btn").onclick = (e) => handleEditCoach(e, coachId);
-
-        editCoachForm.style.display = "flex";
-      } else {
-        console.error("No such coach document!");
-      }
-    } catch (error) {
-      console.error("Error opening edit popup:", error);
-    }
+  // Main image
+  if (data.imageUrl) {
+    mainImagePreview.src = data.imageUrl;
+    mainImagePreview.style.display = "block";
   }
 
-  // Handle editing a coach
-  async function handleEditCoach(e, coachId) {
-    e.preventDefault();
-    const name = document.getElementById("edit-coachname").value;
-    const intro = document.getElementById("edit-coachsummary").value;
-    const imageFile = document.getElementById("edit-coachimageupload").files[0];
-    let imageUrl;
+  // Achievements
+  achievementsList.innerHTML = "";
+  (data.achievements || []).forEach(a => addAchievement(a));
 
-    if (imageFile) {
-      imageUrl = await uploadImage(imageFile);
-      if (!imageUrl) return;
-    }
+  // Additional images
+  additionalImagesContainer.innerHTML = "";
+  additionalImages = [...(data.additionalImages || [])];
+  removedImages = [];
 
-    const achievementsInputs = document.querySelectorAll("#edit-achievements-list .achievement-item input");
-    const achievements = Array.from(achievementsInputs)
-      .map(i => i.value.trim())
-      .filter(v => v.length > 0);
+  additionalImages.forEach(url => addAdditionalImage(url, true));
 
-    const coachRef = doc(db, "coaches", coachId);
-    const updatedData = { 
-      name: name,
-      slug: slugify(name),
-      intro,
-      achievements
-    };
-    if (imageUrl) updatedData.imageUrl = imageUrl;
+  popup.style.display = "flex";
+}
 
-    await updateDoc(coachRef, updatedData);
-    editCoachForm.style.display = "none";
-    loadCoaches();
+// -------------------------------
+// Upload helper
+// -------------------------------
+async function uploadImage(file, path) {
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file);
+  return await getDownloadURL(storageRef);
+}
+
+// -------------------------------
+// Save coach (add or edit)
+// -------------------------------
+saveBtn.onclick = async () => {
+  const name = nameInput.value.trim();
+  const intro = introInput.value.trim();
+
+  const achievements = Array.from(
+    achievementsList.querySelectorAll("input")
+  )
+    .map(i => i.value.trim())
+    .filter(v => v.length > 0);
+
+  let mainImageUrl = null;
+
+  if (mainImageInput.files[0]) {
+    mainImageUrl = await uploadImage(
+      mainImageInput.files[0],
+      `coaches/main_${Date.now()}_${mainImageInput.files[0].name}`
+    );
   }
 
-  async function uploadImage(file) {
-    const MAX_FILE_SIZE = 1048576;
-    const fileError = document.getElementById("filelarge");
-
-    if (file.size > MAX_FILE_SIZE) {
-      fileError.style.display = "block";
-      setTimeout(() => {
-        fileError.style.display = "none";
-      }, 10000);
-      return null;
-    } else {
-      fileError.style.display = "none";
-    }
-
-    try {
-      const storageRef = ref(storage, 'coaches/' + file.name);
-      await uploadBytes(storageRef, file);
-      return await getDownloadURL(storageRef);
-    } catch (error) {
-      console.error("File upload error:", error);
-      return null;
-    }
+  // Upload new additional images
+  const newUploads = [];
+  for (const file of additionalImageUpload.files) {
+    const url = await uploadImage(
+      file,
+      `coaches/additional_${Date.now()}_${file.name}`
+    );
+    newUploads.push(url);
   }
 
-  function openDeleteModal(event) {
-    const docId = event.target.closest("button").dataset.id;
-    currentDeleteDocId = docId;
-    deleteCoachModal.style.display = "flex";
+  const finalAdditionalImages = [
+    ...additionalImages,
+    ...newUploads
+  ].filter(url => !removedImages.includes(url));
+
+  const payload = {
+    name,
+    slug: slugify(name),
+    intro,
+    achievements,
+    additionalImages: finalAdditionalImages
+  };
+
+  if (mainImageUrl) payload.imageUrl = mainImageUrl;
+
+  if (popupMode === "add") {
+    await addDoc(collection(db, "coaches"), payload);
+  } else {
+    await updateDoc(doc(db, "coaches", currentCoachId), payload);
   }
 
-  async function handleDelete() {
-    if (currentDeleteDocId) {
-      const coachRef = doc(db, "coaches", currentDeleteDocId);
-      await deleteDoc(coachRef);
-      loadCoaches();
-    }
-    deleteCoachModal.style.display = "none";
-  }
-
+  popup.style.display = "none";
   loadCoaches();
+};
 
-  document.getElementById("closeEditBtn").addEventListener("click", function() {
-    editCoachForm.style.display = "none";
-  });
+addAdditionalImageBtn.onclick = () => additionalImageUpload.click();
 
-  document.getElementById("closeEditBtnTop").addEventListener("click", function() {
-    editCoachForm.style.display = "none";
-  });
+additionalImageUpload.onchange = async () => {
+  const file = additionalImageUpload.files[0];
+  if (!file) return;
 
-  closeDeleteModalButton.addEventListener("click", function() {
-    deleteCoachModal.style.display = "none";
-  });
+  const url = URL.createObjectURL(file);
+  addAdditionalImage(url, false);
+};
 
-  document.getElementById("close-delete-modal-top").addEventListener("click", function() {
-    deleteCoachModal.style.display = "none";
-  });
+function openDeleteModal(e) {
+  const id = e.target.closest("button").dataset.id;
+  if (confirm("Coach verwijderen?")) {
+    deleteDoc(doc(db, "coaches", id)).then(loadCoaches);
+  }
+}
+
+document.getElementById("closePopupBtn").onclick =
+document.getElementById("closePopupBtnTop").onclick =
+  () => popup.style.display = "none";
+
+loadCoaches();
+
 </script>
 
 </body></html>
