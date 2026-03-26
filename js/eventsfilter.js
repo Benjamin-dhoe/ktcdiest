@@ -147,6 +147,23 @@ async function populateEventSection() {
   try {
     await loadEvents();
     eventCards = document.querySelectorAll(".event-holder");
+    let rawAges = card.getAttribute("filter-leeftijd") || "[]";
+
+    // Fix missing closing bracket
+    rawAges = rawAges.trim();
+    if (!rawAges.endsWith("]")) {
+      rawAges = rawAges + "]";
+    }
+    
+    let cardAges = [];
+    
+    try {
+      cardAges = JSON.parse(rawAges).map(a => String(a).toLowerCase());
+    } catch (e) {
+      console.warn("Invalid JSON in filter-leeftijd:", rawAges);
+      cardAges = [];
+    }
+
   } catch (err) {
     console.error(err);
   }
