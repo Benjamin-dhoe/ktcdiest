@@ -185,78 +185,15 @@
               <!-- LOCATIE -->
               <div class="tsFaqSection">
                 <div class="tsFaqTitle">Locatie</div>
-
-                <div class="tsFaqPriceCard">
-                  <div class="tsFaqPriceRow">
-                    <span class="tsFaqPriceLabel">Trainingsdagen</span>
-                    <span class="tsFaqPriceValue">
-                      maandag<br />
-                      woensdag
-                    </span>
-                  </div>
-
-                  <div class="tsFaqPriceRow">
-                    <span class="tsFaqPriceLabel">Locatie</span>
-                    <span class="tsFaqPriceValue">Warandepark te Diest</span>
-                  </div>
-                </div>
+                <div id="locationContainer" class="tsFaqPriceCard"></div>
               </div>
 
-              <!-- PERIODE -->
-              <div class="tsFaqSection">
-                <div class="tsFaqTitle">Periode</div>
-
-                <div class="tsFaqText">
-                  Het is belangrijk om de kalender van de tennisschool goed in
-                  de gaten te houden. Je kan deze vinden via
-                  <a class="tsFaqLink" href="/kalender">deze link</a>.
-                </div>
-
-                <div class="tsFaqHighlight">
-                  De lessen starten op maandag 20 april 2026 en eindigen op
-                  vrijdag 12 juni 2026. In totaal zullen er 7 trainingsmomenten
-                  plaatsvinden.
-                </div>
-              </div>
-
-              <!-- INSCHRIJVEN -->
               <div class="tsFaqSection">
                 <div class="tsFaqTitle">Inschrijven</div>
-
-                <div class="tsFaqPriceCard">
-                  <div class="tsFaqPriceRow">
-                    <span class="tsFaqPriceLabel">Leeftijd</span>
-                    <span class="tsFaqPriceValue"
-                      >2de kleuterklas t.e.m. 2de leerjaar</span
-                    >
-                  </div>
-
-                  <div class="tsFaqPriceRow">
-                    <span class="tsFaqPriceLabel">Trainingsdagen</span>
-                    <span class="tsFaqPriceValue">
-                      maandag<br />
-                      woensdag
-                    </span>
-                  </div>
-
-                  <div class="tsFaqPriceRow">
-                    <span class="tsFaqPriceLabel">Prijs</span>
-                    <span class="tsFaqPriceValue">
-                      70 EUR voor één trainingsmoment van 1 uur gedurende 7
-                      weken.<br />
-                      Op de tweede sessie krijg je 50% korting.
-                    </span>
-                  </div>
-
-                  <a
-                    class="tsFaqButton"
-                    target="_blank"
-                    href="https://www.tennisenpadelvlaanderen.be/nl/clubdashboard/doelgroep-details?clubId=2478&aanbodId=9909&doelgroepId=42491"
-                  >
-                    Inschrijven
-                  </a>
-                </div>
+                <div id="inschrijvenContainer" class="tsFaqPriceCard"></div>
               </div>
+              
+              
 
               <!-- BELANGRIJK -->
               <div class="tsFaqSection">
@@ -290,48 +227,8 @@
               <!-- BELANGRIJKE DATA -->
               <div class="tsFaqSection">
                 <div class="tsFaqTitle">Belangrijke data</div>
-
-                <div class="tsFaqDates">
-                  <div class="tsFaqDateRow">
-                    <span class="tsFaqDateLabel">Inschrijven vanaf</span>
-                    <span class="tsFaqDateValue">1 december 2025</span>
-                  </div>
-
-                  <div class="tsFaqDateRow">
-                    <span class="tsFaqDateLabel">Inschrijven tot</span>
-                    <span class="tsFaqDateValue">1 maart 2026</span>
-                  </div>
-
-                  <div class="tsFaqDateRow">
-                    <span class="tsFaqDateLabel">Planningsvoorstel vanaf</span>
-                    <span class="tsFaqDateValue">24 maart 2026</span>
-                  </div>
-
-                  <div class="tsFaqDateRow">
-                    <span class="tsFaqDateLabel">Start lessen</span>
-                    <span class="tsFaqDateValue">maandag 20 april 2026</span>
-                  </div>
-
-                  <div class="tsFaqDateRow">
-                    <span class="tsFaqDateLabel">Lessen tot</span>
-                    <span class="tsFaqDateValue">vrijdag 12 juni 2026</span>
-                  </div>
-
-                  <div class="tsFaqDateRow">
-                    <span class="tsFaqDateLabel">Lidmaatschap vereist</span>
-                    <span class="tsFaqDateValue">
-                      Niet‑leden van KTC Diest kunnen deelnemen mits het betalen
-                      van een lidmaatschap.
-                    </span>
-                  </div>
-                </div>
-
-                <div class="tsFaqWarning" style="margin-top: 12px">
-                  Let op: het plannen start van zodra de inschrijvingen binnen
-                  komen
-                  <strong>en je lidmaatschap in orde is</strong>. Je hebt er dus
-                  alle voordeel bij om snel in te schrijven.
-                </div>
+                <div id="datesContainer" class="tsFaqDates"></div>
+                <div id="datesWarningContainer" class="tsFaqWarning" style="margin-top: 12px"></div>
               </div>
 
               <!-- WHATSAPP -->
@@ -484,29 +381,128 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/nav.js" type="text/javascript"></script>
-      <script>
-  document.querySelectorAll(".ageBtn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document
-        .querySelectorAll(".ageBtn")
-        .forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
+<script type="module">
+ import { app } from "/js/firebase.js";
+import { 
+  getFirestore, collection, getDocs 
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
-      document.querySelectorAll(".tsFaqPriceCard").forEach((card) => {
-        card.classList.remove("highlight");
-        card.style.display = "none";
-      });
+import { showLoadingSpinner, removeLoadingSpinner } from "/js/Spinner.js";
 
-      const targetId = btn.getAttribute("data-target");
-      const card = document.getElementById(targetId);
+const db = getFirestore(app);
 
-      if (card) {
-        card.style.display = "block";
-        card.classList.add("highlight");
-        card.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    });
-  });
+export async function loadTrainingInformation() {
+  const containers = {
+    location: document.getElementById("locationContainer"),
+    inschrijven: document.getElementById("inschrijvenContainer"),
+    dates: document.getElementById("datesContainer"),
+    datesWarning: document.getElementById("datesWarningContainer")
+  };
+
+  // Add spinners to all containers
+  Object.values(containers).forEach(c => c && showLoadingSpinner(c));
+
+  try {
+    const snapshot = await getDocs(collection(db, "training_information"));
+    if (snapshot.empty) {
+      console.error("No Firebase data found");
+      return;
+    }
+
+    const data = snapshot.docs[0].data();
+
+    // ---------------------------
+    // LOCATIE
+    // ---------------------------
+    removeLoadingSpinner(containers.location);
+    if (data.location === "karteria") {
+      containers.location.innerHTML = `
+        <a href="https://maps.app.goo.gl/oDUBgGf6K3vhQspY7" target="_blank" class="mapslink w-inline-block">
+          <div class="google-maps winter"></div>
+          <div class="link-footer">
+            Kluisbergstraat 21, <br>3290 Diest
+          </div>
+        </a>
+      `;
+    } else {
+      containers.location.innerHTML = `
+        <a href="https://maps.app.goo.gl/MYCaRUEmZqDxFCWcA" target="_blank" class="mapslink event w-inline-block" style="margin-bottom: 0px">
+          <div class="google-maps zomer"></div>
+          <div class="link-footer dark">Warandepark, 3290 Diest</div>
+        </a>
+      `;
+    }
+
+    // ---------------------------
+    // INSCHRIJVEN
+    // ---------------------------
+    removeLoadingSpinner(containers.inschrijven);
+    containers.inschrijven.innerHTML = `
+      <div class="tsFaqPriceRow">
+        <span class="tsFaqPriceLabel">Trainingsdagen</span>
+        <span class="tsFaqPriceValue">
+          ${data.trainingDays.join("<br>")}
+        </span>
+      </div>
+
+      <div class="tsFaqPriceRow">
+        <span class="tsFaqPriceLabel">Prijs</span>
+        <span class="tsFaqPriceValue">${data.price}</span>
+      </div>
+
+      <a class="tsFaqButton" target="_blank" href="${data.registrationLink}">
+        Inschrijven
+      </a>
+    `;
+
+
+    // ---------------------------
+    // BELANGRIJKE DATA
+    // ---------------------------
+    removeLoadingSpinner(containers.dates);
+    containers.dates.innerHTML = `
+      <div class="tsFaqDateRow">
+        <span class="tsFaqDateLabel">Inschrijven vanaf</span>
+        <span class="tsFaqDateValue">${data.registrationStart}</span>
+      </div>
+
+      <div class="tsFaqDateRow">
+        <span class="tsFaqDateLabel">Inschrijven tot</span>
+        <span class="tsFaqDateValue">${data.registrationEnd}</span>
+      </div>
+
+      <div class="tsFaqDateRow">
+        <span class="tsFaqDateLabel">Planningsvoorstel vanaf</span>
+        <span class="tsFaqDateValue">${data.planningProposal}</span>
+      </div>
+
+      <div class="tsFaqDateRow">
+        <span class="tsFaqDateLabel">Start lessen</span>
+        <span class="tsFaqDateValue">${data.startTrainings}</span>
+      </div>
+
+      <div class="tsFaqDateRow">
+        <span class="tsFaqDateLabel">Lessen tot</span>
+        <span class="tsFaqDateValue">${data.endTrainings}</span>
+      </div>
+
+      <div class="tsFaqDateRow">
+        <span class="tsFaqDateLabel">Lidmaatschap vereist</span>
+        <span class="tsFaqDateValue">${data.membershipRequired}</span>
+      </div>
+    `;
+
+    removeLoadingSpinner(containers.datesWarning);
+    containers.datesWarning.innerHTML = `
+      Let op: het plannen start zodra de inschrijvingen binnenkomen 
+      <strong>en je lidmaatschap in orde is</strong>.
+    `;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+loadTrainingInformation();
 </script>
   </body>
 </html>
