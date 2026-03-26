@@ -536,42 +536,43 @@ async function saveCompetitie() {
 --------------------------------------------------- */
 async function copySharedFromKids() {
   try {
-    const snapshot = await getDoc(COMPETITIE_REF);
+    const kidsRef = doc(db, "training_information", "kids");
+    const snapshot = await getDoc(kidsRef);
+
     if (!snapshot.exists()) {
-      showMessage("Competitie doc niet gevonden.", "error");
+      showMessage("Kids doc niet gevonden.", "error");
       return;
     }
 
     const data = snapshot.data();
 
-    // Copy shared fields ONLY
-    const sharedFields = [
-      "registrationStart",
-      "registrationEnd",
-      "planningProposal",
-      "startTrainings",
-      "endTrainings",
-      "location"
-    ];
+    // Copy shared fields if they exist on kids
+    if (data.registrationStart !== undefined) {
+      document.getElementById("shared-registration-start").value = data.registrationStart;
+    }
+    if (data.registrationEnd !== undefined) {
+      document.getElementById("shared-registration-end").value = data.registrationEnd;
+    }
+    if (data.planningProposal !== undefined) {
+      document.getElementById("shared-planning-proposal").value = data.planningProposal;
+    }
+    if (data.startTrainings !== undefined) {
+      document.getElementById("shared-start-trainings").value = data.startTrainings;
+    }
+    if (data.endTrainings !== undefined) {
+      document.getElementById("shared-end-trainings").value = data.endTrainings;
+    }
 
-    sharedFields.forEach(field => {
-      if (data[field] !== undefined) {
-        const id = `shared-${field.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
-        const el = document.getElementById(id);
-        if (el) el.value = data[field];
-      }
-    });
-
-    // Location radio
+    // Location
     if (data.location) {
       const radio = document.querySelector(`input[name="location"][value="${data.location}"]`);
       if (radio) radio.checked = true;
     }
 
-    showMessage("Gedeelde gegevens van Kids gekopieerd!", "success");
+    showMessage("Gedeelde gegevens van Kids gekopieerd! Vergeet niet op te slaan.", "success");
 
   } catch (err) {
-    console.error("Error copying shared fields:", err);
+    console.error("Error copying shared fields from kids:", err);
     showMessage("Kon Kids gedeelde data niet laden.", "error");
   }
 }
