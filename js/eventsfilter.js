@@ -162,7 +162,7 @@ async function populateEventSection() {
   try {
     await loadEvents();
     eventCards = document.querySelectorAll(".event-holder");
-
+    applyFilters();
 
   } catch (err) {
     console.error(err);
