@@ -589,23 +589,38 @@ export async function loadCompetitiePage() {
     AGE_GROUPS.forEach(age => {
       const group = data[age];
       if (!group) return;
-
+    
       // Tennis
-      document.getElementById(`${age}-tennis`).innerHTML =
-        group.trainingDaysTennis?.join("<br>") || "";
-
+      const tennisValue = group.trainingDaysTennis?.join("<br>") || "";
+      document.getElementById(`${age}-tennis`).innerHTML = tennisValue;
+    
+      const tennisRow = document.getElementById(`${age}-tennis-row`);
+      if (tennisRow) tennisRow.style.display = tennisValue ? "flex" : "none";
+    
       // Conditie
-      document.getElementById(`${age}-conditie`).innerHTML =
-        group.trainingDaysConditie?.join("<br>") || "";
-
+      const conditieValue = group.trainingDaysConditie?.join("<br>") || "";
+      document.getElementById(`${age}-conditie`).innerHTML = conditieValue;
+    
+      const conditieRow = document.getElementById(`${age}-conditie-row`);
+      if (conditieRow) conditieRow.style.display = conditieValue ? "flex" : "none";
+    
       // Price
-      document.getElementById(`${age}-price`).innerHTML =
-        group.price || "";
-
+      const priceValue = group.price || "";
+      document.getElementById(`${age}-price`).innerHTML = priceValue;
+    
+      const priceRow = document.getElementById(`${age}-price-row`);
+      if (priceRow) priceRow.style.display = priceValue ? "flex" : "none";
+    
       // Link
-      document.getElementById(`${age}-link`).href =
-        group.registrationLink || "#";
+      const linkEl = document.getElementById(`${age}-link`);
+      if (group.registrationLink) {
+        linkEl.href = group.registrationLink;
+        linkEl.style.display = "inline-block";
+      } else {
+        linkEl.style.display = "none";
+      }
     });
+
 
     /* ---------------------------
        IMPORTANT DATES
