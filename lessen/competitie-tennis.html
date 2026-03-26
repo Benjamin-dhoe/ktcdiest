@@ -571,13 +571,13 @@ export async function loadCompetitiePage() {
 
     if (data.location === "karteria") {
       containers.location.innerHTML = `
-        <a href="https://maps.app.goo.gl/oDUBgGf6K3vhQspY7" target="_blank" class="mapslink w-inline-block">
+        <a href="https://maps.app.goo.gl/oDUBgGf6K3vhQspY7" target="_blank" class="mapslink w-inline-block" style="margin-bottom: 0px">
           <div class="google-maps winter"></div>
-          <div class="link-footer">Kluisbergstraat 21,<br>3290 Diest</div>
+          <div class="link-footer dark">Kluisbergstraat 21,<br>3290 Diest</div>
         </a>`;
     } else {
       containers.location.innerHTML = `
-        <a href="https://maps.app.goo.gl/MYCaRUEmZqDxFCWcA" target="_blank" class="mapslink event w-inline-block">
+        <a href="https://maps.app.goo.gl/MYCaRUEmZqDxFCWcA" target="_blank" class="mapslink event w-inline-block" style="margin-bottom: 0px">
           <div class="google-maps zomer"></div>
           <div class="link-footer dark">Warandepark, 3290 Diest</div>
         </a>`;
