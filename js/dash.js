@@ -1,3 +1,35 @@
+import { auth } from '/js/firebase.js';
+import { signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import { removeLoadingSpinner, showLoadingSpinner, createLoadingSpinner } from '/js/Spinner.js';
+
+const user = auth.currentUser;
+
+function refreshToken() {
+  const user = auth.currentUser;
+  
+  if (user) {
+    user.getIdToken(true)
+      .then((idToken) => {
+        console.log("new token:", idToken);
+        document.cookie = `token=${idToken}; path=/; Secure; SameSite=Strict; Max-Age=36000`;
+      })
+      .catch((error) => {
+        console.error("Error refreshing token:", error);
+      });
+  } else {
+    console.log("No user is currently signed in.");
+  }
+}
+
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    refreshToken();
+
+    setInterval(refreshToken, 30 * 60 * 1000);
+  } else {
+    console.log("No user is currently signed in.");
+  }
+});
 document.addEventListener('DOMContentLoaded', function() {
   var currentTime = new Date().getTime();
   // Update the stored time
