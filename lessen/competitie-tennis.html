@@ -150,27 +150,9 @@
                   </div>
                 </div>
 
-                <!--  LOCATIE  -->
                 <div class="tsFaqSection">
                   <div class="tsFaqTitle">Locatie</div>
-                  <div class="tsFaqText">
-                    Alle trainingen tijdens de lente gaan door in het
-                    Warandepark te Diest.
-                  </div>
-                </div>
-
-                <!--  PERIODE  -->
-                <div class="tsFaqSection">
-                  <div class="tsFaqTitle">Periode</div>
-                  <div class="tsFaqText">
-                    Het is belangrijk om de kalender van de tennisschool goed in
-                    de gaten te houden. Je kan deze vinden via deze link.
-                  </div>
-                  <div class="tsFaqHighlight">
-                    De lessen starten op maandag 19 april 2026 en eindigen op
-                    vrijdag 12 juni 2026. In totaal zullen er 7
-                    trainingsmomenten plaatsvinden.
-                  </div>
+                  <div id="locationContainer" class="tsFaqPriceCard"></div>
                 </div>
 
                 <!--  INSCHRIJFINFORMATIE  -->
@@ -199,284 +181,173 @@
                     </div>
                   </div>
 
-                  <!-- COMPETITIEKIDS -->
-                  <div
-                    class="tsFaqPriceCard"
-                    style="display: none"
-                    id="groep-competitiekids"
-                  >
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Groep</span>
-                      <span class="tsFaqPriceValue">Competitiekids</span>
+                  <!-- INSCHRIJFINFORMATIE -->
+                  <div class="tsFaqSection">
+                    <div class="tsFaqTitle">Inschrijfinformatie</div>
+                  
+                    <div class="tsFaqSection">
+                      <div class="tsFaqPriceLabel">Selecteer leeftijdsgroep</div>
+                  
+                      <div class="ageSelector">
+                        <button class="ageBtn" data-target="groep-competitiekids">Competitiekids</button>
+                        <button class="ageBtn" data-target="groep-u9">U9</button>
+                        <button class="ageBtn" data-target="groep-u11">U11</button>
+                        <button class="ageBtn" data-target="groep-u13">U13</button>
+                        <button class="ageBtn" data-target="groep-u15">U15</button>
+                        <button class="ageBtn" data-target="groep-15plus">15+</button>
+                      </div>
                     </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Tennisdagen</span>
-                      <span class="tsFaqPriceValue">
-                        maandag<br />
-                        woensdag<br />
-                        vrijdag
-                      </span>
-                      <span class="tsFaqPriceLabel">Conditie</span>
-                      <span class="tsFaqPriceValue">
-                        woensdag<br />
-                        vrijdag
-                      </span>
+                  
+                    <!-- COMPETITIEKIDS -->
+                    <div class="tsFaqPriceCard" style="display:none" id="groep-competitiekids">
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Groep</span>
+                        <span class="tsFaqPriceValue">Competitiekids</span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Tennisdagen</span>
+                        <span class="tsFaqPriceValue" id="kids-tennis"></span>
+                  
+                        <span class="tsFaqPriceLabel">Conditie</span>
+                        <span class="tsFaqPriceValue" id="kids-conditie"></span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Prijs per uur</span>
+                        <span class="tsFaqPriceValue" id="kids-price"></span>
+                      </div>
+                  
+                      <a class="tsFaqButton" target="_blank" id="kids-link">Inschrijven</a>
                     </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Prijs per uur</span>
-                      <span class="tsFaqPriceValue">80 EUR</span>
+                  
+                    <!-- U9 -->
+                    <div class="tsFaqPriceCard" style="display:none" id="groep-u9">
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Groep</span>
+                        <span class="tsFaqPriceValue">U9: 2de en 3de leerjaar</span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Tennisdagen</span>
+                        <span class="tsFaqPriceValue" id="u9-tennis"></span>
+                  
+                        <span class="tsFaqPriceLabel">Conditie</span>
+                        <span class="tsFaqPriceValue" id="u9-conditie"></span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Prijs per uur</span>
+                        <span class="tsFaqPriceValue" id="u9-price"></span>
+                      </div>
+                  
+                      <a class="tsFaqButton" target="_blank" id="u9-link">Inschrijven</a>
                     </div>
-
-                    <a
-                      class="tsFaqButton"
-                      target="_blank"
-                      href="https://www.tennisenpadelvlaanderen.be/nl/clubdashboard/doelgroep-details?clubId=2478&aanbodId=9909&doelgroepId=42490"
-                    >
-                      Inschrijven
-                    </a>
+                  
+                    <!-- U11 -->
+                    <div class="tsFaqPriceCard" style="display:none" id="groep-u11">
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Groep</span>
+                        <span class="tsFaqPriceValue">U11: 4de en 5de leerjaar</span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Tennisdagen</span>
+                        <span class="tsFaqPriceValue" id="u11-tennis"></span>
+                  
+                        <span class="tsFaqPriceLabel">Conditie</span>
+                        <span class="tsFaqPriceValue" id="u11-conditie"></span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Prijs per uur</span>
+                        <span class="tsFaqPriceValue" id="u11-price"></span>
+                      </div>
+                  
+                      <a class="tsFaqButton" target="_blank" id="u11-link">Inschrijven</a>
+                    </div>
+                  
+                    <!-- U13 -->
+                    <div class="tsFaqPriceCard" style="display:none" id="groep-u13">
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Groep</span>
+                        <span class="tsFaqPriceValue">U13</span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Tennisdagen</span>
+                        <span class="tsFaqPriceValue" id="u13-tennis"></span>
+                  
+                        <span class="tsFaqPriceLabel">Conditie</span>
+                        <span class="tsFaqPriceValue" id="u13-conditie"></span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Prijs per uur</span>
+                        <span class="tsFaqPriceValue" id="u13-price"></span>
+                      </div>
+                  
+                      <a class="tsFaqButton" target="_blank" id="u13-link">Inschrijven</a>
+                    </div>
+                  
+                    <!-- U15 -->
+                    <div class="tsFaqPriceCard" style="display:none" id="groep-u15">
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Groep</span>
+                        <span class="tsFaqPriceValue">U15</span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Tennisdagen</span>
+                        <span class="tsFaqPriceValue" id="u15-tennis"></span>
+                  
+                        <span class="tsFaqPriceLabel">Conditie</span>
+                        <span class="tsFaqPriceValue" id="u15-conditie"></span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Prijs per uur</span>
+                        <span class="tsFaqPriceValue" id="u15-price"></span>
+                      </div>
+                  
+                      <a class="tsFaqButton" target="_blank" id="u15-link">Inschrijven</a>
+                    </div>
+                  
+                    <!-- 15+ -->
+                    <div class="tsFaqPriceCard" style="display:none" id="groep-15plus">
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Groep</span>
+                        <span class="tsFaqPriceValue">15+</span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Tennisdagen</span>
+                        <span class="tsFaqPriceValue" id="u17-tennis"></span>
+                  
+                        <span class="tsFaqPriceLabel">Conditie</span>
+                        <span class="tsFaqPriceValue" id="u17-conditie"></span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Prijs per uur</span>
+                        <span class="tsFaqPriceValue" id="u17-price"></span>
+                      </div>
+                  
+                      <a class="tsFaqButton" target="_blank" id="u17-link">Inschrijven</a>
+                    </div>
                   </div>
-
-                  <!-- U9 -->
-                  <div
-                    class="tsFaqPriceCard"
-                    style="display: none"
-                    id="groep-u9"
-                  >
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Groep</span>
-                      <span class="tsFaqPriceValue"
-                        >U9: 2de en 3de leerjaar</span
-                      >
+                  
+                  <!-- BELANGRIJK OM TE WETEN -->
+                  <div class="tsFaqSection">
+                    <div class="tsFaqTitle">Belangrijk om te weten</div>
+                    <div class="tsFaqText">
+                      Jullie geven je voorkeuren en beschikbaarheid op, we proberen hier zoveel mogelijk rekening mee te houden maar een beschikbaarheid is geen exacte inschrijving!
                     </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Tennisdagen</span>
-                      <span class="tsFaqPriceValue">
-                        maandag<br />
-                        dinsdag<br />
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                      <span class="tsFaqPriceLabel">Conditie</span>
-                      <span class="tsFaqPriceValue">
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
+                    <div class="tsFaqText">
+                      Wat het groepsniveau betreft proberen we steeds zo te plannen dat elke speler de ene les wat sterker, gemiddeld en wat zwakker gepland staat.
                     </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Prijs per uur</span>
-                      <span class="tsFaqPriceValue">
-                        Duo (per 2): 140 EUR<br />
-                        Small group: 100 EUR<br />
-                        Tactische groep (meer dan 3 op meerdere terreinen): 80
-                        EUR
-                      </span>
-                    </div>
-
-                    <a
-                      class="tsFaqButton"
-                      target="_blank"
-                      href="https://www.tennisenpadelvlaanderen.be/nl/clubdashboard/doelgroep-details?clubId=2478&aanbodId=9909&doelgroepId=42485"
-                    >
-                      Inschrijven
-                    </a>
+                    <div class="tsFaqText">We hopen op jullie begrip.</div>
                   </div>
-
-                  <!-- U11 -->
-                  <div
-                    class="tsFaqPriceCard"
-                    style="display: none"
-                    id="groep-u11"
-                  >
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Groep</span>
-                      <span class="tsFaqPriceValue"
-                        >U11: 4de en 5de leerjaar</span
-                      >
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Tennisdagen</span>
-                      <span class="tsFaqPriceValue">
-                        maandag<br />
-                        dinsdag<br />
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                      <span class="tsFaqPriceLabel">Conditie</span>
-                      <span class="tsFaqPriceValue">
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Prijs per uur</span>
-                      <span class="tsFaqPriceValue">
-                        Duo (per 2): 140 EUR<br />
-                        Small group: 100 EUR<br />
-                        Tactische groep (meer dan 3 op meerdere terreinen): 80
-                        EUR
-                      </span>
-                    </div>
-
-                    <a
-                      class="tsFaqButton"
-                      target="_blank"
-                      href="https://www.tennisenpadelvlaanderen.be/nl/clubdashboard/doelgroep-details?clubId=2478&aanbodId=9909&doelgroepId=42486"
-                    >
-                      Inschrijven
-                    </a>
-                  </div>
-
-                  <!-- U13 -->
-                  <div
-                    class="tsFaqPriceCard"
-                    style="display: none"
-                    id="groep-u13"
-                  >
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Groep</span>
-                      <span class="tsFaqPriceValue">U13</span>
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Tennisdagen</span>
-                      <span class="tsFaqPriceValue">
-                        maandag<br />
-                        dinsdag<br />
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                      <span class="tsFaqPriceLabel">Conditie</span>
-                      <span class="tsFaqPriceValue">
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Prijs per uur</span>
-                      <span class="tsFaqPriceValue">
-                        Duo (per 2): 140 EUR<br />
-                        Small group: 100 EUR<br />
-                        Tactische groep (meer dan 3 op meerdere terreinen): 80
-                        EUR
-                      </span>
-                    </div>
-
-                    <a
-                      class="tsFaqButton"
-                      target="_blank"
-                      href="https://www.tennisenpadelvlaanderen.be/nl/clubdashboard/doelgroep-details?clubId=2478&aanbodId=9909&doelgroepId=42487"
-                    >
-                      Inschrijven
-                    </a>
-                  </div>
-
-                  <!-- U15 -->
-                  <div
-                    class="tsFaqPriceCard"
-                    style="display: none"
-                    id="groep-u15"
-                  >
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Groep</span>
-                      <span class="tsFaqPriceValue">U15</span>
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Tennisdagen</span>
-                      <span class="tsFaqPriceValue">
-                        maandag<br />
-                        dinsdag<br />
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                      <span class="tsFaqPriceLabel">Conditie</span>
-                      <span class="tsFaqPriceValue">
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Prijs per uur</span>
-                      <span class="tsFaqPriceValue">
-                        Duo (per 2): 140 EUR<br />
-                        Small group: 100 EUR<br />
-                        Tactische groep (meer dan 3 op meerdere terreinen): 80
-                        EUR
-                      </span>
-                    </div>
-
-                    <a
-                      class="tsFaqButton"
-                      target="_blank"
-                      href="https://www.tennisenpadelvlaanderen.be/nl/clubdashboard/doelgroep-details?clubId=2478&aanbodId=9909&doelgroepId=42488"
-                    >
-                      Inschrijven
-                    </a>
-                  </div>
-
-                  <!-- 15+ -->
-                  <div
-                    class="tsFaqPriceCard"
-                    style="display: none"
-                    id="groep-15plus"
-                  >
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Groep</span>
-                      <span class="tsFaqPriceValue">15+</span>
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Tennisdagen</span>
-                      <span class="tsFaqPriceValue">
-                        maandag<br />
-                        dinsdag<br />
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                      <span class="tsFaqPriceLabel">Conditie</span>
-                      <span class="tsFaqPriceValue">
-                        woensdag<br />
-                        donderdag<br />
-                        vrijdag
-                      </span>
-                    </div>
-
-                    <div class="tsFaqPriceRow">
-                      <span class="tsFaqPriceLabel">Prijs per uur</span>
-                      <span class="tsFaqPriceValue">
-                        Duo (per 2): 140 EUR<br />
-                        Small group: 100 EUR<br />
-                        Tactische groep (meer dan 3 op meerdere terreinen): 80
-                        EUR
-                      </span>
-                    </div>
-
-                    <a
-                      class="tsFaqButton"
-                      target="_blank"
-                      href="https://www.tennisenpadelvlaanderen.be/nl/clubdashboard/doelgroep-details?clubId=2478&aanbodId=9909&doelgroepId=42489"
-                    >
-                      Inschrijven
-                    </a>
-                  </div>
-                </div>
 
                 <!--  BELANGRIJK OM TE WETEN  -->
                 <div class="tsFaqSection">
@@ -513,52 +384,11 @@
                   >
                 </div>
 
-                <!--  BELANGRIJKE DATA  -->
+                <!-- BELANGRIJKE DATA -->
                 <div class="tsFaqSection">
                   <div class="tsFaqTitle">Belangrijke data</div>
-
-                  <div class="tsFaqDates">
-                    <div class="tsFaqDateRow">
-                      <span class="tsFaqDateLabel">Inschrijven vanaf</span>
-                      <span class="tsFaqDateValue">1 december 2025</span>
-                    </div>
-
-                    <div class="tsFaqDateRow">
-                      <span class="tsFaqDateLabel">Inschrijven tot</span>
-                      <span class="tsFaqDateValue">1 maart 2026</span>
-                    </div>
-
-                    <div class="tsFaqDateRow">
-                      <span class="tsFaqDateLabel"
-                        >Planningsvoorstel vanaf</span
-                      >
-                      <span class="tsFaqDateValue">24 maart 2026</span>
-                    </div>
-
-                    <div class="tsFaqDateRow">
-                      <span class="tsFaqDateLabel">Start lessen vanaf</span>
-                      <span class="tsFaqDateValue">maandag 20 april 2026</span>
-                    </div>
-
-                    <div class="tsFaqDateRow">
-                      <span class="tsFaqDateLabel">Lessen tot</span>
-                      <span class="tsFaqDateValue">vrijdag 12 juni 2026</span>
-                    </div>
-
-                    <div class="tsFaqDateRow">
-                      <span class="tsFaqDateLabel">Lidmaatschap vereist</span>
-                      <span class="tsFaqDateValue">
-                        Niet-leden van KTC Diest kunnen deelnemen mits het
-                        betalen van een lidmaatschap.
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="tsFaqWarning" style="margin-top: 12px">
-                    Let op: het plannen start van zodra de inschrijvingen binnen
-                    komen en je lidmaatschap in orde is. Je hebt er dus alle
-                    voordeel bij om snel in te schrijven.
-                  </div>
+                  <div id="datesContainer" class="tsFaqDates"></div>
+                  <div id="datesWarningContainer" class="tsFaqWarning" style="margin-top: 12px"></div>
                 </div>
 
                 <!--  WHATSAPP  -->
@@ -729,5 +559,106 @@
         });
       });
     </script>
+    <script type="module">
+import { app } from "/js/firebase.js";
+import { 
+  getFirestore, getDoc, doc 
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+import { showLoadingSpinner, removeLoadingSpinner } from "/js/Spinner.js";
+
+const db = getFirestore(app);
+const COMPETITIE_REF = doc(db, "training_information", "competitie");
+
+const AGE_GROUPS = ["kids", "u9", "u11", "u13", "u15", "u17"];
+
+export async function loadCompetitiePage() {
+  const containers = {
+    location: document.getElementById("locationContainer"),
+    dates: document.getElementById("datesContainer"),
+    datesWarning: document.getElementById("datesWarningContainer")
+  };
+
+  Object.values(containers).forEach(c => c && showLoadingSpinner(c));
+
+  try {
+    const snapshot = await getDoc(COMPETITIE_REF);
+    if (!snapshot.exists()) {
+      console.error("Competitie doc not found");
+      return;
+    }
+
+    const data = snapshot.data();
+
+    /* ---------------------------
+       LOCATION
+    --------------------------- */
+    removeLoadingSpinner(containers.location);
+
+    if (data.location === "karteria") {
+      containers.location.innerHTML = `
+        <a href="https://maps.app.goo.gl/oDUBgGf6K3vhQspY7" target="_blank" class="mapslink w-inline-block">
+          <div class="google-maps winter"></div>
+          <div class="link-footer">Kluisbergstraat 21,<br>3290 Diest</div>
+        </a>`;
+    } else {
+      containers.location.innerHTML = `
+        <a href="https://maps.app.goo.gl/MYCaRUEmZqDxFCWcA" target="_blank" class="mapslink event w-inline-block">
+          <div class="google-maps zomer"></div>
+          <div class="link-footer dark">Warandepark, 3290 Diest</div>
+        </a>`;
+    }
+
+    /* ---------------------------
+       AGE GROUPS
+    --------------------------- */
+    AGE_GROUPS.forEach(age => {
+      const group = data[age];
+      if (!group) return;
+
+      // Tennis
+      document.getElementById(`${age}-tennis`).innerHTML =
+        group.trainingDaysTennis?.join("<br>") || "";
+
+      // Conditie
+      document.getElementById(`${age}-conditie`).innerHTML =
+        group.trainingDaysConditie?.join("<br>") || "";
+
+      // Price
+      document.getElementById(`${age}-price`).innerHTML =
+        group.price || "";
+
+      // Link
+      document.getElementById(`${age}-link`).href =
+        group.registrationLink || "#";
+    });
+
+    /* ---------------------------
+       IMPORTANT DATES
+    --------------------------- */
+    removeLoadingSpinner(containers.dates);
+
+    containers.dates.innerHTML = `
+      <div class="tsFaqDateRow"><span class="tsFaqDateLabel">Inschrijven vanaf</span><span class="tsFaqDateValue">${data.registrationStart}</span></div>
+      <div class="tsFaqDateRow"><span class="tsFaqDateLabel">Inschrijven tot</span><span class="tsFaqDateValue">${data.registrationEnd}</span></div>
+      <div class="tsFaqDateRow"><span class="tsFaqDateLabel">Planningsvoorstel vanaf</span><span class="tsFaqDateValue">${data.planningProposal}</span></div>
+      <div class="tsFaqDateRow"><span class="tsFaqDateLabel">Start lessen</span><span class="tsFaqDateValue">${data.startTrainings}</span></div>
+      <div class="tsFaqDateRow"><span class="tsFaqDateLabel">Lessen tot</span><span class="tsFaqDateValue">${data.endTrainings}</span></div>
+    `;
+
+    removeLoadingSpinner(containers.datesWarning);
+    containers.datesWarning.innerHTML = `
+      Let op: het plannen start zodra de inschrijvingen binnenkomen 
+      <strong>en je lidmaatschap in orde is</strong>.
+    `;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+loadCompetitiePage();
+</script>
+
   </body>
 </html>
