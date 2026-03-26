@@ -133,6 +133,11 @@
             <label>Registratielink</label>
             <input type="text" id="event-registration-link">
           </div>
+
+          <div class="event-question">
+            <label>Inschrijvingssectie op website zichtbaar tot</label>
+            <input type="date" id="registration-visible-until">
+          </div>
       
           <div class="event-question">
             <label>Registreren vanaf</label>
@@ -214,6 +219,8 @@ export async function loadTrainingInformation() {
     document.getElementById("event-start-trainings").value = data.startTrainings || "";
     document.getElementById("event-end-trainings").value = data.endTrainings || "";
 
+    document.getElementById("registration-visible-until").value = data.registrationVisibleUntil || "";
+
     if (data.location) {
       const radio = document.querySelector(`input[name="location"][value="${data.location}"]`);
       if (radio) radio.checked = true;
@@ -258,6 +265,8 @@ export async function saveTrainingInformation() {
 
   const startTrainings = document.getElementById("event-start-trainings").value.trim();
   const endTrainings = document.getElementById("event-end-trainings").value.trim();
+
+  const registrationVisibleUntil = document.getElementById("registration-visible-until").value;
 
   try {
     await updateDoc(ref, {
