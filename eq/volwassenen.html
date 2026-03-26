@@ -241,7 +241,7 @@ export async function saveTrainingInformation() {
   const spinnerHolder = document.getElementById("holder-spinner-save-changes");
   const spinner = showLoadingSpinner(spinnerHolder);
 
-  const ref = doc(db, "training_information", "jeugd");
+  const ref = doc(db, "training_information", "volwassenen");
 
   const location = document.querySelector("input[name='location']:checked")?.value || "";
   const trainingDays = [...document.querySelectorAll(".training-day-tennis:checked")].map(d => d.value);
