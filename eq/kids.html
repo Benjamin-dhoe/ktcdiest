@@ -95,17 +95,31 @@
           </div>
       
           <div class="event-question">
-            <label>Trainingsdagen</label>
+            <label>Tennis</label>
             <div class="checkbox-group">
-              <label><input type="checkbox" class="training-day" value="Maandag"> Maandag</label>
-              <label><input type="checkbox" class="training-day" value="Dinsdag"> Dinsdag</label>
-              <label><input type="checkbox" class="training-day" value="Woensdag"> Woensdag</label>
-              <label><input type="checkbox" class="training-day" value="Donderdag"> Donderdag</label>
-              <label><input type="checkbox" class="training-day" value="Vrijdag"> Vrijdag</label>
-              <label><input type="checkbox" class="training-day" value="Zaterdag"> Zaterdag</label>
-              <label><input type="checkbox" class="training-day" value="Zondag"> Zondag</label>
+              <label><input type="checkbox" class="training-day-tennis" value="Maandag"> Maandag</label>
+              <label><input type="checkbox" class="training-day-tennis" value="Dinsdag"> Dinsdag</label>
+              <label><input type="checkbox" class="training-day-tennis" value="Woensdag"> Woensdag</label>
+              <label><input type="checkbox" class="training-day-tennis" value="Donderdag"> Donderdag</label>
+              <label><input type="checkbox" class="training-day-tennis" value="Vrijdag"> Vrijdag</label>
+              <label><input type="checkbox" class="training-day-tennis" value="Zaterdag"> Zaterdag</label>
+              <label><input type="checkbox" class="training-day-tennis" value="Zondag"> Zondag</label>
             </div>
           </div>
+          
+          <div class="event-question">
+            <label>Conditie</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" class="training-day-conditie" value="Maandag"> Maandag</label>
+              <label><input type="checkbox" class="training-day-conditie" value="Dinsdag"> Dinsdag</label>
+              <label><input type="checkbox" class="training-day-conditie" value="Woensdag"> Woensdag</label>
+              <label><input type="checkbox" class="training-day-conditie" value="Donderdag"> Donderdag</label>
+              <label><input type="checkbox" class="training-day-conditie" value="Vrijdag"> Vrijdag</label>
+              <label><input type="checkbox" class="training-day-conditie" value="Zaterdag"> Zaterdag</label>
+              <label><input type="checkbox" class="training-day-conditie" value="Zondag"> Zondag</label>
+            </div>
+          </div>
+
       
           <div class="event-question">
             <label>Prijs</label>
@@ -210,7 +224,7 @@ export async function loadTrainingInformation() {
     // Training days checkboxes
     if (Array.isArray(data.trainingDays)) {
       data.trainingDays.forEach(day => {
-        const checkbox = document.querySelector(`.training-day[value="${day}"]`);
+        const checkbox = document.querySelector(`.radio-option[value="${day}"]`);
         if (checkbox) checkbox.checked = true;
       });
     }
@@ -231,7 +245,9 @@ export async function saveTrainingInformation() {
 
   // Collect values
   const location = document.querySelector("input[name='location']:checked")?.value || "";
-  const trainingDays = [...document.querySelectorAll(".training-day:checked")].map(d => d.value);
+  const trainingDays = [...document.querySelectorAll(".training-day-tennis:checked")].map(d => d.value);
+  const conditioningDays = [...document.querySelectorAll(".training-day-conditie:checked")].map(d => d.value);
+
 
   const numberOfTrainingMoments = document.getElementById("event-number-of-training-moments").value.trim();
   const price = document.getElementById("event-price").value.trim();
@@ -248,6 +264,7 @@ export async function saveTrainingInformation() {
     await updateDoc(ref, {
       location,
       trainingDays,
+      conditioningDays,
       numberOfTrainingMoments,
       price,
       registrationLink,
