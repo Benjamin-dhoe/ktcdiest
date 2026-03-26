@@ -415,9 +415,9 @@ export async function loadTrainingInformation() {
 
     const inschrijvenSection = document.getElementById("inschrijvenSection");
 
-    if (data.visibleUntil) {
+    if (data.registrationVisibleUntil) {
       const today = new Date();
-      const until = new Date(data.visibleUntil + "T23:59:59");
+      const until = new Date(data.registrationVisibleUntil + "T23:59:59");
     
       if (today > until) {
         inschrijvenSection.style.display = "none";
