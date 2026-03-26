@@ -70,7 +70,22 @@ function applyFilters() {
     const cardStart = parseDate(card.getAttribute("filter-date-start"));
     const cardEnd = parseDate(card.getAttribute("filter-date-end"));
     const cardType = card.getAttribute("filter-type").toLowerCase();
-    const cardAges = JSON.parse(card.getAttribute("filter-leeftijd").toLowerCase());
+    // const cardAges = JSON.parse(card.getAttribute("filter-leeftijd").toLowerCase());
+    let rawAges = card.getAttribute("filter-leeftijd") || "[]";
+    // Replace single quotes with double quotes
+    rawAges = rawAges.replace(/'/g, '"').trim();
+    // Add missing closing bracket if needed
+    if (!rawAges.endsWith("]")) {
+      rawAges = rawAges + "]";
+    }
+    let cardAges = [];
+    try {
+      cardAges = JSON.parse(rawAges).map(a => String(a).toLowerCase());
+    } catch (e) {
+      console.warn("Invalid leeftijd JSON:", rawAges);
+      cardAges = [];
+    }
+
 
     let visible = true;
 
@@ -147,22 +162,7 @@ async function populateEventSection() {
   try {
     await loadEvents();
     eventCards = document.querySelectorAll(".event-holder");
-    let rawAges = card.getAttribute("filter-leeftijd") || "[]";
 
-    // Fix missing closing bracket
-    rawAges = rawAges.trim();
-    if (!rawAges.endsWith("]")) {
-      rawAges = rawAges + "]";
-    }
-    
-    let cardAges = [];
-    
-    try {
-      cardAges = JSON.parse(rawAges).map(a => String(a).toLowerCase());
-    } catch (e) {
-      console.warn("Invalid JSON in filter-leeftijd:", rawAges);
-      cardAges = [];
-    }
 
   } catch (err) {
     console.error(err);
