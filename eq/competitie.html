@@ -60,123 +60,338 @@
   </button>
 </div>
       <div class="tabs-content-dashboard">
-        <div class="top-of-the-pane-dashboard">
-          <h2 class="heading-dashboard">Competitie trainingen info</h2>
-        </div>
+  <div class="top-of-the-pane-dashboard">
+    <h2 class="heading-dashboard">Competitie Informatie</h2>
+  </div>
 
-        <button id="copy-from-kids-btn" class="secondary-btn" style="
-            margin-bottom: 20px;
-        ">Kopieer waardes van Kids-tab</button>
-       <div class="event-section">
-        <h3 class="section-title">Algemene informatie (voor alle leeftijden)</h3>
-    
-        <div class="event-question">
-          <label>Locatie</label>
-          <div class="radio-group">
-            <label><input type="radio" name="location" value="warandepark"> Warandepark</label>
-            <label><input type="radio" name="location" value="karteria"> Karteria</label>
-          </div>
-        </div>
-    
-        <div class="event-question">
-          <label>Registreren vanaf</label>
-          <input type="text" id="shared-registration-start" placeholder="vb: 1 december 2025">
-        </div>
-    
-        <div class="event-question">
-          <label>Registreren tot</label>
-          <input type="text" id="shared-registration-end" placeholder="vb: 1 maart 2026">
-        </div>
-    
-        <div class="event-question">
-          <label>Planningsvoorstel vanaf</label>
-          <input type="text" id="shared-planning-proposal" placeholder="vb: 24 maart 2026">
-        </div>
-    
-        <div class="event-question">
-          <label>Start trainingen</label>
-          <input type="text" id="shared-start-trainings" placeholder="vb: maandag 20 april 2026">
-        </div>
-    
-        <div class="event-question">
-          <label>Einde trainingen</label>
-          <input type="text" id="shared-end-trainings" placeholder="vb: vrijdag 12 juni 2026">
-        </div>
-      </div>
-    
-      <!-- AGE SELECTOR -->
-      <div class="event-section">
-        <h3 class="section-title">Leeftijdsgroep</h3>
-    
-        <div class="event-question">
-          <label>Selecteer leeftijdsgroep</label>
-          <select id="age-category">
-            <option value="kids">Kids</option>
-            <option value="u9">U9</option>
-            <option value="u11">U11</option>
-            <option value="u13">U13</option>
-            <option value="u15">U15</option>
-            <option value="u17">15+</option>
-          </select>
-        </div>
-    
-        <button id="copy-from-kids-btn" class="secondary-btn">Kopieer gedeelde info van Kids</button>
-      </div>
-    
-      <!-- AGE-SPECIFIC FIELDS -->
-      <div class="event-section">
-        <h3 class="section-title">Leeftijdsspecifieke informatie</h3>
-    
-        <div class="event-question">
-          <label>Aantal trainingsmomenten</label>
-          <input type="text" id="age-number-of-training-moments">
-        </div>
-    
-        <div class="event-question">
-          <label>Prijs</label>
-          <textarea id="age-price"></textarea>
-        </div>
-    
-        <div class="event-question">
-          <label>Registratielink</label>
-          <input type="text" id="age-registration-link">
-        </div>
-    
-        <div class="event-question">
-          <label>Tennis</label>
-          <div class="checkbox-group">
-            <label><input type="checkbox" class="age-tennis" value="Maandag"> Maandag</label>
-            <label><input type="checkbox" class="age-tennis" value="Dinsdag"> Dinsdag</label>
-            <label><input type="checkbox" class="age-tennis" value="Woensdag"> Woensdag</label>
-            <label><input type="checkbox" class="age-tennis" value="Donderdag"> Donderdag</label>
-            <label><input type="checkbox" class="age-tennis" value="Vrijdag"> Vrijdag</label>
-            <label><input type="checkbox" class="age-tennis" value="Zaterdag"> Zaterdag</label>
-            <label><input type="checkbox" class="age-tennis" value="Zondag"> Zondag</label>
-          </div>
-        </div>
-    
-        <div class="event-question">
-          <label>Conditie</label>
-          <div class="checkbox-group">
-            <label><input type="checkbox" class="age-conditie" value="Maandag"> Maandag</label>
-            <label><input type="checkbox" class="age-conditie" value="Dinsdag"> Dinsdag</label>
-            <label><input type="checkbox" class="age-conditie" value="Woensdag"> Woensdag</label>
-            <label><input type="checkbox" class="age-conditie" value="Donderdag"> Donderdag</label>
-            <label><input type="checkbox" class="age-conditie" value="Vrijdag"> Vrijdag</label>
-            <label><input type="checkbox" class="age-conditie" value="Zaterdag"> Zaterdag</label>
-            <label><input type="checkbox" class="age-conditie" value="Zondag"> Zondag</label>
-          </div>
-        </div>
-      </div>
-    
-      <!-- SAVE BUTTON -->
-      <div class="popup-actions">
-        <button id="save-event-btn" class="primary-btn">Opslaan</button>
-        <div id="holder-spinner-save-changes"></div>
-      </div>
-        
+  <!-- SHARED FIELDS -->
+  <div class="event-section">
+    <h3 class="section-title">Algemene informatie (voor alle leeftijden)</h3>
+
+    <button id="copy-from-kids-btn" class="secondary-btn" style="margin-bottom:20px;">
+      Kopieer waardes van Kids-tab
+    </button>
+
+    <div class="event-question">
+      <label>Locatie</label>
+      <div class="radio-group">
+        <label><input type="radio" name="location" value="warandepark"> Warandepark</label>
+        <label><input type="radio" name="location" value="karteria"> Karteria</label>
       </div>
     </div>
+
+    <div class="event-question">
+      <label>Registreren vanaf</label>
+      <input type="text" id="shared-registration-start">
+    </div>
+
+    <div class="event-question">
+      <label>Registreren tot</label>
+      <input type="text" id="shared-registration-end">
+    </div>
+
+    <div class="event-question">
+      <label>Planningsvoorstel vanaf</label>
+      <input type="text" id="shared-planning-proposal">
+    </div>
+
+    <div class="event-question">
+      <label>Start trainingen</label>
+      <input type="text" id="shared-start-trainings">
+    </div>
+
+    <div class="event-question">
+      <label>Einde trainingen</label>
+      <input type="text" id="shared-end-trainings">
+    </div>
+  </div>
+
+  <!-- AGE GROUP SECTIONS -->
+  <!-- TEMPLATE FOR EACH AGE GROUP -->
+
+  <!-- KIDS -->
+  <div class="event-section">
+    <h3 class="section-title">Kids</h3>
+
+    <div class="event-question">
+      <label>Aantal trainingsmomenten</label>
+      <input type="text" id="age-kids-number">
+    </div>
+
+    <div class="event-question">
+      <label>Prijs</label>
+      <textarea id="age-kids-price"></textarea>
+    </div>
+
+    <div class="event-question">
+      <label>Registratielink</label>
+      <input type="text" id="age-kids-link">
+    </div>
+
+    <div class="event-question">
+      <label>Tennis</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-kids-tennis" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-kids-tennis" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-kids-tennis" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-kids-tennis" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-kids-tennis" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-kids-tennis" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-kids-tennis" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+
+    <div class="event-question">
+      <label>Conditie</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-kids-conditie" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-kids-conditie" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-kids-conditie" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-kids-conditie" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-kids-conditie" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-kids-conditie" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-kids-conditie" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- U9 -->
+  <div class="event-section">
+    <h3 class="section-title">U9</h3>
+
+    <div class="event-question">
+      <label>Aantal trainingsmomenten</label>
+      <input type="text" id="age-u9-number">
+    </div>
+
+    <div class="event-question">
+      <label>Prijs</label>
+      <textarea id="age-u9-price"></textarea>
+    </div>
+
+    <div class="event-question">
+      <label>Registratielink</label>
+      <input type="text" id="age-u9-link">
+    </div>
+
+    <div class="event-question">
+      <label>Tennis</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u9-tennis" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u9-tennis" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u9-tennis" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u9-tennis" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u9-tennis" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u9-tennis" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u9-tennis" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+
+    <div class="event-question">
+      <label>Conditie</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u9-conditie" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u9-conditie" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u9-conditie" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u9-conditie" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u9-conditie" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u9-conditie" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u9-conditie" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- U11 -->
+  <div class="event-section">
+    <h3 class="section-title">U11</h3>
+
+    <div class="event-question">
+      <label>Aantal trainingsmomenten</label>
+      <input type="text" id="age-u11-number">
+    </div>
+
+    <div class="event-question">
+      <label>Prijs</label>
+      <textarea id="age-u11-price"></textarea>
+    </div>
+
+    <div class="event-question">
+      <label>Registratielink</label>
+      <input type="text" id="age-u11-link">
+    </div>
+
+    <div class="event-question">
+      <label>Tennis</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u11-tennis" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u11-tennis" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u11-tennis" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u11-tennis" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u11-tennis" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u11-tennis" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u11-tennis" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+
+    <div class="event-question">
+      <label>Conditie</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u11-conditie" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u11-conditie" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u11-conditie" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u11-conditie" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u11-conditie" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u11-conditie" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u11-conditie" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- U13 -->
+  <div class="event-section">
+    <h3 class="section-title">U13</h3>
+
+    <div class="event-question">
+      <label>Aantal trainingsmomenten</label>
+      <input type="text" id="age-u13-number">
+    </div>
+
+    <div class="event-question">
+      <label>Prijs</label>
+      <textarea id="age-u13-price"></textarea>
+    </div>
+
+    <div class="event-question">
+      <label>Registratielink</label>
+      <input type="text" id="age-u13-link">
+    </div>
+
+    <div class="event-question">
+      <label>Tennis</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u13-tennis" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u13-tennis" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u13-tennis" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u13-tennis" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u13-tennis" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u13-tennis" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u13-tennis" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+
+    <div class="event-question">
+      <label>Conditie</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u13-conditie" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u13-conditie" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u13-conditie" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u13-conditie" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u13-conditie" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u13-conditie" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u13-conditie" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- U15 -->
+  <div class="event-section">
+    <h3 class="section-title">U15</h3>
+
+    <div class="event-question">
+      <label>Aantal trainingsmomenten</label>
+      <input type="text" id="age-u15-number">
+    </div>
+
+    <div class="event-question">
+      <label>Prijs</label>
+      <textarea id="age-u15-price"></textarea>
+    </div>
+
+    <div class="event-question">
+      <label>Registratielink</label>
+      <input type="text" id="age-u15-link">
+    </div>
+
+    <div class="event-question">
+      <label>Tennis</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u15-tennis" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u15-tennis" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u15-tennis" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u15-tennis" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u15-tennis" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u15-tennis" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u15-tennis" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+
+    <div class="event-question">
+      <label>Conditie</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u15-conditie" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u15-conditie" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u15-conditie" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u15-conditie" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u15-conditie" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u15-conditie" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u15-conditie" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- U17 -->
+  <div class="event-section">
+    <h3 class="section-title">U17 (15+)</h3>
+
+    <div class="event-question">
+      <label>Aantal trainingsmomenten</label>
+      <input type="text" id="age-u17-number">
+    </div>
+
+    <div class="event-question">
+      <label>Prijs</label>
+      <textarea id="age-u17-price"></textarea>
+    </div>
+
+    <div class="event-question">
+      <label>Registratielink</label>
+      <input type="text" id="age-u17-link">
+    </div>
+
+    <div class="event-question">
+      <label>Tennis</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u17-tennis" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u17-tennis" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u17-tennis" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u17-tennis" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u17-tennis" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u17-tennis" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u17-tennis" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+
+    <div class="event-question">
+      <label>Conditie</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" class="age-u17-conditie" value="Maandag"> Maandag</label>
+        <label><input type="checkbox" class="age-u17-conditie" value="Dinsdag"> Dinsdag</label>
+        <label><input type="checkbox" class="age-u17-conditie" value="Woensdag"> Woensdag</label>
+        <label><input type="checkbox" class="age-u17-conditie" value="Donderdag"> Donderdag</label>
+        <label><input type="checkbox" class="age-u17-conditie" value="Vrijdag"> Vrijdag</label>
+        <label><input type="checkbox" class="age-u17-conditie" value="Zaterdag"> Zaterdag</label>
+        <label><input type="checkbox" class="age-u17-conditie" value="Zondag"> Zondag</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAVE BUTTON -->
+  <div class="popup-actions">
+    <button id="save-event-btn" class="primary-btn">Opslaan</button>
+    <div id="holder-spinner-save-changes"></div>
+  </div>
+</div>
+
   </div>
 
 <!-- DELETE CONFIRMATION -->
@@ -190,8 +405,8 @@
 <script src="/js/dash.js" type="text/javascript"></script>
 <script type="module">
 import { app } from "/js/firebase.js";
-import { 
-  getFirestore, doc, getDoc, updateDoc 
+import {
+  getFirestore, doc, getDoc, updateDoc
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
 import { showLoadingSpinner, removeLoadingSpinner } from "/js/Spinner.js";
@@ -201,19 +416,16 @@ const db = getFirestore(app);
 const COMPETITIE_REF = doc(db, "training_information", "competitie");
 
 /* ---------------------------------------------------
-   GET SELECTED AGE GROUP
+   AGE GROUPS CONFIG
 --------------------------------------------------- */
-function getAgeCategory() {
-  return document.getElementById("age-category").value;
-}
+const AGE_GROUPS = ["kids", "u9", "u11", "u13", "u15", "u17"];
 
 /* ---------------------------------------------------
-   LOAD DATA
+   LOAD ALL DATA
 --------------------------------------------------- */
-export async function loadTrainingInformation() {
+async function loadCompetitie() {
   try {
     const snapshot = await getDoc(COMPETITIE_REF);
-
     if (!snapshot.exists()) {
       console.warn("Competitie doc not found");
       return;
@@ -238,30 +450,31 @@ export async function loadTrainingInformation() {
     /* -------------------------
        LOAD AGE-SPECIFIC FIELDS
     ------------------------- */
-    const age = getAgeCategory();
-    const ageData = data[age] || {};
+    AGE_GROUPS.forEach(age => {
+      const ageData = data[age] || {};
 
-    document.getElementById("age-number-of-training-moments").value = ageData.numberOfTrainingMoments || "";
-    document.getElementById("age-price").value = ageData.price || "";
-    document.getElementById("age-registration-link").value = ageData.registrationLink || "";
+      document.getElementById(`age-${age}-number`).value = ageData.numberOfTrainingMoments || "";
+      document.getElementById(`age-${age}-price`).value = ageData.price || "";
+      document.getElementById(`age-${age}-link`).value = ageData.registrationLink || "";
 
-    // Tennis
-    document.querySelectorAll(".age-tennis").forEach(cb => cb.checked = false);
-    if (Array.isArray(ageData.trainingDaysTennis)) {
-      ageData.trainingDaysTennis.forEach(day => {
-        const cb = document.querySelector(`.age-tennis[value="${day}"]`);
-        if (cb) cb.checked = true;
-      });
-    }
+      // Tennis
+      document.querySelectorAll(`.age-${age}-tennis`).forEach(cb => cb.checked = false);
+      if (Array.isArray(ageData.trainingDaysTennis)) {
+        ageData.trainingDaysTennis.forEach(day => {
+          const cb = document.querySelector(`.age-${age}-tennis[value="${day}"]`);
+          if (cb) cb.checked = true;
+        });
+      }
 
-    // Conditie
-    document.querySelectorAll(".age-conditie").forEach(cb => cb.checked = false);
-    if (Array.isArray(ageData.trainingDaysConditie)) {
-      ageData.trainingDaysConditie.forEach(day => {
-        const cb = document.querySelector(`.age-conditie[value="${day}"]`);
-        if (cb) cb.checked = true;
-      });
-    }
+      // Conditie
+      document.querySelectorAll(`.age-${age}-conditie`).forEach(cb => cb.checked = false);
+      if (Array.isArray(ageData.trainingDaysConditie)) {
+        ageData.trainingDaysConditie.forEach(day => {
+          const cb = document.querySelector(`.age-${age}-conditie[value="${day}"]`);
+          if (cb) cb.checked = true;
+        });
+      }
+    });
 
   } catch (err) {
     console.error("Error loading competitie data:", err);
@@ -269,15 +482,15 @@ export async function loadTrainingInformation() {
 }
 
 /* ---------------------------------------------------
-   SAVE DATA
+   SAVE ALL DATA
 --------------------------------------------------- */
-export async function saveTrainingInformation() {
+async function saveCompetitie() {
   const spinnerHolder = document.getElementById("holder-spinner-save-changes");
   const spinner = showLoadingSpinner(spinnerHolder);
 
-  const age = getAgeCategory();
-
-  // Shared fields
+  /* -------------------------
+     SHARED FIELDS
+  ------------------------- */
   const shared = {
     location: document.querySelector("input[name='location']:checked")?.value || "",
     registrationStart: document.getElementById("shared-registration-start").value.trim(),
@@ -287,19 +500,25 @@ export async function saveTrainingInformation() {
     endTrainings: document.getElementById("shared-end-trainings").value.trim()
   };
 
-  // Age-specific fields
-  const ageSpecific = {
-    numberOfTrainingMoments: document.getElementById("age-number-of-training-moments").value.trim(),
-    price: document.getElementById("age-price").value.trim(),
-    registrationLink: document.getElementById("age-registration-link").value.trim(),
-    trainingDaysTennis: [...document.querySelectorAll(".age-tennis:checked")].map(cb => cb.value),
-    trainingDaysConditie: [...document.querySelectorAll(".age-conditie:checked")].map(cb => cb.value)
-  };
+  /* -------------------------
+     AGE-SPECIFIC FIELDS
+  ------------------------- */
+  const agePayload = {};
+
+  AGE_GROUPS.forEach(age => {
+    agePayload[age] = {
+      numberOfTrainingMoments: document.getElementById(`age-${age}-number`).value.trim(),
+      price: document.getElementById(`age-${age}-price`).value.trim(),
+      registrationLink: document.getElementById(`age-${age}-link`).value.trim(),
+      trainingDaysTennis: [...document.querySelectorAll(`.age-${age}-tennis:checked`)].map(cb => cb.value),
+      trainingDaysConditie: [...document.querySelectorAll(`.age-${age}-conditie:checked`)].map(cb => cb.value)
+    };
+  });
 
   try {
     await updateDoc(COMPETITIE_REF, {
       ...shared,
-      [age]: ageSpecific
+      ...agePayload
     });
 
     showMessage("Competitie informatie opgeslagen!", "success");
@@ -315,24 +534,17 @@ export async function saveTrainingInformation() {
 /* ---------------------------------------------------
    COPY SHARED FIELDS FROM KIDS
 --------------------------------------------------- */
-async function copyFromKids() {
+async function copySharedFromKids() {
   try {
     const snapshot = await getDoc(COMPETITIE_REF);
-
     if (!snapshot.exists()) {
       showMessage("Competitie doc niet gevonden.", "error");
       return;
     }
 
     const data = snapshot.data();
-    const kids = data.kids;
 
-    if (!kids) {
-      showMessage("Kids data niet gevonden.", "error");
-      return;
-    }
-
-    // Copy only shared fields
+    // Copy shared fields ONLY
     const sharedFields = [
       "registrationStart",
       "registrationEnd",
@@ -344,7 +556,8 @@ async function copyFromKids() {
 
     sharedFields.forEach(field => {
       if (data[field] !== undefined) {
-        const el = document.getElementById(`shared-${field.replace(/([A-Z])/g, "-$1").toLowerCase()}`);
+        const id = `shared-${field.replace(/([A-Z])/g, "-$1").toLowerCase()}`;
+        const el = document.getElementById(id);
         if (el) el.value = data[field];
       }
     });
@@ -367,13 +580,12 @@ async function copyFromKids() {
    INIT
 --------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-  loadTrainingInformation();
+  loadCompetitie();
 
-  document.getElementById("age-category").addEventListener("change", loadTrainingInformation);
-  document.getElementById("save-event-btn").addEventListener("click", saveTrainingInformation);
-  document.getElementById("copy-from-kids-btn").addEventListener("click", copyFromKids);
+  document.getElementById("save-event-btn").addEventListener("click", saveCompetitie);
+  document.getElementById("copy-from-kids-btn").addEventListener("click", copySharedFromKids);
 });
-
 </script>
+
 
 </body></html>
