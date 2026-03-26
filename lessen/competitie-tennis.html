@@ -156,7 +156,7 @@
                 </div>
 
                   <!-- INSCHRIJFINFORMATIE -->
-                  <div class="tsFaqSection">
+                  <div class="tsFaqSection" id="inschrijvenSection">
                     <div class="tsFaqTitle">Inschrijfinformatie</div>
                   
                     <div class="tsFaqSection">
@@ -551,6 +551,19 @@ export async function loadCompetitiePage() {
     }
 
     const data = snapshot.data();
+
+    const inschrijvenSection = document.getElementById("inschrijvenSection");
+
+    if (data.registrationVisibleUntil) {
+      const today = new Date();
+      const until = new Date(data.registrationVisibleUntil + "T23:59:59");
+    
+      if (today > until) {
+        inschrijvenSection.style.display = "none";
+      } else {
+        inschrijvenSection.style.display = "block";
+      }
+    }
 
     /* ---------------------------
        LOCATION
