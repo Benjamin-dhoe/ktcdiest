@@ -2,9 +2,10 @@ const openFiltersBtn = document.getElementById("open-event-filters-btn");
 const closeFiltersBtn = document.getElementById("close-event-filters-btn");
 const resetFiltersBtn = document.getElementById("reset-event-filters-btn");
 const filtersDiv = document.getElementById("filters-div");
+const filterCheckboxes = document.querySelectorAll(".custom-checkbox input[type='checkbox']");
 
 const dateRangeInput = document.getElementById("event-date-range");
-const eventCards = document.querySelectorAll(".event-holder");
+let eventCards = [];
 
 // ----------------------
 // DATE RANGE PICKER
@@ -23,7 +24,7 @@ flatpickr(dateRangeInput, {
       selectedStart = null;
       selectedEnd = null;
     }
-    applyFilters(); // LIVE FILTERING
+    applyFilters();
   }
 });
 
@@ -48,8 +49,7 @@ resetFiltersBtn.addEventListener("click", () => {
   selectedEnd = null;
 
   // Reset checkboxes
-  document.querySelectorAll(".custom-checkbox input[type='checkbox']")
-    .forEach(cb => cb.checked = false);
+  filterCheckboxes.forEach(cb => cb.checked = false);
 
   showAllEvents();
 });
@@ -57,8 +57,7 @@ resetFiltersBtn.addEventListener("click", () => {
 // ----------------------
 // LIVE FILTERING ON CHECKBOX CHANGE
 // ----------------------
-document.querySelectorAll(".custom-checkbox input[type='checkbox']")
-  .forEach(cb => cb.addEventListener("change", applyFilters));
+filterCheckboxes.forEach(cb => cb.addEventListener("change", applyFilters));
 
 // ----------------------
 // FILTER LOGIC
@@ -67,7 +66,7 @@ function applyFilters() {
   const selectedTypes = getCheckedValues("event-type");
   const selectedAges = getCheckedValues("event-age");
 
-  eventCards.forEach(card => {
+  eventCards.forEach((card, i, arr) => {
     const cardStart = parseDate(card.getAttribute("filter-date-start"));
     const cardEnd = parseDate(card.getAttribute("filter-date-end"));
     const cardType = card.getAttribute("filter-type").toLowerCase();
@@ -90,10 +89,20 @@ function applyFilters() {
     // Age filter
     if (selectedAges.length > 0) {
       const match = selectedAges.some(age => cardAges.includes(age));
-      if (!match) visible = false;
+      if (!match) {
+        visible = false;
+      }
     }
 
     card.style.display = visible ? "block" : "none";
+  });
+  const visibleCards = eventCards.filter(card => card.style.display !== "none");
+  const availableCheckboxeValues = [...new Set(
+    visibleCards.map(card => card.getAttribute("filter-type").toLowerCase())
+  )];
+  filterCheckboxes.forEach(cb => {
+    const isAvailable = availableCheckboxeValues.includes(cb.value.toLowerCase());
+    if (!isAvailable) cb.style.display = "none";
   });
 }
 
@@ -110,3 +119,29 @@ function parseDate(str) {
   const [day, month, year] = str.split("-").map(Number);
   return new Date(year, month - 1, day);
 }
+
+async function loadEvents() {
+  try {
+    const response = await fetch(
+      "https://getevents-eqi5l3wztq-ew.a.run.app"
+    );
+
+    const html = await response.text();
+
+    console.log(html);
+
+    document.querySelector("#events-container").innerHTML = html;
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+async function populateEventSection() {
+  try {
+    await loadEvents();
+    eventCards = document.querySelectorAll(".event-holder");
+  } catch (err) {
+    console.error(err);
+  }
+}
+populateEventSection();
