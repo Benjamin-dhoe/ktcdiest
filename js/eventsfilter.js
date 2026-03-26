@@ -112,7 +112,7 @@ function applyFilters() {
     card.style.display = visible ? "block" : "none";
   });
   const visibleCards = Array.from(eventCards).filter(card => card.style.display !== "none");
-  const availableCheckboxeValues = [...new Set(
+  const availableCheckboxValues = [...new Set(
     visibleCards.map(card => card.getAttribute("filter-type").toLowerCase())
   )];
   filterCheckboxes.forEach(cb => {
