@@ -185,7 +185,7 @@
                   <div id="locationContainer" class="tsFaqPriceCard"></div>
                 </div>
   
-                <div class="tsFaqSection">
+                <div class="tsFaqSection" id="inschrijvenSection">
                   <div class="tsFaqTitle">Inschrijven</div>
                   <div id="inschrijvenContainer" class="tsFaqPriceCard"></div>
                 </div>
@@ -388,6 +388,19 @@ export async function loadTrainingInformation() {
     }
 
     const data = snapshot.data();
+
+    const inschrijvenSection = document.getElementById("inschrijvenSection");
+
+    if (data.registrationVisibleUntil) {
+      const today = new Date();
+      const until = new Date(data.registrationVisibleUntil + "T23:59:59");
+    
+      if (today > until) {
+        inschrijvenSection.style.display = "none";
+      } else {
+        inschrijvenSection.style.display = "block";
+      }
+    }
 
     // ---------------------------
     // LOCATIE
