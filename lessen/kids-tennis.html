@@ -437,14 +437,31 @@ export async function loadTrainingInformation() {
     // INSCHRIJVEN
     // ---------------------------
     removeLoadingSpinner(containers.inschrijven);
+    let tennisDaysHtml = "";
+    if (data.trainingDays.length > 0) {
+      tennisDaysHtml = `
+        <div class="tsFaqPriceRow">
+          <span class="tsFaqPriceLabel">Trainingsdagen</span>
+          <span class="tsFaqPriceValue">
+            ${data.trainingDays.join("<br>")}
+          </span>
+        </div>
+      `;
+    }
+    let conditioningDaysHtml = "";
+    if (data.conditioningDays.length > 0) {
+      conditioningDaysHtml = `
+        <div class="tsFaqPriceRow">
+          <span class="tsFaqPriceLabel">Conditie</span>
+          <span class="tsFaqPriceValue">
+            ${data.conditioningDays.join("<br>")}
+          </span>
+        </div>
+      `;
+    }
     containers.inschrijven.innerHTML = `
-      <div class="tsFaqPriceRow">
-        <span class="tsFaqPriceLabel">Trainingsdagen</span>
-        <span class="tsFaqPriceValue">
-          ${data.trainingDays.join("<br>")}
-        </span>
-      </div>
-
+      ${tennisDaysHtml}
+      ${conditioningDaysHtml}
       <div class="tsFaqPriceRow">
         <span class="tsFaqPriceLabel">Prijs</span>
         <span class="tsFaqPriceValue">${data.price}</span>
