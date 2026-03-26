@@ -64,7 +64,9 @@
           <h2 class="heading-dashboard">Jeugd trainingen info</h2>
         </div>
 
-        <button id="copy-from-kids-btn" class="secondary-btn">Kopieer waardes van Kids-tab</button>
+        <button id="copy-from-kids-btn" class="secondary-btn" style="
+            margin-bottom: 20px;
+        ">Kopieer waardes van Kids-tab</button>
        <!-- SECTION: Algemeen -->
         <div class="event-section">
           <h3 class="section-title">Algemeen</h3>
@@ -292,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-  async function copyFromKids() {
+async function copyFromKids() {
   const kidsRef = doc(db, "training_information", "kids");
 
   try {
@@ -332,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Tennis days
     if (Array.isArray(data.trainingDaysTennis)) {
       document.querySelectorAll(".training-day-tennis").forEach(cb => cb.checked = false);
-      data.trainingDaysTennis.forEach(day => {
+      data.trainingDays.forEach(day => {
         const cb = document.querySelector(`.training-day-tennis[value="${day}"]`);
         if (cb) cb.checked = true;
       });
@@ -341,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Conditie days
     if (Array.isArray(data.trainingDaysConditie)) {
       document.querySelectorAll(".training-day-conditie").forEach(cb => cb.checked = false);
-      data.trainingDaysConditie.forEach(day => {
+      data.conditioningDays.forEach(day => {
         const cb = document.querySelector(`.training-day-conditie[value="${day}"]`);
         if (cb) cb.checked = true;
       });
