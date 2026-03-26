@@ -1051,24 +1051,6 @@
       coachesReelElement.style.animationDuration = `${scrollDuration}s`;
     }
     coachesReel();
-    async function loadEvents() {
-      try {
-        const response = await fetch(
-          "https://getevents-eqi5l3wztq-ew.a.run.app"
-        );
-    
-        const html = await response.text();
-    
-        console.log(html);
-    
-        document.querySelector("#events-container").innerHTML = html;
-    
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    
-    loadEvents();
     </script>
   </body>
 </html>
