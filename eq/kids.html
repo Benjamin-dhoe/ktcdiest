@@ -169,6 +169,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
 import { showLoadingSpinner, removeLoadingSpinner } from "/js/Spinner.js";
+import { showMessage } from "/js/uiMessage.js";
 
 const db = getFirestore(app);
 
@@ -257,10 +258,10 @@ export async function saveTrainingInformation() {
       endTrainings
     });
 
-    alert("Training informatie bijgewerkt!");
+    showMessage("Training informatie bijgewerkt!", "success");
   } catch (err) {
     console.error("Error saving training info:", err);
-    alert("Er ging iets mis bij het opslaan.");
+    showMessage("Er ging iets mis bij het opslaan.", "error");
   }
 
   removeLoadingSpinner(spinnerHolder);
