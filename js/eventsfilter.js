@@ -66,7 +66,7 @@ function applyFilters() {
   const selectedTypes = getCheckedValues("event-type");
   const selectedAges = getCheckedValues("event-age");
 
-  eventCards.forEach((card, i, arr) => {
+  eventCards.forEach(card => {
     const cardStart = parseDate(card.getAttribute("filter-date-start"));
     const cardEnd = parseDate(card.getAttribute("filter-date-end"));
     const cardType = card.getAttribute("filter-type").toLowerCase();
@@ -101,8 +101,15 @@ function applyFilters() {
     visibleCards.map(card => card.getAttribute("filter-type").toLowerCase())
   )];
   filterCheckboxes.forEach(cb => {
-    const isAvailable = availableCheckboxeValues.includes(cb.value.toLowerCase());
-    if (!isAvailable) cb.style.display = "none";
+    const isAvailable = availableCheckboxValues.includes(cb.value.toLowerCase());
+
+    const wrapper = cb.closest(".custom-checkbox");
+  
+    if (isAvailable) {
+      wrapper.style.display = "flex";
+    } else {
+      wrapper.style.display = "none";
+    }
   });
 }
 
