@@ -403,9 +403,11 @@ export async function loadTrainingInformation() {
   Object.values(containers).forEach(c => c && showLoadingSpinner(c));
 
   try {
-    const snapshot = await getDocs(collection(db, "training_information"));
+    const ref = doc(db, "training_information", "kids");
+    const snapshot = await getDoc(ref);
+
     if (snapshot.empty) {
-      console.error("No Firebase data found");
+      console.error("No kids data found");
       return;
     }
 
