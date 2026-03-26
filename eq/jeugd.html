@@ -332,7 +332,7 @@ async function copyFromKids() {
     }
 
     // Tennis days
-    if (Array.isArray(data.trainingDaysTennis)) {
+    if (Array.isArray(data.trainingDays)) {
       document.querySelectorAll(".training-day-tennis").forEach(cb => cb.checked = false);
       data.trainingDays.forEach(day => {
         const cb = document.querySelector(`.training-day-tennis[value="${day}"]`);
@@ -341,7 +341,7 @@ async function copyFromKids() {
     }
 
     // Conditie days
-    if (Array.isArray(data.trainingDaysConditie)) {
+    if (Array.isArray(data.conditioningDays)) {
       document.querySelectorAll(".training-day-conditie").forEach(cb => cb.checked = false);
       data.conditioningDays.forEach(day => {
         const cb = document.querySelector(`.training-day-conditie[value="${day}"]`);
