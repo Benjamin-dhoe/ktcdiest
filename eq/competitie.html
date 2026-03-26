@@ -88,6 +88,11 @@
     </div>
 
     <div class="event-question">
+      <label>Inschrijvingssectie op website zichtbaar tot</label>
+      <input type="date" id="shared-registration-visible-until">
+    </div>
+
+    <div class="event-question">
       <label>Registreren vanaf</label>
       <input type="text" id="shared-registration-start">
     </div>
@@ -448,6 +453,7 @@ async function loadCompetitie() {
     document.getElementById("shared-planning-proposal").value = data.planningProposal || "";
     document.getElementById("shared-start-trainings").value = data.startTrainings || "";
     document.getElementById("shared-end-trainings").value = data.endTrainings || "";
+    document.getElementById("shared-registration-visible-until").value = data.registrationVisibleUntil || "";
 
     if (data.location) {
       const radio = document.querySelector(`input[name="location"][value="${data.location}"]`);
@@ -504,7 +510,8 @@ async function saveCompetitie() {
     registrationEnd: document.getElementById("shared-registration-end").value.trim(),
     planningProposal: document.getElementById("shared-planning-proposal").value.trim(),
     startTrainings: document.getElementById("shared-start-trainings").value.trim(),
-    endTrainings: document.getElementById("shared-end-trainings").value.trim()
+    endTrainings: document.getElementById("shared-end-trainings").value.trim(),
+    registrationVisibleUntil: document.getElementById("shared-registration-visible-until").value
   };
 
   /* -------------------------
@@ -568,6 +575,9 @@ async function copySharedFromKids() {
     }
     if (data.endTrainings !== undefined) {
       document.getElementById("shared-end-trainings").value = data.endTrainings;
+    }
+    if (data.registrationVisibleUntil !== undefined) {
+      document.getElementById("shared-registration-visible-until").value = data.registrationVisibleUntil;
     }
 
     // Location
