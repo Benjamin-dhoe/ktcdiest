@@ -67,6 +67,7 @@
   padding: 18px 20px;
   margin-bottom: 20px;
   box-shadow: 0 0 8px #00000015;
+  color: var(--darkblue);
 }
 
 .event-question {
