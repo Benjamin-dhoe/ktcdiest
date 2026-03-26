@@ -125,9 +125,27 @@ function applyFilters() {
     card.style.display = visible ? "block" : "none";
   });
   const visibleCards = Array.from(eventCards).filter(card => card.style.display !== "none");
-  const availableCheckboxValues = [...new Set(
-    visibleCards.map(card => card.getAttribute("filter-type").toLowerCase())
-  )];
+  const availableCheckboxValues = [
+    ...new Set([
+      // All types
+      ...visibleCards.map(card =>
+        card.getAttribute("filter-type").toLowerCase()
+      ),
+  
+      // All ages (flattened)
+      ...visibleCards.flatMap(card => {
+        let rawAges = card.getAttribute("filter-leeftijd") || "[]";
+        rawAges = rawAges.replace(/'/g, '"').trim();
+        if (!rawAges.endsWith("]")) rawAges += "]";
+        try {
+          return JSON.parse(rawAges).map(a => String(a).toLowerCase());
+        } catch {
+          return [];
+        }
+      })
+    ])
+  ];
+
   filterCheckboxes.forEach(cb => {
     const isAvailable = availableCheckboxValues.includes(cb.value.toLowerCase());
 
