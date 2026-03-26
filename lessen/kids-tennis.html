@@ -488,14 +488,14 @@ export async function loadTrainingInformation() {
 
       <div class="tsFaqDateRow">
         <span class="tsFaqDateLabel">Lidmaatschap vereist</span>
-        <span class="tsFaqDateValue">${data.membershipRequired}</span>
+        <span class="tsFaqDateValue">Niet‑leden van KTC Diest kunnen deelnemen mits het betalen van een lidmaatschap.</span>
       </div>
     `;
 
     removeLoadingSpinner(containers.datesWarning);
     containers.datesWarning.innerHTML = `
       Let op: het plannen start zodra de inschrijvingen binnenkomen 
-      <strong>en je lidmaatschap in orde is</strong>.
+      <strong>en je lidmaatschap in orde is</strong> Je hebt er dus alle voordeel bij om snel in te schrijven.
     `;
 
   } catch (err) {
