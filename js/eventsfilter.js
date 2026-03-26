@@ -16,6 +16,7 @@ let selectedEnd = null;
 flatpickr(dateRangeInput, {
   mode: "range",
   dateFormat: "d-m-Y",
+  minDate: "today",
   onChange: function(selectedDates) {
     if (selectedDates.length === 2) {
       selectedStart = selectedDates[0];
@@ -27,6 +28,18 @@ flatpickr(dateRangeInput, {
     applyFilters();
   }
 });
+
+// Set default filter range: today → 6 months ahead
+const today = new Date();
+const sixMonthsAhead = new Date();
+sixMonthsAhead.setMonth(sixMonthsAhead.getMonth() + 6);
+
+selectedStart = today;
+selectedEnd = sixMonthsAhead;
+
+dateRangeInput.value =
+  today.toLocaleDateString("nl-BE") + " tot " +
+  sixMonthsAhead.toLocaleDateString("nl-BE");
 
 // ----------------------
 // OPEN / CLOSE FILTER PANEL
