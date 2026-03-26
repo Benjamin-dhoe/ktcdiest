@@ -121,6 +121,40 @@
   display: none;
 }
 
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--lineslight);
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--dark-bg);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.checkbox-group label:hover {
+  background: #f8f8f8;
+  border-color: var(--lines);
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent, #0077ff);
+  cursor: pointer;
+}
+
 .radio-visual {
   padding: 10px 16px;
   border-radius: 30px;
