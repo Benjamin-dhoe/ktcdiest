@@ -384,7 +384,7 @@
 <script type="module">
  import { app } from "/js/firebase.js";
 import { 
-  getFirestore, collection, getDocs 
+  getFirestore, collection, getDoc, doc 
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
 import { showLoadingSpinner, removeLoadingSpinner } from "/js/Spinner.js";
@@ -411,7 +411,7 @@ export async function loadTrainingInformation() {
       return;
     }
 
-    const data = snapshot.docs[0].data();
+    const data = snapshot.data();
 
     // ---------------------------
     // LOCATIE
