@@ -224,7 +224,13 @@ export async function loadTrainingInformation() {
     // Training days checkboxes
     if (Array.isArray(data.trainingDays)) {
       data.trainingDays.forEach(day => {
-        const checkbox = document.querySelector(`.radio-option[value="${day}"]`);
+        const checkbox = document.querySelector(`.training-day-tennis[value="${day}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+    }
+     if (Array.isArray(data.conditioningDays)) {
+      data.conditioningDays.forEach(day => {
+        const checkbox = document.querySelector(`.training-day-conditie[value="${day}"]`);
         if (checkbox) checkbox.checked = true;
       });
     }
