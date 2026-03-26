@@ -165,24 +165,73 @@
 <script type="module">
 import { app } from "/js/firebase.js";
 import { 
-  getFirestore, collection, addDoc 
+  getFirestore, doc, getDoc, updateDoc 
 } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
 import { showLoadingSpinner, removeLoadingSpinner } from "/js/Spinner.js";
 
 const db = getFirestore(app);
 
+/* ---------------------------------------------------
+   LOAD EXISTING DATA FROM "kids" DOCUMENT
+--------------------------------------------------- */
+export async function loadTrainingInformation() {
+  const ref = doc(db, "training_information", "kids");
+
+  try {
+    const snapshot = await getDoc(ref);
+
+    if (!snapshot.exists()) {
+      console.warn("No existing training info found.");
+      return;
+    }
+
+    const data = snapshot.data();
+
+    // Fill simple fields
+    document.getElementById("event-number-of-training-moments").value = data.numberOfTrainingMoments || "";
+    document.getElementById("event-price").value = data.price || "";
+    document.getElementById("event-registration-link").value = data.registrationLink || "";
+
+    document.getElementById("event-registration-start").value = data.registrationStart || "";
+    document.getElementById("event-registration-end").value = data.registrationEnd || "";
+    document.getElementById("event-planning-proposal").value = data.planningProposal || "";
+
+    document.getElementById("event-start-trainings").value = data.startTrainings || "";
+    document.getElementById("event-end-trainings").value = data.endTrainings || "";
+
+    // Location radio buttons
+    if (data.location) {
+      const radio = document.querySelector(`input[name="location"][value="${data.location}"]`);
+      if (radio) radio.checked = true;
+    }
+
+    // Training days checkboxes
+    if (Array.isArray(data.trainingDays)) {
+      data.trainingDays.forEach(day => {
+        const checkbox = document.querySelector(`.training-day[value="${day}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+    }
+
+  } catch (err) {
+    console.error("Error loading training info:", err);
+  }
+}
+
+/* ---------------------------------------------------
+   SAVE / UPDATE THE SAME "kids" DOCUMENT
+--------------------------------------------------- */
 export async function saveTrainingInformation() {
   const spinnerHolder = document.getElementById("holder-spinner-save-changes");
   const spinner = showLoadingSpinner(spinnerHolder);
 
-  // Location (now only warandepark or karteria)
-  const location = document.querySelector("input[name='location']:checked")?.value || "";
-
-  // Training days
-  const trainingDays = [...document.querySelectorAll(".training-day:checked")].map(d => d.value);
+  const ref = doc(db, "training_information", "kids");
 
   // Collect values
+  const location = document.querySelector("input[name='location']:checked")?.value || "";
+  const trainingDays = [...document.querySelectorAll(".training-day:checked")].map(d => d.value);
+
   const numberOfTrainingMoments = document.getElementById("event-number-of-training-moments").value.trim();
   const price = document.getElementById("event-price").value.trim();
   const registrationLink = document.getElementById("event-registration-link").value.trim();
@@ -195,7 +244,7 @@ export async function saveTrainingInformation() {
   const endTrainings = document.getElementById("event-end-trainings").value.trim();
 
   try {
-    await addDoc(collection(db, "training_information"), {
+    await updateDoc(ref, {
       location,
       trainingDays,
       numberOfTrainingMoments,
@@ -208,18 +257,26 @@ export async function saveTrainingInformation() {
       endTrainings
     });
 
-    alert("Training informatie opgeslagen!");
+    alert("Training informatie bijgewerkt!");
   } catch (err) {
-    console.error(err);
+    console.error("Error saving training info:", err);
     alert("Er ging iets mis bij het opslaan.");
   }
 
   removeLoadingSpinner(spinnerHolder);
 }
-  
-document.getElementById("save-event-btn").addEventListener("click", () => {
-  saveTrainingInformation();
+
+/* ---------------------------------------------------
+   INIT: LOAD DATA WHEN PAGE OPENS
+--------------------------------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  loadTrainingInformation();
+
+  document.getElementById("save-event-btn").addEventListener("click", () => {
+    saveTrainingInformation();
+  });
 });
+
 </script>
 
 </body></html>
