@@ -470,6 +470,77 @@
     return await getDownloadURL(storageRef);
   }
 
+  // -------------------------------
+// Helper: Add achievement input
+// -------------------------------
+function addAchievement(value = "") {
+  const div = document.createElement("div");
+  div.className = "achievement-item";
+
+  div.innerHTML = `
+    <input type="text" value="${value.replace(/"/g, "&quot;")}" placeholder="Achievement">
+    <button class="remove-ach-btn" type="button">X</button>
+  `;
+
+  div.querySelector(".remove-ach-btn").onclick = () => div.remove();
+
+  achievementsList.appendChild(div);
+}
+
+// -------------------------------
+// Extra info (Q&A)
+// -------------------------------
+addExtraInfoBtn.addEventListener("click", () => {
+  addDynamicItem("coach-extra-info", infoTemplate());
+});
+
+function collectExtraInfo() {
+  const items = extraInfoContainer.querySelectorAll(".dynamic-item");
+  const result = [];
+
+  items.forEach(div => {
+    const title = div.querySelector(".info-title")?.value.trim();
+    const text = div.querySelector(".info-text")?.value.trim();
+
+    if (title && text) {
+      result.push({ title, text });
+    }
+  });
+
+  return result;
+}
+
+function infoTemplate(item = { title: "", text: "" }) {
+  return `
+    <input class="info-title" type="text" placeholder="Sectietitel" value="${item.title}">
+    <textarea class="info-text" placeholder="Tekst">${item.text}</textarea>
+    <button class="remove-btn" type="button">X</button>
+  `;
+}
+
+function fillDynamicList(containerId, list, templateFn) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  (list || []).forEach(item => {
+    addDynamicItem(containerId, templateFn(item));
+  });
+}
+
+function addDynamicItem(containerId, html) {
+  const container = document.getElementById(containerId);
+  const div = document.createElement("div");
+
+  div.className = "dynamic-item";
+  div.innerHTML = html;
+
+  container.appendChild(div);
+
+  const removeBtn = div.querySelector(".remove-btn");
+  if (removeBtn) {
+    removeBtn.addEventListener("click", () => div.remove());
+  }
+}
   /* ------------------------------
       IMAGE HANDLING (NEW)
   ------------------------------ */
