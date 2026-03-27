@@ -1184,7 +1184,7 @@ html {
   flex-flow: column;
 }
 
-.sidecontent.centered.small.sticky {
+.sidecontent.sticky {
   position: sticky;
   top: 20px;
 }
@@ -2186,7 +2186,7 @@ html {
   flex-flow: wrap;
   justify-content: center;
   width: 100%;
-  max-width: 900px; 
+  max-width: 1100px; 
   display: flex;
 }
 
@@ -2422,7 +2422,7 @@ html {
     position: static;
   }
 
-  .sidecontent.centered.small.sticky {
+  .sidecontent.sticky {
     position: static;
   }
 
