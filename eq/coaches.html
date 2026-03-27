@@ -8,7 +8,7 @@
   <link href="/css/dashboard.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>adddy
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" media="all"><script type="text/javascript">
     WebFont.load({ google: { families: ["Poppins:300,400,500,600,700"] } });
   </script>
@@ -33,19 +33,18 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
 </head>
 <body class="body-dashboard">
+  <div class="popup" id="fullpage-loading-popup" style="z-index: 9999">
+    <div class="alwaysflexhorizontal" style="gap: 12px">
+      <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="" style="width: 200px"></lottie-player>
+      <div class="smalltext" id="loading-text"></div>
+    </div>
+  </div>
   <div class="holder-content">
     <div class="top-of-the-dashboard">
   <a href="/admin/home" class="logo-in-dashboard w-inline-block">
     <img class="logo-dashboard" src="/images/logo-ktcdiest.png" width="217" alt="" hash="Overzicht" id="Overzicht" loading="lazy">
     <div class="heading-dashboard">KTC Diest</div>
   </a>
-  <lottie-player id="navLottie" class="navlottie" src="/images/hamburger-lottie-white.json" background="transparent" speed="1"><template shadowrootmode="open"><!----> <div id="animation-container" lang="en" role="img" class="main" aria-label="Lottie animation">
-      <div id="animation" class="animation" style="background:transparent;">
-        <!--?lit$320312143$-->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 667" width="375" height="667" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;"><defs><clipPath id="__lottie_element_2"><rect width="375" height="667" x="0" y="0"></rect></clipPath></defs><g clip-path="url(#__lottie_element_2)"><g transform="matrix(1,0,0,1,187.5,382.9930114746094)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="4" stroke="rgb(255,255,255)" stroke-opacity="1" stroke-width="16" d=" M-80.5,0 C-80.5,0 80.5,0 80.5,0"></path></g></g><g transform="matrix(1,0,0,1,187.5,332.9930114746094)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="4" stroke="rgb(255,255,255)" stroke-opacity="1" stroke-width="16" d=" M-80.5,0 C-80.5,0 80.5,0 80.5,0"></path></g></g><g transform="matrix(1,0,0,1,187.5,282.9930114746094)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="4" stroke="rgb(255,255,255)" stroke-opacity="1" stroke-width="16" d=" M-80.5,0 C-80.5,0 80.5,0 80.5,0"></path></g></g></g></svg></div>
-      <!--?lit$320312143$-->
-    </div></template>
-  </lottie-player>
 </div>
     <div class="tabs">
       <div id="tabmenu" class="tab-menu-dashboard w-tab-menu">
@@ -70,23 +69,33 @@
         </div>
         <button id="add-coach-btn" class="primary-btn" style="margin-top:20px;">Coach toevoegen</button>
         <div id="holdercoaches" class="coach-list"><div class="collection-items-basic flex-hor-spaced">
-        <div class="flexhorizontal" style="gap: 12px">
-          <div class="coachhold">
-            <img loading="lazy" width="40" src="https://firebasestorage.googleapis.com/v0/b/ktc-diest-2791b.firebasestorage.app/o/coaches%2Fstijn-meulemans-p-500.jpg?alt=media&amp;token=83b7edba-50de-4dab-803a-4fb53ac5015c" alt="Stijn Meulemans">
-          </div>
-          <div class="bold-text">Stijn Meulemans</div>
+      <div class="flexhorizontal" style="gap: 12px">
+        <div class="coachhold">
+          <img loading="lazy" width="40" src="https://firebasestorage.googleapis.com/v0/b/ktc-diest-2791b.firebasestorage.app/o/coaches%2Fstijn-meulemans-p-500.jpg?alt=media&amp;token=83b7edba-50de-4dab-803a-4fb53ac5015c">
         </div>
-        <div class="holderactionbtns">
-            <button class="actionbtn edit-btn" data-id="62fPSUoZ1M7I6NCiVexf"><img src="/images/edit.svg"></button>
-            <button class="actionbtn delete-btn" data-id="62fPSUoZ1M7I6NCiVexf"><img src="/images/delete.svg"></button>
+        <div class="bold-text">Stijn Meulemans</div>
+      </div>
+      <div class="holderactionbtns">
+        <button class="actionbtn edit-btn" data-id="62fPSUoZ1M7I6NCiVexf"><img src="/images/edit.svg"></button>
+        <button class="actionbtn delete-btn" data-id="62fPSUoZ1M7I6NCiVexf"><img src="/images/delete.svg"></button>
+      </div>
+    </div><div class="collection-items-basic flex-hor-spaced">
+      <div class="flexhorizontal" style="gap: 12px">
+        <div class="coachhold">
+          <img loading="lazy" width="40" src="https://firebasestorage.googleapis.com/v0/b/ktc-diest-2791b.firebasestorage.app/o/coaches%2Fmain_1774469019507_olivie-rojas.jpg?alt=media&amp;token=2813f96f-2d81-4330-9f35-a140761e6ced">
         </div>
-      </div></div>
+        <div class="bold-text">Olivier Rojas</div>
+      </div>
+      <div class="holderactionbtns">
+        <button class="actionbtn edit-btn" data-id="prm30Nj0X6YBtrL3uFg8"><img src="/images/edit.svg"></button>
+        <button class="actionbtn delete-btn" data-id="prm30Nj0X6YBtrL3uFg8"><img src="/images/delete.svg"></button>
+      </div>
+    </div></div>
         
       </div>
     </div>
   </div>
-
-<!-- ADD/EDIT COACH POPUP -->
+<!-- COACH POPUP -->
 <div id="coach-popup" class="popup">
   <div class="popup-content">
     <button class="popup-close-btn" id="closePopupBtnTop">✕</button>
@@ -141,7 +150,7 @@
         <label class="section-title">Get to know coach</label>
         <div class="alwaysflexhorizontal" style="gap: 10px; cursor: pointer;" id="add-extra-info-btn">
           <button class="circle-add-btn">+</button>
-          <div class="smalltext">Q&A toevoegen</div>
+          <div class="smalltext">Q&amp;A toevoegen</div>
         </div>
         <div id="coach-extra-info"></div>
         <label>Get to know foto</label>
@@ -156,8 +165,6 @@
     </div>
   </div>
 </div>
-
-
 <!-- DELETE CONFIRMATION -->
 <div id="delete-coach-modal" class="popup">
   <div class="popup-content small">
@@ -209,11 +216,15 @@ const discoverImagePreview = document.getElementById("coach-discover-image-previ
 
 const saveBtn = document.getElementById("save-coach-btn");
 
+const fullpageLoading = document.getElementById("fullpage-loading-popup");
+const fullpageLoadingText = document.getElementById("loading-text");
+
 let popupMode = "add";
 let currentCoachId = null;
 let additionalImages = [];
 let removedImages = [];
 let objectUrls = [];
+let newAdditionalFiles = []; // store actual File objects for upload
 
 // -------------------------------
 // Helper: Add achievement input
@@ -300,7 +311,11 @@ function addAdditionalImage(url, isExisting = false) {
 
   wrapper.querySelector(".remove-additional-img-btn").onclick = () => {
     if (isExisting) removedImages.push(url);
-    else URL.revokeObjectURL(url);
+    else {
+      URL.revokeObjectURL(url);
+      const index = newAdditionalFiles.findIndex(f => URL.createObjectURL(f) === url);
+      if (index !== -1) newAdditionalFiles.splice(index, 1);
+    }
 
     additionalImages = additionalImages.filter(img => img !== url);
     wrapper.remove();
@@ -323,7 +338,7 @@ async function loadCoaches() {
     const item = document.createElement("div");
     item.className = "collection-items-basic flex-hor-spaced";
     item.innerHTML = `
-      <div class="flexhorizontal" style="gap: 12px">
+      <div class="alwaysflexhorizontal" style="gap: 12px">
         <div class="coachhold">
           <img loading="lazy" width="40" src="${data.imageUrl || "/images/placeholder.jpg"}">
         </div>
@@ -364,6 +379,7 @@ document.getElementById("add-coach-btn").onclick = () => {
   additionalImagesContainer.innerHTML = "";
   additionalImages = [];
   removedImages = [];
+  newAdditionalFiles = [];
 
   popup.style.display = "flex";
 };
@@ -389,6 +405,9 @@ async function openEditPopup(e) {
   if (data.imageUrl) {
     mainImagePreview.src = data.imageUrl;
     mainImagePreview.style.display = "block";
+  } else {
+    mainImagePreview.src = "";
+    mainImagePreview.style.display = "none";
   }
 
   achievementsList.innerHTML = "";
@@ -397,6 +416,7 @@ async function openEditPopup(e) {
   additionalImagesContainer.innerHTML = "";
   additionalImages = [...(data.additionalImages || [])];
   removedImages = [];
+  newAdditionalFiles = [];
 
   additionalImages.forEach(url => addAdditionalImage(url, true));
 
@@ -417,8 +437,12 @@ async function openEditPopup(e) {
 // Upload helper
 // -------------------------------
 async function uploadImage(file, path) {
+  fullpageLoadingText.textContent = "Afbeelding uploaden ...";
+  fullpageLoading.style.display = "flex";
   const storageRef = ref(storage, path);
   await uploadBytes(storageRef, file);
+  fullpageLoading.style.display = "none";
+  fullpageLoadingText.textContent = "";
   return await getDownloadURL(storageRef);
 }
 
@@ -426,11 +450,15 @@ async function uploadImage(file, path) {
 // SAVE coach
 // -------------------------------
 saveBtn.onclick = async () => {
+  fullpageLoadingText.textContent = "Event opslagen ...";
+  fullpageLoading.style.display = "flex";
   const name = nameInput.value.trim();
   const intro = introInput.value.trim();
 
   if (!name) {
     alert("Naam is verplicht");
+    fullpageLoadingText.textContent = "";
+    fullpageLoading.style.display = "none";
     return;
   }
 
@@ -464,8 +492,9 @@ saveBtn.onclick = async () => {
     .map(i => i.value.trim())
     .filter(v => v.length > 0);
 
+  // Upload new additional images
   const newUploads = [];
-  for (const file of additionalImageUpload.files) {
+  for (const file of newAdditionalFiles) {
     const url = await uploadImage(
       file,
       `coaches/additional_${Date.now()}_${file.name}`
@@ -474,9 +503,9 @@ saveBtn.onclick = async () => {
   }
 
   const finalAdditionalImages = [
-    ...additionalImages,
+    ...additionalImages.filter(url => !removedImages.includes(url)),
     ...newUploads
-  ].filter(url => !removedImages.includes(url));
+  ];
 
   const payload = {
     name,
@@ -498,8 +527,11 @@ saveBtn.onclick = async () => {
   // cleanup object URLs
   objectUrls.forEach(url => URL.revokeObjectURL(url));
   objectUrls = [];
+  newAdditionalFiles = [];
 
   popup.style.display = "none";
+  fullpageLoadingText.textContent = "";
+  fullpageLoading.style.display = "none";
   loadCoaches();
 };
 
@@ -508,14 +540,22 @@ saveBtn.onclick = async () => {
 // -------------------------------
 addAdditionalImageBtn.onclick = () => additionalImageUpload.click();
 
-additionalImageUpload.onchange = () => {
+additionalImageUpload.onchange = async () => {
   const files = Array.from(additionalImageUpload.files);
 
-  files.forEach(file => {
+  for (const file of files) {
+    // preview
     const url = URL.createObjectURL(file);
     objectUrls.push(url);
     addAdditionalImage(url, false);
-  });
+
+    // upload immediately
+    const uploadedUrl = await uploadImage(
+      file,
+      `coaches/additional_${Date.now()}_${file.name}`
+    );
+    additionalImages.push(uploadedUrl); // only save Firebase URL
+  }
 
   additionalImageUpload.value = "";
 };

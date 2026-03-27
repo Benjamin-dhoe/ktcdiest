@@ -1,4 +1,4 @@
-<html class="w-mod-js wf-poppins-n3-active wf-poppins-n4-active wf-poppins-n5-active wf-poppins-n6-active wf-poppins-n7-active wf-active wf-decoy-i7-active wf-decoy-n7-active wf-decoy-i4-active wf-decoy-n4-active wf-gelica-n7-active wf-gelica-i7-active wf-gelica-n4-active wf-gelica-i4-active"><head>
+<html class="w-mod-js w-mod-touch wf-poppins-n3-active wf-poppins-n4-active wf-poppins-n5-active wf-poppins-n6-active wf-poppins-n7-active wf-active wf-decoy-i7-active wf-decoy-n7-active wf-decoy-i4-active wf-decoy-n4-active wf-gelica-n7-active wf-gelica-i7-active wf-gelica-n4-active wf-gelica-i4-active"><head>
   <meta charset="utf-8">
   <title>Adminpaneel</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -8,7 +8,7 @@
   <link href="/css/dashboard.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
+  <script src="https://apis.google.com/_/scs/abc-static/_/js/k=gapi.lb.en.PJsh2cctCQI.O/m=gapi_iframes/rt=j/sv=1/d=1/ed=1/rs=AHpOoo_QlMhY2cycn60Rs8eI1WInRwuahw/cb=gapi.loaded_0?le=scs" async=""></script><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" media="all"><script type="text/javascript">
     WebFont.load({ google: { families: ["Poppins:300,400,500,600,700"] } });
   </script>
@@ -31,15 +31,26 @@
   <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon">
   <link href="/images/webclip.png" rel="apple-touch-icon">
   <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
-</head>
+<script src="https://apis.google.com/js/api.js?onload=__iframefcb937044" type="text/javascript" charset="UTF-8" gapi_processed="true"></script></head>
 <body class="body-dashboard">
+  <div class="popup" id="fullpage-loading-popup" style="z-index: 9999">
+    <div class="alwaysflexhorizontal" style="gap: 12px">
+      <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="" style="width: 200px"></lottie-player>
+      <div class="smalltext" id="loading-text"></div>
+    </div>
+  </div>
   <div class="holder-content">
     <div class="top-of-the-dashboard">
   <a href="/admin/home" class="logo-in-dashboard w-inline-block">
     <img class="logo-dashboard" src="/images/logo-ktcdiest.png" width="217" alt="" hash="Overzicht" id="Overzicht" loading="lazy">
     <div class="heading-dashboard">KTC Diest</div>
   </a>
-  <lottie-player id="navLottie" class="navlottie" src="/images/hamburger-lottie-white.json" background="transparent" speed="1">
+  <lottie-player id="navLottie" class="navlottie" src="/images/hamburger-lottie-white.json" background="transparent" speed="1"><template shadowrootmode="open"><!----> <div id="animation-container" lang="en" role="img" class="main" aria-label="Lottie animation">
+      <div id="animation" class="animation" style="background:transparent;">
+        <!--?lit$541988526$-->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 667" width="375" height="667" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px); content-visibility: visible;"><defs><clipPath id="__lottie_element_2"><rect width="375" height="667" x="0" y="0"></rect></clipPath></defs><g clip-path="url(#__lottie_element_2)"><g transform="matrix(1,0,0,1,187.5,382.9930114746094)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="4" stroke="rgb(255,255,255)" stroke-opacity="1" stroke-width="16" d=" M-80.5,0 C-80.5,0 80.5,0 80.5,0"></path></g></g><g transform="matrix(1,0,0,1,187.5,332.9930114746094)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="4" stroke="rgb(255,255,255)" stroke-opacity="1" stroke-width="16" d=" M-80.5,0 C-80.5,0 80.5,0 80.5,0"></path></g></g><g transform="matrix(1,0,0,1,187.5,282.9930114746094)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="4" stroke="rgb(255,255,255)" stroke-opacity="1" stroke-width="16" d=" M-80.5,0 C-80.5,0 80.5,0 80.5,0"></path></g></g></g></svg></div>
+      <!--?lit$541988526$-->
+    </div></template>
   </lottie-player>
 </div>
     <div class="tabs">
@@ -61,10 +72,24 @@
 </div>
       <div class="tabs-content-dashboard">
         <div class="top-of-the-pane-dashboard">
-          <h2 class="heading-dashboard">Coaches</h2>
+          <h2 class="heading-dashboard">Events</h2>
         </div>
         <button id="add-event-btn" class="primary-btn" style="margin-top:20px;">Event toevoegen</button>
-        <div id="holder-events" class="coach-list"><div class="collection-items-basic flex-hor-spaced">
+        <div id="holder-events" class="coach-list">
+          <div class="collection-items-basic flex-hor-spaced">
+            <div class="flexhorizontal" style="gap: 12px">
+              <img loading="lazy" width="40" src="https://firebasestorage.googleapis.com/v0/b/ktc-diest-2791b.firebasestorage.app/o/events%2F1774357689073-zomertornooi.jpg?alt=media&amp;token=bf32c39c-077e-4411-831b-3908cc13e0a6" alt="Zomertornooi 2026">
+              <div>
+                <div><strong>Zomertornooi 2026</strong></div>
+                <div class="smalltext">13-07-2026 - 26-07-2026</div>
+              </div>
+            </div>
+            <div class="holderactionbtns">
+              <button class="actionbtn edit-btn" data-id="89uNE0GRmGeErlh5sq3D"><img src="/images/edit.svg"></button>
+              <button class="actionbtn delete-btn" data-id="89uNE0GRmGeErlh5sq3D"><img src="/images/delete.svg"></button>
+            </div>
+          </div>
+      <div class="collection-items-basic flex-hor-spaced">
         <div class="flexhorizontal" style="gap: 12px">
           <img loading="lazy" width="40" src="/images/placeholder.jpg" alt="Heren 1 interclub: KTC Diest vs TC Gym Olympiade">
           <div>
@@ -73,27 +98,15 @@
           </div>
         </div>
         <div class="holderactionbtns">
-          <button class="actionbtn edit-btn" data-id="8lUNyXLoJMlJH7O8fkuK"><img src="/images/edit.svg"></button>
-          <button class="actionbtn delete-btn" data-id="8lUNyXLoJMlJH7O8fkuK"><img src="/images/delete.svg"></button>
-        </div>
-      </div><div class="collection-items-basic flex-hor-spaced">
-        <div class="flexhorizontal" style="gap: 12px">
-          <img loading="lazy" width="40" src="https://firebasestorage.googleapis.com/v0/b/ktc-diest-2791b.firebasestorage.app/o/events%2F1774357689073-zomertornooi.jpg?alt=media&amp;token=bf32c39c-077e-4411-831b-3908cc13e0a6" alt="Zomertornooi 2026">
-          <div>
-            <div><strong>Zomertornooi 2026</strong></div>
-            <div class="smalltext">2026-07-13 - 2026-07-26</div>
-          </div>
-        </div>
-        <div class="holderactionbtns">
-          <button class="actionbtn edit-btn" data-id="89uNE0GRmGeErlh5sq3D"><img src="/images/edit.svg"></button>
-          <button class="actionbtn delete-btn" data-id="89uNE0GRmGeErlh5sq3D"><img src="/images/delete.svg"></button>
+          <button class="actionbtn edit-btn"><img src="/images/edit.svg"></button>
+          <button class="actionbtn delete-btn"><img src="/images/delete.svg"></button>
         </div>
       </div></div>
         
       </div>
     </div>
   </div>
-  <div id="event-popup" class="popup">
+<div id="event-popup" class="popup">
   <div class="popup-content">
     <button class="popup-close-btn" id="closeEventBtnTop">✕</button>
 
@@ -158,7 +171,7 @@
           <input type="file" id="event-main-image">
         </div>
     
-        <div class="event-question">
+        <div class="event-question" style="display: none">
           <label>Banner afbeelding (optioneel)</label>
           <div class="hint">Deze afbeelding is zichtbaar op de event pagina in een strook bovenaan. Kies hier een foto die goed past als achtergrond en idealiter een brede afbeelding (vb resolutie 1200 breed - 300 hoog)</div>
           <img id="event-current-banner-image" style="width:80px; display:none;">
@@ -411,8 +424,17 @@
   const deleteEventConfirmBtn = document.getElementById("delete-event-confirm");
   const closeDeleteEventModalBtn = document.getElementById("close-delete-event-modal");
 
+  const fullpageLoading = document.getElementById("fullpage-loading-popup");
+  const fullpageLoadingText = document.getElementById("loading-text");  
+
   let currentEventId = null;
   let currentDeleteEventId = null;
+
+  // ✅ IMAGE STATE (NEW)
+  let existingExtraImagesList = [];
+  let removedExtraImages = [];
+  let newExtraImageFiles = [];
+  let objectUrls = [];
 
   /* ------------------------------
       HELPERS
@@ -430,172 +452,71 @@
     return `${yyyy}-${mm}-${dd}`;
   }
 
-
   function dateToTimestamp(dateStr) {
     if (!dateStr) return null;
     const [yyyy, mm, dd] = dateStr.split("-");
     return Timestamp.fromDate(new Date(yyyy, mm - 1, dd));
   }
 
-
   async function uploadImage(file, folder = "events") {
     if (!file) return null;
-    const MAX_FILE_SIZE = 1048576;
-    if (file.size > MAX_FILE_SIZE) return null;
+    fullpageLoadingText.textContent = "Afbeelding uploaden ...";
+    fullpageLoading.style.display = "flex";
 
     const storageRef = ref(storage, `${folder}/${Date.now()}-${file.name}`);
     await uploadBytes(storageRef, file);
+    fullpageLoading.style.display = "none";
+    fullpageLoadingText.textContent = "";
     return await getDownloadURL(storageRef);
   }
 
-  function addDynamicItem(containerId, html) {
-    const container = document.getElementById(containerId);
+  /* ------------------------------
+      IMAGE HANDLING (NEW)
+  ------------------------------ */
+
+  function addEventImage(url, isExisting = false) {
     const div = document.createElement("div");
-    div.className = "dynamic-item";
-    div.innerHTML = html;
-    container.appendChild(div);
-  
-    // Remove field
-    div.querySelector(".remove-btn").onclick = () => div.remove();
-  
-    // Field type change
-    const typeSelect = div.querySelector(".field-type");
-    const optionsContainer = div.querySelector(".options-container");
-  
-    typeSelect.onchange = () => {
-      if (typeSelect.value === "text") {
-        optionsContainer.style.display = "none";
+    div.className = "additional-image-item";
+
+    div.innerHTML = `
+      <img src="${url}" class="preview-img-small">
+      <button class="remove-additional-img-btn">X</button>
+    `;
+
+    div.querySelector(".remove-additional-img-btn").onclick = () => {
+      if (isExisting) {
+        removedExtraImages.push(url);
       } else {
-        optionsContainer.style.display = "block";
+        URL.revokeObjectURL(url);
+        newExtraImageFiles = newExtraImageFiles.filter(f => f.preview !== url);
       }
+
+      existingExtraImagesList = existingExtraImagesList.filter(img => img !== url);
+      div.remove();
     };
-  
-    // Add option
-    const addOptionBtn = div.querySelector(".add-option-btn");
-    const optionsList = div.querySelector(".options-list");
-  
-    addOptionBtn.onclick = () => {
-      const opt = document.createElement("div");
-      opt.innerHTML = optionTemplate();
-      opt.className = "option-item";
-  
-      opt.querySelector(".remove-option-btn").onclick = () => opt.remove();
-      optionsList.appendChild(opt);
-    };
-  
-    // Remove existing options
-    div.querySelectorAll(".remove-option-btn").forEach(btn => {
-      btn.onclick = () => btn.closest(".option-item").remove();
+
+    existingExtraImages.appendChild(div);
+  }
+
+  extraImagesInput.onchange = () => {
+    const files = Array.from(extraImagesInput.files);
+
+    files.forEach(file => {
+      const url = URL.createObjectURL(file);
+      objectUrls.push(url);
+
+      file.preview = url;
+      newExtraImageFiles.push(file);
+
+      addEventImage(url, false);
     });
-  }
 
+    extraImagesInput.value = "";
+  };
 
-  function priceTemplate(item = { label: "", price: "" }) {
-    return `
-      <input class="price-label" type="text" placeholder="Omschrijving" value="${item.label}">
-      <input class="price-value" type="text" placeholder="Prijs" value="${item.price}">
-      <button class="remove-btn" type="button">X</button>
-    `;
-  }
-
-  function optionTemplate(value = "") {
-    return `
-      <div class="option-item">
-        <input type="text" class="option-value" value="${value}">
-        <button class="remove-option-btn" type="button">X</button>
-      </div>
-    `;
-  }
-
-  function fieldTemplate(item = { label: "", type: "text", required: false }) {
-    return `
-      <input class="field-label" type="text" placeholder="Veldlabel" value="${item.label}">
-      <select class="field-type">
-        <option value="text" ${item.type === "text" ? "selected" : ""}>Vrije tekst</option>
-        <option value="list-single" ${item.type === "list" ? "selected" : ""}>Keuzelijst (1 optie)</option>
-        <option value="list-multiple" ${item.type === "list" ? "selected" : ""}>Keuzelijst (meer opties kiezen)</option>
-      </select>
-
-      <div class="options-container" style="display:${item.type === "text" ? "none" : "block"};">
-        <div class="options-list">
-          <div class="hint">Opties:</div>
-          ${(item.options || [])
-            .map(opt => optionTemplate(opt))
-            .join("")}
-        </div>
-        <button class="add-option-btn" type="button">+ optie</button>
-      </div>
-
-     <div class="flexhorizontal" style="gap: 10px; align-items: center;">
-      <div class="holdertoggle">
-            <label class="toggle-switch">
-                <input type="checkbox" class="field-required">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="smalltext">Verplicht in te vullen</div>
-      </div>
-
-      <button class="remove-btn" type="button">X</button>
-    `;
-  }
-
-  function infoTemplate(item = { title: "", text: "" }) {
-    return `
-      <input class="info-title" type="text" placeholder="Sectietitel" value="${item.title}">
-      <textarea class="info-text" placeholder="Tekst">${item.text}</textarea>
-      <button class="remove-btn" type="button">X</button>
-    `;
-  }
-
-  function fillDynamicList(containerId, list, templateFn) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = "";
-    (list || []).forEach(item => addDynamicItem(containerId, templateFn(item)));
-  }
-
-  function collectFormFields() {
-    const items = document.querySelectorAll("#event-fields .dynamic-item");
-    const result = [];
-  
-    items.forEach(div => {
-      const label = div.querySelector(".field-label").value.trim();
-      const type = div.querySelector(".field-type").value;
-  
-      let options = [];
-      if (type !== "text") {
-        options = Array.from(div.querySelectorAll(".option-value"))
-          .map(i => i.value.trim())
-          .filter(v => v.length > 0);
-      }
-  
-      result.push({ label, type, options });
-    });
-  
-    return result;
-  }
-
-  function collectPriceOptions() {
-    const items = priceOptionsContainer.querySelectorAll(".dynamic-item");
-    const result = [];
-    items.forEach(div => {
-      const label = div.querySelector(".price-label")?.value.trim();
-      const price = div.querySelector(".price-value")?.value.trim();
-      if (label && price) result.push({ label, price });
-    });
-    return result;
-  }
-
-  function collectExtraInfo() {
-    const items = extraInfoContainer.querySelectorAll(".dynamic-item");
-    const result = [];
-    items.forEach(div => {
-      const title = div.querySelector(".info-title")?.value.trim();
-      const text = div.querySelector(".info-text")?.value.trim();
-      if (title && text) result.push({ title, text });
-    });
-    return result;
-  }
+  /* ------------------------------
+      RESET
+  ------------------------------ */
 
   function resetEventPopup() {
     titleInput.value = "";
@@ -610,6 +531,13 @@
 
     extraImagesInput.value = "";
     existingExtraImages.innerHTML = "";
+
+    existingExtraImagesList = [];
+    removedExtraImages = [];
+    newExtraImageFiles = [];
+
+    objectUrls.forEach(url => URL.revokeObjectURL(url));
+    objectUrls = [];
 
     otherLocationSection.style.display = "none";
     otherLocationInput.value = "";
@@ -634,18 +562,17 @@
 
     kidsEnabled.checked = false;
     jeugdEnabled.checked = false;
-    volwassenenEnabled.checked = false
+    volwassenenEnabled.checked = false;
   }
 
   /* ------------------------------
-      OPEN POPUP (ADD)
+      OPEN ADD
   ------------------------------ */
   addEventBtn?.addEventListener("click", () => {
     currentEventId = null;
     resetEventPopup();
     popupTitle.innerText = "Nieuw Event";
 
-    // Default inscription method = form
     const formRadio = document.querySelector("input[name='inscription-method'][value='form']");
     if (formRadio) {
       formRadio.checked = true;
@@ -656,7 +583,7 @@
   });
 
   /* ------------------------------
-      OPEN POPUP (EDIT)
+      OPEN EDIT
   ------------------------------ */
   async function openEventPopupForEdit(id) {
     currentEventId = id;
@@ -683,14 +610,13 @@
       currentBannerImage.style.display = "block";
     }
 
-    existingExtraImages.innerHTML = "";
-    (data.extraImages || []).forEach(url => {
-      const div = document.createElement("div");
-      div.className = "existing-image";
-      div.innerHTML = `<img src="${url}" width="70">`;
-      existingExtraImages.appendChild(div);
+    existingExtraImagesList = [...(data.extraImages || [])];
+
+    existingExtraImagesList.forEach(url => {
+      addEventImage(url, true);
     });
 
+    // LOCATION
     if (data.location) {
       const radio = document.querySelector(`input[name='location'][value='${data.location}']`);
       if (radio) radio.checked = true;
@@ -701,20 +627,20 @@
       }
     }
 
-    // type-event
+    // TYPE EVENT
     if (data.typeEvent) {
       const r = document.querySelector(`input[name='type-event'][value='${data.typeEvent}']`);
       if (r) r.checked = true;
     }
-    
-    // age groups
+
+    // AGE GROUPS
     if (data.ageGroups) {
-    
       kidsEnabled.checked = data.ageGroups.includes("kids");
       jeugdEnabled.checked = data.ageGroups.includes("jeugd");
       volwassenenEnabled.checked = data.ageGroups.includes("volwassenen");
     }
 
+    // INSCRIPTION
     if (data.inscriptionMethod) {
       const radio = document.querySelector(`input[name='inscription-method'][value='${data.inscriptionMethod}']`);
       if (radio) radio.checked = true;
@@ -727,6 +653,7 @@
 
     if (data.inscriptionMethod === "form") {
       formSection.style.display = "block";
+
       paymentEnabledCheckbox.checked = !!data.paymentEnabled;
 
       if (data.paymentEnabled) {
@@ -737,8 +664,10 @@
       fillDynamicList("event-form-fields", data.formFields, fieldTemplate);
     }
 
+    // EXTRA INFO
     fillDynamicList("event-extra-info", data.extraInfo, infoTemplate);
 
+    // rest unchanged...
     startDateInput.value = formatDateToYYYYMMDD(data.startDate);
     endDateInput.value = formatDateToYYYYMMDD(data.endDate);
 
@@ -746,7 +675,7 @@
   }
 
   /* ------------------------------
-      SAVE NEW EVENT
+      SAVE NEW / EDIT
   ------------------------------ */
   async function saveNewEvent() {
     const title = titleInput.value.trim();
@@ -755,16 +684,21 @@
 
     const mainFile = mainImageInput.files[0];
     const bannerFile = bannerImageInput.files[0];
-    const extraFiles = extraImagesInput.files;
 
     let mainImage = mainFile ? await uploadImage(mainFile) : "";
     let bannerImage = bannerFile ? await uploadImage(bannerFile) : "";
 
-    const extraImages = [];
-    for (let f of extraFiles) {
-      const url = await uploadImage(f);
-      if (url) extraImages.push(url);
+    // Upload new extra images
+    const uploadedNewImages = [];
+    for (const file of newExtraImageFiles) {
+      const url = await uploadImage(file);
+      if (url) uploadedNewImages.push(url);
     }
+
+    const extraImages = [
+      ...existingExtraImagesList.filter(url => !removedExtraImages.includes(url)),
+      ...uploadedNewImages
+    ];
 
     const location = document.querySelector("input[name='location']:checked")?.value || "";
     const otherLocation = location === "other" ? otherLocationInput.value.trim() : "";
@@ -775,7 +709,6 @@
     if (kidsEnabled.checked) ageGroups.push("kids");
     if (jeugdEnabled.checked) ageGroups.push("jeugd");
     if (volwassenenEnabled.checked) ageGroups.push("volwassenen");
-
 
     const inscriptionMethod = document.querySelector("input[name='inscription-method']:checked")?.value || "form";
 
@@ -798,12 +731,11 @@
 
     const startDateRaw = startDateInput.value || "";
     const endDateRaw = endDateInput.value || "";
-    
+
     const startDate = formatDateToDDMMYYYY(startDateRaw);
     const endDate = formatDateToDDMMYYYY(endDateRaw);
-    
-    const startDateTimestamp = dateToTimestamp(startDateRaw);
 
+    const startDateTimestamp = dateToTimestamp(startDateRaw);
 
     await addDoc(eventsCol, {
       title,
@@ -828,13 +760,11 @@
     });
   }
 
-  /* ------------------------------
-      SAVE EDITED EVENT
-  ------------------------------ */
   async function saveEditedEvent(id) {
     const ref = doc(db, "events", id);
     const snap = await getDoc(ref);
     if (!snap.exists()) return;
+
     const existing = snap.data();
 
     const title = titleInput.value.trim();
@@ -843,7 +773,6 @@
 
     const mainFile = mainImageInput.files[0];
     const bannerFile = bannerImageInput.files[0];
-    const extraFiles = extraImagesInput.files;
 
     let mainImage = existing.mainImage || "";
     if (mainFile) {
@@ -857,11 +786,17 @@
       if (url) bannerImage = url;
     }
 
-    const extraImages = Array.isArray(existing.extraImages) ? [...existing.extraImages] : [];
-    for (let f of extraFiles) {
-      const url = await uploadImage(f);
-      if (url) extraImages.push(url);
+    // Upload new extra images
+    const uploadedNewImages = [];
+    for (const file of newExtraImageFiles) {
+      const url = await uploadImage(file);
+      if (url) uploadedNewImages.push(url);
     }
+
+    const extraImages = [
+      ...existingExtraImagesList.filter(url => !removedExtraImages.includes(url)),
+      ...uploadedNewImages
+    ];
 
     const location = document.querySelector("input[name='location']:checked")?.value || "";
     const otherLocation = location === "other" ? otherLocationInput.value.trim() : "";
@@ -872,7 +807,6 @@
     if (kidsEnabled.checked) ageGroups.push("kids");
     if (jeugdEnabled.checked) ageGroups.push("jeugd");
     if (volwassenenEnabled.checked) ageGroups.push("volwassenen");
-
 
     const inscriptionMethod = document.querySelector("input[name='inscription-method']:checked")?.value || "form";
 
@@ -895,12 +829,11 @@
 
     const startDateRaw = startDateInput.value || "";
     const endDateRaw = endDateInput.value || "";
-    
+
     const startDate = formatDateToDDMMYYYY(startDateRaw);
     const endDate = formatDateToDDMMYYYY(endDateRaw);
-    
-    const startDateTimestamp = dateToTimestamp(startDateRaw);
 
+    const startDateTimestamp = dateToTimestamp(startDateRaw);
 
     await updateDoc(ref, {
       title,
@@ -921,7 +854,7 @@
       extraInfo,
       startDate,
       endDate,
-      startDateTimestamp,
+      startDateTimestamp
     });
   }
 
@@ -939,113 +872,43 @@
   });
 
   /* ------------------------------
-      CLOSE POPUP
-  ------------------------------ */
-  function closeEventPopup() {
-    eventPopup.style.display = "none";
-  }
-
-  closeEventBtn.addEventListener("click", closeEventPopup);
-  closeEventBtnTop.addEventListener("click", closeEventPopup);
-
-  /* ------------------------------
-      LOCATION LOGIC
-  ------------------------------ */
-  locationRadios.forEach(radio => {
-    radio.addEventListener("change", () => {
-      if (radio.value === "other") {
-        otherLocationSection.style.display = "block";
-      } else {
-        otherLocationSection.style.display = "none";
-      }
-    });
-  });
-
-  /* ------------------------------
-      INSCRIPTION METHOD LOGIC
-  ------------------------------ */
-  inscriptionRadios.forEach(radio => {
-    radio.addEventListener("change", () => {
-      if (!radio.checked) return;
-
-      if (radio.value === "external") {
-        externalLinkSection.style.display = "block";
-        formSection.style.display = "none";
-      } else if (radio.value === "form") {
-        externalLinkSection.style.display = "none";
-        formSection.style.display = "block";
-      } else {
-        externalLinkSection.style.display = "none";
-        formSection.style.display = "none";
-      }
-    });
-  });
-
-  /* ------------------------------
-      PAYMENT TOGGLE
-  ------------------------------ */
-  paymentEnabledCheckbox.addEventListener("change", () => {
-    paymentOptionsSection.style.display = paymentEnabledCheckbox.checked ? "block" : "none";
-  });
-
-  /* ------------------------------
-      ADD DYNAMIC ITEMS
-  ------------------------------ */
-  addPriceOptionBtn.addEventListener("click", () => {
-    addDynamicItem("event-price-options", priceTemplate());
-  });
-
-  addFormFieldBtn.addEventListener("click", () => {
-    addDynamicItem("event-form-fields", fieldTemplate());
-  });
-
-  addExtraInfoBtn.addEventListener("click", () => {
-    addDynamicItem("event-extra-info", infoTemplate());
-  });
-
-  /* ------------------------------
-      DELETE EVENT
-  ------------------------------ */
-  deleteEventConfirmBtn.addEventListener("click", async () => {
-    if (currentDeleteEventId) {
-      await deleteDoc(doc(db, "events", currentDeleteEventId));
-      currentDeleteEventId = null;
-      await loadEvents();
-    }
-    deleteEventModal.style.display = "none";
-  });
-
-  closeDeleteEventModalBtn.addEventListener("click", () => {
-    deleteEventModal.style.display = "none";
-  });
-
-  /* ------------------------------
       LOAD EVENTS
   ------------------------------ */
   async function loadEvents() {
     const q = query(eventsCol, orderBy("startDateTimestamp", "desc"));
     const snap = await getDocs(q);
+
     listHolder.innerHTML = "";
 
-        snap.forEach(docSnap => {
+    snap.forEach(docSnap => {
       const data = docSnap.data();
       const id = docSnap.id;
 
       const item = document.createElement("div");
       item.className = "collection-items-basic flex-hor-spaced";
+
       item.innerHTML = `
-        <div class="flexhorizontal" style="gap: 12px">
-          <img loading="lazy" width="40" src="${data.mainImage || "/images/placeholder.jpg"}" alt="${data.title || ""}">
+        <div class="alwaysflexhorizontal" style="gap: 12px">
+          <div class="coachhold">
+            <img loading="lazy" width="40" src="${data.mainImage || "/images/placeholder.jpg"}" alt="${data.title || ""}">
+          </div>
           <div>
             <div><strong>${data.title || ""}</strong></div>
-            <div class="smalltext">${data.startDate || ""} ${data.endDate ? "-" : ""} ${data.endDate || ""}</div>
+            <div class="smalltext">
+              ${data.startDate || ""} ${data.endDate ? "-" : ""} ${data.endDate || ""}
+            </div>
           </div>
         </div>
         <div class="holderactionbtns">
-          <button class="actionbtn edit-btn" data-id="${id}"><img src="/images/edit.svg"></button>
-          <button class="actionbtn delete-btn" data-id="${id}"><img src="/images/delete.svg"></button>
+          <button class="actionbtn edit-btn" data-id="${id}">
+            <img src="/images/edit.svg">
+          </button>
+          <button class="actionbtn delete-btn" data-id="${id}">
+            <img src="/images/delete.svg">
+          </button>
         </div>
       `;
+
       listHolder.appendChild(item);
     });
 
@@ -1065,6 +928,13 @@
   }
 
   loadEvents();
+
+  // -------------------------------
+  // Close popup
+  // -------------------------------
+  document.getElementById("closeEventBtn").onclick =
+  document.getElementById("closeEventBtnTop").onclick =
+    () => popup.style.display = "none";
 </script>
 
-</body></html>
+<iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" tabindex="-1" vspace="0" width="100%" aria-hidden="true" id="I0_1774598441145" name="I0_1774598441145" src="https://ktc-diest-2791b.firebaseapp.com/__/auth/iframe?apiKey=AIzaSyBNWSQA2-p3eJqeqmxOCxnrhBKkZMTpOxg&amp;appName=%5BDEFAULT%5D&amp;v=10.13.1&amp;eid=p&amp;usegapi=1&amp;jsh=m%3B%2F_%2Fscs%2Fabc-static%2F_%2Fjs%2Fk%3Dgapi.lb.en.PJsh2cctCQI.O%2Fd%3D1%2Frs%3DAHpOoo_QlMhY2cycn60Rs8eI1WInRwuahw%2Fm%3D__features__#id=I0_1774598441145&amp;_gfid=I0_1774598441145&amp;parent=https%3A%2F%2Fktcdiest.netlify.app&amp;pfname=&amp;rpctoken=19216029" style="position: absolute; top: -100px; width: 1px; height: 1px;"></iframe></body></html>

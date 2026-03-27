@@ -1688,6 +1688,8 @@ html {
 
 .holder-phone {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .heading {
@@ -1701,6 +1703,7 @@ html {
   border-radius: 10px;
   width: 160px;
   overflow: hidden;
+  max-width: 380px;
 }
 
 .phone-image.black {
