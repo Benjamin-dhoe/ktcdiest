@@ -3,6 +3,7 @@ const closeFiltersBtn = document.getElementById("close-event-filters-btn");
 const resetFiltersBtn = document.getElementById("reset-event-filters-btn");
 const filtersDiv = document.getElementById("filters-div");
 const filterCheckboxes = document.querySelectorAll(".custom-checkbox input[type='checkbox']");
+const section = document.querySelector("#events-section");
 
 const dateRangeInput = document.getElementById("event-date-range");
 let eventCards = [];
@@ -70,7 +71,14 @@ resetFiltersBtn.addEventListener("click", () => {
 // ----------------------
 // LIVE FILTERING ON CHECKBOX CHANGE
 // ----------------------
-filterCheckboxes.forEach(cb => cb.addEventListener("change", applyFilters));
+filterCheckboxes.forEach(cb => cb.addEventListener("change", () => {
+  applyFilters();
+  if (section) {
+    const y = section.getBoundingClientRect().top + window.pageYOffset;
+
+    window.scrollTo({ top: y });
+  }
+}));
 
 // ----------------------
 // FILTER LOGIC
@@ -157,10 +165,7 @@ function applyFilters() {
       wrapper.style.display = "none";
     }
   });
-  document.querySelector("#events-section")?.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+
 }
 
 function showAllEvents() {
