@@ -157,6 +157,10 @@ function applyFilters() {
       wrapper.style.display = "none";
     }
   });
+  document.querySelector("#events-container")?.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
 
 function showAllEvents() {
