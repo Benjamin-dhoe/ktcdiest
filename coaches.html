@@ -173,92 +173,8 @@
     </section>
     <section class="section" id="coaches-list">
       <div class="containcenter centered">
-        <div class="full-coach-list">
-          <a href="/coach-detail.html" class="coach fullpage w-inline-block"
-            ><img
-              width="207"
-              sizes="207px"
-              alt=""
-              src="/images/stijn-meulemans.jpg"
-              loading="eager"
-              srcset="
-                /images/stijn-meulemans-p-500.jpg 500w,
-                /images/stijn-meulemans.jpg       600w
-              "
-              class="coachimageinslider"
-            />
-            <div class="namecoachinslider">
-              <div>Stijn Meulemans</div>
-            </div>
-          </a>
-          <a href="/coach-detail.html" class="coach fullpage w-inline-block"
-            ><img
-              width="207"
-              sizes="207px"
-              alt=""
-              src="/images/stijn-meulemans.jpg"
-              loading="eager"
-              srcset="
-                /images/stijn-meulemans-p-500.jpg 500w,
-                /images/stijn-meulemans.jpg       600w
-              "
-              class="coachimageinslider"
-            />
-            <div class="namecoachinslider">
-              <div>Stijn Meulemans</div>
-            </div>
-          </a>
-          <a href="/coach-detail.html" class="coach fullpage w-inline-block"
-            ><img
-              width="207"
-              sizes="207px"
-              alt=""
-              src="/images/stijn-meulemans.jpg"
-              loading="eager"
-              srcset="
-                /images/stijn-meulemans-p-500.jpg 500w,
-                /images/stijn-meulemans.jpg       600w
-              "
-              class="coachimageinslider"
-            />
-            <div class="namecoachinslider">
-              <div>Stijn Meulemans</div>
-            </div>
-          </a>
-          <a href="/coach-detail.html" class="coach fullpage w-inline-block"
-            ><img
-              width="207"
-              sizes="207px"
-              alt=""
-              src="/images/stijn-meulemans.jpg"
-              loading="eager"
-              srcset="
-                /images/stijn-meulemans-p-500.jpg 500w,
-                /images/stijn-meulemans.jpg       600w
-              "
-              class="coachimageinslider"
-            />
-            <div class="namecoachinslider">
-              <div>Stijn Meulemans</div>
-            </div>
-          </a>
-          <a href="/coach-detail.html" class="coach fullpage w-inline-block"
-            ><img
-              width="207"
-              sizes="207px"
-              alt=""
-              src="/images/stijn-meulemans.jpg"
-              loading="eager"
-              srcset="
-                /images/stijn-meulemans-p-500.jpg 500w,
-                /images/stijn-meulemans.jpg       600w
-              "
-              class="coachimageinslider"
-            />
-            <div class="namecoachinslider">
-              <div>Stijn Meulemans</div>
-            </div>
-          </a>
+        <div class="full-coach-list" id="list-coaches">
+
         </div>
       </div>
     </section>
@@ -379,5 +295,38 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/nav.js" type="text/javascript"></script>
+    <script type="module">
+      import { app } from "/js/firebase.js";
+      import { 
+        getFirestore, collection, getDocs
+      } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    
+      const db = getFirestore(app);
+      async function loadCoaches() {
+        const coachesListElement = document.getElementById('list-coaches');
+        if (!coachesListElement) return;
+
+        const coachesSnapshot = await getDocs(collection(db, 'coaches'));
+    
+        coachesSnapshot.docs.forEach(doc => {
+            const coach = doc.data();
+    
+            const coachElement = document.createElement('a');
+            coachElement.className = 'coach fullpage w-inline-block';
+    
+            coachElement.href = `/coach/${coach.slug}`;
+    
+            coachElement.innerHTML = `
+                <img width="207" alt="${coach.name}" src="${coach.imageUrl || '/images/coach-placeholder.jpg'}" loading="eager" class="coachimageinslider">
+                <div class="namecoachinslider">
+                  <div>${coach.name}</div>
+                </div>
+            `;
+    
+            coachesListElement.appendChild(coachElement);
+        });
+    }
+    loadCoaches();
+    </script>
   </body>
 </html>

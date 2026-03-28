@@ -21,6 +21,22 @@ html {
   --darkblue: #1c352d;
 }
 
+.date-tag-event {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--white-bg);
+  color: var(--darkblue);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.4px;
+  border: 1px solid var(--lineslight);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
 .ui-message {
   top: 20px;
   right: 10px;
@@ -2082,7 +2098,6 @@ html {
   background-image: linear-gradient(#fff0, #ffffff61 17%, #fff);
   justify-content: center;
   align-items: flex-end;
-  height: 100px;
   padding: 10px;
   font-family: Breathing, Trebuchet MS, sans-serif;
   font-weight: 700;
