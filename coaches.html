@@ -43,41 +43,7 @@
     </script>
     <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon" />
     <link href="/images/webclip.png" rel="apple-touch-icon" />
-    <style>
-      .coaches-intro {
-        display: flex;
-        justify-content: center;
-        padding: 100px 20px 60px;
-      }
-      .intro-card {
-        max-width: 720px;
-        text-align: center;
-        padding: 60px 50px;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06),
-          0 2px 8px rgba(0, 0, 0, 0.04);
-        position: relative;
-      }
-      .intro-label {
-        font-size: 12px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: #888;
-        display: inline-block;
-        margin-bottom: 18px;
-      }
-      .intro-subtitle {
-        font-weight: 600;
-        font-size: 20px;
-        margin-bottom: 16px;
-      }
-      .intro-description {
-        font-size: 16px;
-        line-height: 1.7;
-        color: #666;
-      }
-    </style>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js"></script>
   </head>
   <body class="body">
     <div class="navbarsoloholder">
@@ -174,7 +140,7 @@
     <section class="section" id="coaches-list">
       <div class="containcenter centered">
         <div class="full-coach-list" id="list-coaches">
-
+          <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="" style="width: 100px"></lottie-player>
         </div>
       </div>
     </section>
@@ -307,6 +273,7 @@
         if (!coachesListElement) return;
 
         const coachesSnapshot = await getDocs(collection(db, 'coaches'));
+        coachesListElement.innerHTML = "";
     
         coachesSnapshot.docs.forEach(doc => {
             const coach = doc.data();
