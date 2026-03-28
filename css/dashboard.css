@@ -748,14 +748,13 @@ input:checked + .slider::before {
 
 .tab-menu-dashboard {
   z-index: 7;
-  background-color: var(--dark-bg);
   object-fit: fill;
   border-right: 1px #bebebe;
   flex-flow: column;
   align-items: center;
   width: 30vw;
   height: 80vh;
-  margin-top: 0;
+  margin-top: 20px;
   padding: 10px 4vw 120px;
   display: flex;
   position: fixed;
@@ -817,6 +816,7 @@ input:checked + .slider::before {
     overflow: scroll;
     transition: 1s all ease;
     visibility: hidden;
+    background-color: var(--dark-bg);
   }
 
   .tabs-content-dashboard {
