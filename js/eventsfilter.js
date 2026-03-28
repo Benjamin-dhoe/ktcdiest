@@ -157,7 +157,7 @@ function applyFilters() {
       wrapper.style.display = "none";
     }
   });
-  document.querySelector("#events-container")?.scrollTo({
+  document.querySelector("#events-section")?.scrollTo({
     top: 0,
     behavior: "smooth"
   });
