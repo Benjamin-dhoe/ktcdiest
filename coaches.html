@@ -272,7 +272,12 @@
         const coachesListElement = document.getElementById('list-coaches');
         if (!coachesListElement) return;
 
-        const coachesSnapshot = await getDocs(collection(db, 'coaches'));
+         const q = query(
+          collection(db, "coaches"),
+          orderBy("order", "asc") // ascending = A → Z
+        );
+      
+        const coachesSnapshot = await getDocs(q);
         coachesListElement.innerHTML = "";
     
         coachesSnapshot.docs.forEach(doc => {
