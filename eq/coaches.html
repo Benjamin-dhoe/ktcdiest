@@ -724,7 +724,7 @@ function addAdditionalImage(url, isExisting = false) {
 async function loadCoaches() {
   const q = query(
     collection(db, "coaches"),
-    orderBy("name", "asc") // ascending = A → Z
+    orderBy("order", "asc") // ascending = A → Z
   );
 
   const querySnapshot = await getDocs(q);
