@@ -2760,18 +2760,13 @@ html {
   }
 
   .gradientimevent {
-    background-image: linear-gradient(
-      180deg,
-      var(--white-bg),
-      #fdfaf500 79%,
-      #fdfaf500
-    );
+  background-image: linear-gradient(180deg, var(--white-bg), #fdfaf500 25%, #fdfaf500);
     height: 90vw;
     display: block;
     position: absolute;
     inset: auto 0% 0%;
   }
-
+  
   .filterbutton {
     padding-left: 15px;
     padding-right: 15px;
