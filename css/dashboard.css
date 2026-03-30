@@ -1,6 +1,7 @@
 
 .body-dashboard {
-  background: linear-gradient(180deg, #051018, var(--dark-bg));
+  /* background: linear-gradient(180deg, #051018, var(--dark-bg)); */
+  background-color: var(--dark-bg);
   color: var(--white-bg);
   flex-direction: column;
   justify-content: center;
