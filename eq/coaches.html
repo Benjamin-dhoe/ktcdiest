@@ -565,7 +565,7 @@ const popup = document.getElementById("coach-popup");
 Sortable.create(listHolder, {
   animation: 150,
   onEnd: async () => {
-    const items = [...listHolder.querySelectorAll("li")];
+    const items = [...listHolder.children];
     const newOrder = items.map((item, index) => ({
       id: item.dataset.id,
       order: index
@@ -736,6 +736,7 @@ async function loadCoaches() {
 
     const item = document.createElement("div");
     item.className = "collection-items-basic flex-hor-spaced";
+    item.dataset.id = id;
     item.innerHTML = `
       <div class="alwaysflexhorizontal" style="gap: 12px">
         <div class="coachhold">
