@@ -905,7 +905,7 @@
     <script type="module">
       import { app } from "/js/firebase.js";
       import { 
-        getFirestore, collection, getDocs
+        getFirestore, collection, getDocs, query, orderBy
       } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
     
       const db = getFirestore(app);
@@ -913,7 +913,12 @@
         const coachesReelElement = document.getElementById('coachesreel');
         if (!coachesReelElement) return;
 
-        const coachesSnapshot = await getDocs(collection(db, 'coaches'));
+        const q = query(
+          collection(db, "coaches"),
+          orderBy("order", "asc") // ascending = A → Z
+        );
+      
+        const coachesSnapshot = await getDocs(q);
     
         const coachElements = [];
     
