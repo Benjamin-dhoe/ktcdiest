@@ -565,7 +565,7 @@ const popup = document.getElementById("coach-popup");
 Sortable.create(listHolder, {
   animation: 150,
   onEnd: async () => {
-    const items = [...document.querySelectorAll("#coach-list li")];
+    const items = [...listHolder.querySelectorAll("li")];
     const newOrder = items.map((item, index) => ({
       id: item.dataset.id,
       order: index
