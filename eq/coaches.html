@@ -737,6 +737,7 @@ async function loadCoaches() {
     const item = document.createElement("div");
     item.className = "collection-items-basic flex-hor-spaced";
     item.dataset.id = id;
+    item.style.cursor = "grab";
     item.innerHTML = `
       <div class="alwaysflexhorizontal" style="gap: 12px">
         <div class="coachhold">
