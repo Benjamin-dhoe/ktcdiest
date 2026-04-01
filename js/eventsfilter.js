@@ -1,6 +1,7 @@
 const openFiltersBtn = document.getElementById("open-event-filters-btn");
 const closeFiltersBtn = document.getElementById("close-event-filters-btn");
 const resetFiltersBtn = document.getElementById("reset-event-filters-btn");
+const seeResultsBtn = document.getElementById("see-results-btn");
 const filtersDiv = document.getElementById("filters-div");
 const filterCheckboxes = document.querySelectorAll(".custom-checkbox input[type='checkbox']");
 const section = document.querySelector("#events-section");
@@ -50,6 +51,10 @@ openFiltersBtn.addEventListener("click", () => {
 });
 
 closeFiltersBtn.addEventListener("click", () => {
+  filtersDiv.classList.remove("open");
+});
+
+seeResultsBtn.addEventListener("click", () => {
   filtersDiv.classList.remove("open");
 });
 
@@ -133,6 +138,7 @@ function applyFilters() {
     card.style.display = visible ? "block" : "none";
   });
   const visibleCards = Array.from(eventCards).filter(card => card.style.display !== "none");
+  seeResultsBtn.textContent = `Bekijk resultaten (${visibleCards.length})`;
   const availableCheckboxValues = [
     ...new Set([
       // All types
