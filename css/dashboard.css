@@ -21,6 +21,7 @@
   border: 1px solid #ddd;
   background: #fff;
   font-size: 14px;
+  color: black;
 }
 
 /* TABLE WRAPPER */
@@ -30,6 +31,7 @@
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   border: 1px solid #eee;
+  color: black;
 }
 
 /* TABLE */
