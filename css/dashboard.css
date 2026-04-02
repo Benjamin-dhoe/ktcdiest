@@ -10,6 +10,54 @@
   display: flex;
 }
 
+.price-options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.price-option {
+  cursor: pointer;
+}
+
+.price-option input {
+  display: none;
+}
+
+.price-option-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 2px solid var(--lineslight);
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.price-option:hover .price-option-box {
+  border-color: var(--diest-orange);
+  background: #fff7ef;
+}
+
+.price-option input:checked + .price-option-box {
+  border-color: var(--diest-orange);
+  background: linear-gradient(145deg, #fff1e4, #ffe4cc);
+  box-shadow: 0 0 10px #00000020;
+}
+
+.price-option-label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.price-option-right {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--diest-orange);
+}
+
 .option-item {
   display: flex;
   align-items: center;

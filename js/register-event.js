@@ -15,6 +15,13 @@ if (registerBtn) {
 
     try {
 
+      const email = document.querySelector('input[name="email"], #email')?.value || "";
+      const name = document.querySelector('input[name="name"], #name')?.value || "";
+
+      const selectedPriceOption = document.querySelector('input[name="price_option"]:checked');
+
+      const priceOption = selectedPriceOption?.value || "";
+
       const answers = [];
 
       document.querySelectorAll(".event-question").forEach((el) => {
@@ -51,6 +58,9 @@ if (registerBtn) {
       const payload = {
         eventId: document.getElementById("eventid")?.textContent?.trim() || "",
         answers,
+        email,
+        name,
+        priceOption,
       };
 
       const res = await fetch("https://registerevent-eqi5l3wztq-ew.a.run.app", {
@@ -64,6 +74,11 @@ if (registerBtn) {
       const data = await res.json();
 
       if (data.success) {
+        if (data.requiresPayment) {
+          window.location.href = data.paymentUrl;
+          return;
+        }
+
         showMessage("Inschrijving gelukt!", "success");
 
         const section = document.getElementById("inschrijven-section");
@@ -73,8 +88,7 @@ if (registerBtn) {
             <div class="event-success-box">
               <div class="event-success-title">Inschrijving gelukt 🎉</div>
               <div class="event-success-text">
-                Je hebt ingeschreven voor dit event.<br>
-                Herlaad de pagina om een nieuwe inschrijving te plaatsen.
+                Je hebt ingeschreven voor dit event.
               </div>
             </div>
           `;
