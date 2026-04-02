@@ -17,42 +17,33 @@ if (registerBtn) {
 
       const answers = [];
 
-      eventFormFieldsSafe.forEach((field, index) => {
+      document.querySelectorAll(".event-question").forEach((el) => {
 
-        const question = field.question || field.label || "Vraag";
+        const question =
+          el.querySelector(".subsection-title")?.innerText || "Vraag";
 
-        // TEXT
-        if (field.type === "text") {
-          const input = document.querySelector(`input[name="field_${index}"]`);
+        const textInput = el.querySelector('input[type="text"]');
+        const radioInput = el.querySelector('input[type="radio"]:checked');
+        const checkedBoxes = el.querySelectorAll('input[type="checkbox"]:checked');
 
+        if (textInput) {
           answers.push({
-            label: field.label,
             question,
-            value: input ? input.value : ""
+            value: textInput.value || ""
           });
         }
 
-        // SINGLE CHOICE
-        else if (field.type === "list-single") {
-          const selected = document.querySelector(`input[name="field_${index}"]:checked`);
-
+        else if (radioInput) {
           answers.push({
-            label: field.label,
             question,
-            value: selected ? selected.value : ""
+            value: radioInput.value
           });
         }
 
-        // MULTIPLE CHOICE
-        else if (field.type === "list-multiple") {
-          const selected = Array.from(
-            document.querySelectorAll(`input[name="field_${index}"]:checked`)
-          ).map(el => el.value);
-
+        else if (checkedBoxes.length > 0) {
           answers.push({
-            label: field.label,
             question,
-            value: selected
+            value: Array.from(checkedBoxes).map(x => x.value)
           });
         }
       });
