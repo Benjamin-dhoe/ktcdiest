@@ -528,6 +528,7 @@ input:checked + .slider::before {
 
 /* Inputs */
 .event-section input[type="text"],
+.event-section input[type="email"],
 .event-section input[type="file"],
 .event-section textarea,
 .event-section input[type="date"] {
