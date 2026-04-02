@@ -29,17 +29,25 @@ html {
   text-align: left;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
+.event-success-box.info {
+  background: linear-gradient(135deg, #fff7d6, #fffbeb);
+  border: 1px solid #f2d36b;
+  color: #6a5200;
+}
+.event-success-box.error {
+  background: linear-gradient(135deg, #ffe1e1, #fff5f5);
+  border: 1px solid #ff8f8f;
+  color: #7a1b1b;
+}
 
 .event-success-title {
   font-size: 20px;
   font-weight: 700;
-  color: #1b5e20;
   margin-bottom: 10px;
 }
 
 .event-success-text {
   font-size: 14px;
-  color: #2e7d32;
   line-height: 1.5;
 }
 
