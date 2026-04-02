@@ -27,6 +27,7 @@ html {
   padding: 24px;
   border-radius: 12px;
   text-align: left;
+  color: #2e7d32;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 .event-success-box.info {
