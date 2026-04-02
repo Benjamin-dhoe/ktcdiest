@@ -19,8 +19,8 @@ if (registerBtn) {
 
       document.querySelectorAll(".event-question").forEach((el) => {
 
-        const question =
-          el.querySelector(".subsection-title")?.innerText || "Vraag";
+        const label =
+          el.querySelector(".subsection-title")?.getAttribute("data-label") || "label";
 
         const textInput = el.querySelector('input[type="text"]');
         const radioInput = el.querySelector('input[type="radio"]:checked');
@@ -28,21 +28,21 @@ if (registerBtn) {
 
         if (textInput) {
           answers.push({
-            question,
+            label,
             value: textInput.value || ""
           });
         }
 
         else if (radioInput) {
           answers.push({
-            question,
+            label,
             value: radioInput.value
           });
         }
 
         else if (checkedBoxes.length > 0) {
           answers.push({
-            question,
+            label,
             value: Array.from(checkedBoxes).map(x => x.value)
           });
         }
@@ -65,6 +65,20 @@ if (registerBtn) {
 
       if (data.success) {
         showMessage("Inschrijving gelukt!", "success");
+
+        const section = document.getElementById("inschrijven-section");
+
+        if (section) {
+          section.innerHTML = `
+            <div class="event-success-box">
+              <div class="event-success-title">Inschrijving gelukt 🎉</div>
+              <div class="event-success-text">
+                Je hebt ingeschreven voor dit event.<br>
+                Herlaad de pagina om een nieuwe inschrijving te plaatsen.
+              </div>
+            </div>
+          `;
+        }
       } else {
         showMessage("Fout bij inschrijven", "error");
       }

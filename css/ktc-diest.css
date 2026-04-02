@@ -21,6 +21,28 @@ html {
   --darkblue: #1c352d;
 }
 
+.event-success-box {
+  background: linear-gradient(135deg, #e9fbe9, #f4fff4);
+  border: 1px solid #b7e4b7;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.event-success-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1b5e20;
+  margin-bottom: 10px;
+}
+
+.event-success-text {
+  font-size: 14px;
+  color: #2e7d32;
+  line-height: 1.5;
+}
+
 .date-tag-event {
   display: inline-block;
   padding: 6px 18px;
