@@ -885,6 +885,43 @@ html {
   line-height: 22px;
 }
 
+/* ===== PROF COACH CARDS ===== */
+.prof-coach-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.prof-coach-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid var(--lineslight);
+}
+
+/* ===== KALENDER BANNER ===== */
+.kalender-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--diest-orange), var(--pop-orange));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: filter 0.2s ease;
+}
+
+.kalender-banner:hover {
+  filter: brightness(1.08);
+}
+
 /* ===== ADD-ON OPTIONS ===== */
 .addon-options-list {
   display: flex;
