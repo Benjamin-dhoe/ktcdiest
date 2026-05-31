@@ -19,8 +19,14 @@ if (registerBtn) {
       const name = document.querySelector('input[name="name"], #name')?.value || "";
 
       const selectedPriceOption = document.querySelector('input[name="price_option"]:checked');
-
       const priceOption = selectedPriceOption?.value || "";
+
+      const addOns = Array.from(document.querySelectorAll(".addon-option-row"))
+        .map(row => ({
+          option: row.dataset.option,
+          qty: parseInt(row.querySelector(".addon-qty-display").textContent) || 0
+        }))
+        .filter(a => a.qty > 0);
 
       const answers = [];
 
@@ -61,6 +67,7 @@ if (registerBtn) {
         email,
         name,
         priceOption,
+        addOns,
       };
 
       const res = await fetch("https://registerevent-eqi5l3wztq-ew.a.run.app", {
