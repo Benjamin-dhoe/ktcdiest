@@ -885,6 +885,118 @@ html {
   line-height: 22px;
 }
 
+/* ===== ADD-ON OPTIONS ===== */
+.addon-options-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6px;
+}
+
+.addon-option-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px dashed #e2e2e2;
+  gap: 16px;
+}
+
+.addon-option-row:last-child {
+  border-bottom: none;
+}
+
+.addon-option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.addon-option-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dark-bg);
+  line-height: 1.4;
+}
+
+.addon-option-price {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grey);
+  letter-spacing: 0.3px;
+}
+
+/* ===== QTY SELECTOR ===== */
+.addon-qty-selector {
+  display: inline-flex;
+  align-items: center;
+  background: #f3f3f3;
+  border: 1px solid #e2e2e2;
+  border-radius: 50px;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.addon-qty-selector:has(.addon-qty-display:not([data-value="0"])) {
+  border-color: var(--diest-orange);
+  box-shadow: 0 2px 8px rgba(246, 137, 41, 0.18);
+}
+
+.addon-qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--grey);
+  cursor: pointer;
+  line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.addon-qty-btn:hover {
+  background: rgba(246, 137, 41, 0.12);
+  color: var(--diest-orange);
+}
+
+.addon-qty-btn:active {
+  background: rgba(246, 137, 41, 0.25);
+}
+
+.addon-qty-minus {
+  border-radius: 50px 0 0 50px;
+}
+
+.addon-qty-plus {
+  border-radius: 0 50px 50px 0;
+  color: var(--diest-orange);
+}
+
+.addon-qty-plus:hover {
+  background: linear-gradient(135deg, var(--diest-orange), var(--pop-orange));
+  color: white;
+}
+
+.addon-qty-display {
+  min-width: 32px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark-bg);
+  padding: 0 2px;
+  pointer-events: none;
+  line-height: 34px;
+  font-variant-numeric: tabular-nums;
+}
+
 /* --- HAMBURGER BASE --- */
 .hamburger {
   width: 26px;
@@ -1464,6 +1576,58 @@ html {
   justify-content: flex-start;
   align-items: center;
   display: flex;
+}
+
+.quick-actions-box {
+  gap: 40px;
+}
+
+.quick-action-cards {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  gap: 0;
+}
+
+.quick-action-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 30px 10px;
+}
+
+.quick-action-icon-wrap {
+  width: 56px;
+  height: 56px;
+  background: rgba(246, 137, 41, 0.12);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(246, 137, 41, 0.25);
+}
+
+.quick-action-desc {
+  flex: 1;
+  margin: 0;
+  opacity: 0.8;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.quick-action-btn {
+  margin-top: 6px;
+  align-self: flex-start;
+}
+
+.quick-action-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  align-self: stretch;
+  flex-shrink: 0;
 }
 
 .button {
@@ -2441,6 +2605,20 @@ html {
 }
 
 @media screen and (max-width: 767px) {
+  .quick-action-cards {
+    flex-direction: column;
+  }
+
+  .quick-action-divider {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+  }
+
+  .quick-action-card {
+    padding: 10px 10px;
+  }
+
   .body {
     font-size: 14px;
     line-height: 24px;

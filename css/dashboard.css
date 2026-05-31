@@ -34,6 +34,12 @@
   color: black;
 }
 
+.registrations-scroll {
+  max-height: 70vh;   /* controls vertical scroll area */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
 /* TABLE */
 .registrations-table {
   width: 100%;

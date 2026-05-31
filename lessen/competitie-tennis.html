@@ -347,10 +347,16 @@
                 </div>
 
                 <!-- BELANGRIJKE DATA -->
-                <div class="tsFaqSection">
+                <div class="tsFaqSection" id="datumSection">
                   <div class="tsFaqTitle">Belangrijke data</div>
                   <div id="datesContainer" class="tsFaqDates"></div>
                   <div id="datesWarningContainer" class="tsFaqWarning" style="margin-top: 12px"></div>
+                </div>
+
+                <!-- DATES CLOSED MESSAGE -->
+                <div class="tsFaqSection" id="datumClosedSection" style="display:none">
+                  <div class="tsFaqTitle">Belangrijke data</div>
+                  <div class="tsFaqNote">Inschrijvingsmomenten worden later gepubliceerd, blijf op de hoogte via de whatsapp groep (zie hieronder)</div>
                 </div>
 
                 <!--  WHATSAPP  -->
@@ -557,12 +563,14 @@ export async function loadCompetitiePage() {
     if (data.registrationVisibleUntil) {
       const today = new Date();
       const until = new Date(data.registrationVisibleUntil + "T23:59:59");
-    
-      if (today > until) {
-        inschrijvenSection.style.display = "none";
-      } else {
-        inschrijvenSection.style.display = "block";
-      }
+      const isPast = today > until;
+
+      inschrijvenSection.style.display = isPast ? "none" : "block";
+
+      const datumSection = document.getElementById("datumSection");
+      const datumClosedSection = document.getElementById("datumClosedSection");
+      if (datumSection) datumSection.style.display = isPast ? "none" : "block";
+      if (datumClosedSection) datumClosedSection.style.display = isPast ? "block" : "none";
     }
 
     /* ---------------------------
