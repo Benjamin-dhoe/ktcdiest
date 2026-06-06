@@ -723,6 +723,7 @@ html {
   border-bottom: 1px dashed #ddd;
   padding: 4px 0;
   font-size: 14px;
+  color: var(--dark-bg);
 }
 /* ===== LINK BUTTON ===== */
 .tsFaqLink {
@@ -1660,7 +1661,8 @@ a.sponsor-logo-card:hover {
 }
 
 .section.nopaddbottom.firstsection,
-.section.firstsection {
+.section.firstsection,
+.sectiondark.firstsection {
   padding-top: 40px;
 }
 
