@@ -118,31 +118,18 @@
       <div class="containcenter">
         <div class="breathing-header">Bestuur</div>
         <div class="spacer"></div>
-        <div class="twosidecontent">
-          <div class="sidecontent">
-            <h2 class="subtitle">Gedreven door vrijwilligers,<br>gebouwd op engagement</h2>
-            <div class="spacer"></div>
-            <p>
-              Achter KTC Diest staat een enthousiast bestuur en een grote groep vrijwilligers
-              die zich dagelijks inzetten voor de club. Samen bouwen we aan een warme, sportieve
-              en toekomstgerichte tennisvereniging waar leden zich thuis voelen.
-            </p>
-            <p>
-              Het bestuur waakt over de werking en verdere ontwikkeling van de club, met
-              bijzondere aandacht voor kwalitatieve infrastructuur, een sterke jeugdwerking,
-              sportieve ambities en een bruisend verenigingsleven.
-            </p>
-            <p>
-              Dankzij de inzet van vele vrijwilligers kunnen we jaarlijks tal van activiteiten,
-              tornooien, interclubontmoetingen en evenementen organiseren. Hun engagement vormt
-              mee de basis van het succes van KTC Diest.
-            </p>
-          </div>
-          <div class="sidecontent">
-            <div class="full-coach-list vertical" id="bestuur-grid">
-              <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="" style="width: 80px;"></lottie-player>
-            </div>
-          </div>
+        <h2 class="subtitle">Gedreven door vrijwilligers, gebouwd op engagement</h2>
+        <div class="spacer"></div>
+        <p style="max-width: 720px;">
+          Achter KTC Diest staat een enthousiast bestuur en een grote groep vrijwilligers
+          die zich dagelijks inzetten voor de club. Het bestuur waakt over de werking en verdere
+          ontwikkeling van de club, met bijzondere aandacht voor kwalitatieve infrastructuur,
+          een sterke jeugdwerking en een bruisend verenigingsleven.
+        </p>
+      </div>
+      <div class="partners-holder">
+        <div class="box-partners">
+          <div class="slider-partner" id="bestuur-reel"></div>
         </div>
       </div>
     </section>
@@ -171,39 +158,30 @@
       <div class="containcenter">
         <div class="breathing-header">Sponsors & Partners</div>
         <div class="spacer"></div>
-        <div class="twosidecontent">
-          <div class="sidecontent">
-            <h2 class="subtitle">Samen bouwen aan KTC Diest</h2>
-            <div class="spacer"></div>
-            <p>
-              KTC Diest kan rekenen op de steun van talrijke sponsors en partners die onze
-              visie en werking mee mogelijk maken. Dankzij hun engagement kunnen we blijven
-              investeren in kwalitatieve infrastructuur, een sterke jeugdwerking, evenementen
-              en een bruisend clubleven.
-            </p>
-            <p>
-              Onze sponsors zijn veel meer dan financiële partners. Het zijn ondernemers,
-              bedrijven en organisaties die mee geloven in de kracht van sport, ontmoeting
-              en lokale verbondenheid.
-            </p>
-            <div class="spacer"></div>
-            <div class="tsFaqSection" style="background: #fff7ed; border: 1px solid #f9c97c; max-width: 400px;">
-              <div class="tsFaqTitle" style="font-size:15px;">Word partner van KTC Diest</div>
-              <p style="font-size:14px; margin:0; line-height:1.6;">
-                Met meer dan 800 leden, een sterke jeugdwerking en uitstekende zichtbaarheid in
-                de regio biedt KTC Diest interessante mogelijkheden voor bedrijven die hun merk
-                willen verbinden aan een sportieve vereniging.
-              </p>
-              <a href="mailto:sponsoring@ktcdiest.be" class="tsFaqButton" style="margin-top:12px;">
-                Neem contact op
-              </a>
-            </div>
-          </div>
-          <div class="sidecontent">
-            <div id="sponsors-grid" class="sponsors-logo-grid">
-              <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="" style="width:80px;"></lottie-player>
-            </div>
-          </div>
+        <h2 class="subtitle">Samen bouwen aan KTC Diest</h2>
+        <div class="spacer"></div>
+        <p style="max-width: 720px;">
+          KTC Diest kan rekenen op de steun van talrijke sponsors en partners die onze visie
+          en werking mee mogelijk maken. Onze sponsors zijn veel meer dan financiële partners —
+          het zijn ondernemers en bedrijven die mee geloven in de kracht van sport, ontmoeting
+          en lokale verbondenheid.
+        </p>
+        <div class="spacer"></div>
+        <div class="tsFaqSection" style="background: #fff7ed; border: 1px solid #f9c97c; max-width: 480px;">
+          <div class="tsFaqTitle" style="font-size:15px;">Word partner van KTC Diest</div>
+          <p style="font-size:14px; margin:0; line-height:1.6;">
+            Met meer dan 800 leden, een sterke jeugdwerking en uitstekende zichtbaarheid in de
+            regio biedt KTC Diest interessante mogelijkheden voor bedrijven die hun merk willen
+            verbinden aan een sportieve vereniging.
+          </p>
+          <a href="mailto:sponsoring@ktcdiest.be" class="tsFaqButton" style="margin-top:12px;">
+            Neem contact op
+          </a>
+        </div>
+      </div>
+      <div class="partners-holder">
+        <div class="box-partners">
+          <div class="slider-partner" id="sponsors-reel"></div>
         </div>
       </div>
     </section>
@@ -350,64 +328,68 @@
 
       const db = getFirestore(app);
 
+      function startReel(reelEl, count) {
+        const duration = (count * 207 * 2) / 200;
+        reelEl.style.animationDuration = `${duration}s`;
+      }
+
       /* ---- BESTUUR ---- */
       async function loadBestuur() {
-        const grid = document.getElementById("bestuur-grid");
+        const reel = document.getElementById("bestuur-reel");
         const snap = await getDocs(query(collection(db, "bestuur"), orderBy("order", "asc")));
+        if (snap.empty) return;
 
-        grid.innerHTML = "";
-
-        if (snap.empty) {
-          grid.innerHTML = `<p class="smalltext">De bestuursploeg wordt binnenkort gepubliceerd.</p>`;
-          return;
-        }
-
+        const cards = [];
         snap.forEach(docSnap => {
           const d = docSnap.data();
-          const card = document.createElement("div");
-          card.className = "coach fullpage fullopacity w-inline-block";
-          card.innerHTML = `
-            <img
-              width="207"
-              loading="lazy"
-              alt="${d.name || ""}"
+          const el = document.createElement("div");
+          el.className = "coach w-inline-block";
+          el.innerHTML = `
+            <img width="207" loading="eager" alt="${d.name || ""}"
               src="${d.imageUrl || "/images/coach-placeholder.jpg"}"
-              class="coachimageinslider"
-            />
+              class="coachimageinslider">
             <div class="namecoachinslider basic left">
               <div>${d.name || ""}</div>
               <div class="undertitle-coach incard">${d.function || ""}</div>
             </div>
           `;
-          grid.appendChild(card);
+          cards.push(el);
         });
+
+        cards.forEach(c => reel.appendChild(c));
+        cards.forEach(c => reel.appendChild(c.cloneNode(true)));
+        startReel(reel, cards.length);
       }
 
       /* ---- SPONSORS ---- */
       async function loadSponsors() {
-        const grid = document.getElementById("sponsors-grid");
+        const reel = document.getElementById("sponsors-reel");
         const snap = await getDocs(query(collection(db, "sponsors"), orderBy("order", "asc")));
+        if (snap.empty) return;
 
-        grid.innerHTML = "";
-
-        if (snap.empty) {
-          grid.innerHTML = `<p class="smalltext">Sponsors worden binnenkort gepubliceerd.</p>`;
-          return;
-        }
-
+        const cards = [];
         snap.forEach(docSnap => {
           const d = docSnap.data();
           const tag = d.websiteUrl ? "a" : "div";
           const el = document.createElement(tag);
-          el.className = "sponsor-logo-card";
+          el.className = "coach sponsor-reel-card w-inline-block";
           if (d.websiteUrl) {
             el.href = d.websiteUrl;
             el.target = "_blank";
             el.rel = "noopener noreferrer";
           }
-          el.innerHTML = `<img src="${d.logoUrl || ""}" alt="${d.name || ""}" loading="lazy" class="sponsor-logo-img" />`;
-          grid.appendChild(el);
+          el.innerHTML = `
+            <img width="207" loading="eager" alt="${d.name || ""}"
+              src="${d.logoUrl || ""}"
+              class="sponsor-reel-img">
+            <div class="sponsor-reel-name">${d.name || ""}</div>
+          `;
+          cards.push(el);
         });
+
+        cards.forEach(c => reel.appendChild(c));
+        cards.forEach(c => reel.appendChild(c.cloneNode(true)));
+        startReel(reel, cards.length);
       }
 
       loadBestuur();
