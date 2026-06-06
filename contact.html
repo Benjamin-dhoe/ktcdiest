@@ -187,15 +187,15 @@
               <div class="tsFaqTitle">Stuur ons een bericht</div>
               <form name="contactform" data-netlify="true" method="post" action="/form-success">
                 <div class="tsFormGroup">
-                  <input type="text" class="tsInput" placeholder=" " id="naam" required />
+                  <input type="text" class="tsInput" placeholder=" " name="naam" required />
                   <label for="naam" class="tsLabel">Naam</label>
                 </div>
                 <div class="tsFormGroup">
-                  <input type="email" class="tsInput" placeholder=" " id="contact-email" required />
-                  <label for="contact-email" class="tsLabel">E‑mail</label>
+                  <input type="email" class="tsInput" placeholder=" " name="email" required />
+                  <label for="email" class="tsLabel">E‑mail</label>
                 </div>
                 <div class="tsFormGroup">
-                  <textarea class="tsTextarea" placeholder=" " id="bericht" required></textarea>
+                  <textarea class="tsTextarea" placeholder=" " name="bericht" required></textarea>
                   <label for="bericht" class="tsLabel">Bericht</label>
                 </div>
                 <input type="submit" class="button w-button" value="Verzenden">
