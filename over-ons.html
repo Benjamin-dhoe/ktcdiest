@@ -139,11 +139,8 @@
             </p>
           </div>
           <div class="sidecontent">
-            <div class="tsFaqContainer">
-              <div class="tsFaqSection">
-                <div class="tsFaqTitle">Onze bestuursploeg</div>
-                <div class="tsFaqNote">De bestuursleden worden binnenkort hier gepubliceerd.</div>
-              </div>
+            <div class="full-coach-list vertical" id="bestuur-grid">
+              <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="" style="width: 80px;"></lottie-player>
             </div>
           </div>
         </div>
@@ -352,11 +349,44 @@
       } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
 
       const db = getFirestore(app);
-      const grid = document.getElementById("sponsors-grid");
 
+      /* ---- BESTUUR ---- */
+      async function loadBestuur() {
+        const grid = document.getElementById("bestuur-grid");
+        const snap = await getDocs(query(collection(db, "bestuur"), orderBy("order", "asc")));
+
+        grid.innerHTML = "";
+
+        if (snap.empty) {
+          grid.innerHTML = `<p class="smalltext">De bestuursploeg wordt binnenkort gepubliceerd.</p>`;
+          return;
+        }
+
+        snap.forEach(docSnap => {
+          const d = docSnap.data();
+          const card = document.createElement("div");
+          card.className = "coach fullpage fullopacity w-inline-block";
+          card.innerHTML = `
+            <img
+              width="207"
+              loading="lazy"
+              alt="${d.name || ""}"
+              src="${d.imageUrl || "/images/coach-placeholder.jpg"}"
+              class="coachimageinslider"
+            />
+            <div class="namecoachinslider basic left">
+              <div>${d.name || ""}</div>
+              <div class="undertitle-coach incard">${d.function || ""}</div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      /* ---- SPONSORS ---- */
       async function loadSponsors() {
-        const q = query(collection(db, "sponsors"), orderBy("order", "asc"));
-        const snap = await getDocs(q);
+        const grid = document.getElementById("sponsors-grid");
+        const snap = await getDocs(query(collection(db, "sponsors"), orderBy("order", "asc")));
 
         grid.innerHTML = "";
 
@@ -380,6 +410,7 @@
         });
       }
 
+      loadBestuur();
       loadSponsors();
     </script>
   </body>
