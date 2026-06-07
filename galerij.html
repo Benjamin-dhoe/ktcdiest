@@ -154,7 +154,7 @@
         snap.forEach(docSnap => {
           const d = docSnap.data();
           const id = docSnap.id;
-          const cover = (d.photos && d.photos.length > 0) ? d.photos[0] : "/images/webclip.png";
+          const cover = (d.coverImage) ? d.coverImage : d.photos[0] || "/images/placeholder.png";
           const count = (d.photos || []).length;
 
           let dateStr = d.startDate || "";
