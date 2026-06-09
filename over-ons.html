@@ -46,6 +46,7 @@
             <a href="/lid-worden.html" class="navlink w-inline-block"><div>Lid worden</div></a>
             <a href="/tennislessen.html" class="navlink w-inline-block"><div>Trainingen</div></a>
             <a href="/contact.html" class="navlink w-inline-block"><div>Contact</div></a>
+            <a href="/index.html#snel-boeken" class="navlink w-inline-block"><div>Snel boeken</div></a>
             <div id="serve-vid-holder" class="serve-gif w-embed">
               <video id="serve-vid" style="width:100%;height:100%;object-fit:cover" playsinline="" muted="" webkit-playsinline="">
                 <source src="/images/serve-silhouette.mp4" type="video/mp4" />
@@ -119,17 +120,15 @@
         <div class="breathing-header">Bestuur</div>
         <div class="spacer"></div>
         <h2 class="subtitle">Gedreven door vrijwilligers, gebouwd op engagement</h2>
-        <div class="spacer"></div>
-        <p style="max-width: 720px;">
+        <p style="max-width: 640px; margin-top: 14px;">
           Achter KTC Diest staat een enthousiast bestuur en een grote groep vrijwilligers
-          die zich dagelijks inzetten voor de club. Het bestuur waakt over de werking en verdere
-          ontwikkeling van de club, met bijzondere aandacht voor kwalitatieve infrastructuur,
+          die zich dagelijks inzetten voor de club. Het bestuur waakt over de werking en
+          verdere ontwikkeling, met bijzondere aandacht voor kwalitatieve infrastructuur,
           een sterke jeugdwerking en een bruisend verenigingsleven.
         </p>
-      </div>
-      <div class="partners-holder" style="margin-top: 80px;">
-        <div class="box-partners">
-          <div class="slider-partner" id="bestuur-reel"></div>
+        <div class="spacer"></div>
+        <div id="bestuur-list" class="bestuur-grid">
+          <lottie-player src="/images/loading.json" background="transparent" speed="1" loop="" autoplay="" style="width: 70px; grid-column: 1/-1;"></lottie-player>
         </div>
       </div>
     </section>
@@ -334,31 +333,36 @@
       }
 
       /* ---- BESTUUR ---- */
-      async function loadBestuur() {
-        const reel = document.getElementById("bestuur-reel");
-        const snap = await getDocs(query(collection(db, "bestuur"), orderBy("order", "asc")));
-        if (snap.empty) return;
+      function getInitials(name) {
+        return (name || "?").split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+      }
 
-        const cards = [];
+      async function loadBestuur() {
+        const list = document.getElementById("bestuur-list");
+        const snap = await getDocs(query(collection(db, "bestuur"), orderBy("order", "asc")));
+
+        list.innerHTML = "";
+
+        if (snap.empty) {
+          list.innerHTML = `<p class="smalltext" style="color:var(--grey);">De bestuursploeg wordt binnenkort gepubliceerd.</p>`;
+          return;
+        }
+
         snap.forEach(docSnap => {
           const d = docSnap.data();
-          const el = document.createElement("div");
-          el.className = "coach w-inline-block";
-          el.innerHTML = `
-            <img width="207" loading="eager" alt="${d.name || ""}"
-              src="${d.imageUrl || "/images/coach-placeholder.jpg"}"
-              class="coachimageinslider">
-            <div class="namecoachinslider basic left">
-              <div>${d.name || ""}</div>
-              <div class="undertitle-coach incard">${d.function || ""}</div>
-            </div>
-          `;
-          cards.push(el);
-        });
+          const avatarHtml = d.imageUrl
+            ? `<img src="${d.imageUrl}" alt="${d.name || ""}" class="bestuur-avatar-img" loading="lazy" />`
+            : `<span class="bestuur-avatar-initials">${getInitials(d.name)}</span>`;
 
-        cards.forEach(c => reel.appendChild(c));
-        cards.forEach(c => reel.appendChild(c.cloneNode(true)));
-        startReel(reel, cards.length);
+          const card = document.createElement("div");
+          card.className = "bestuur-card";
+          card.innerHTML = `
+            <div class="bestuur-avatar">${avatarHtml}</div>
+            <div class="bestuur-member-name">${d.name || ""}</div>
+            <div class="bestuur-member-function">${d.function || ""}</div>
+          `;
+          list.appendChild(card);
+        });
       }
 
       /* ---- SPONSORS ---- */
