@@ -2436,6 +2436,7 @@ a.sponsor-logo-card:hover {
   position: relative;
   overflow: hidden;
   box-shadow: 0 2px 5px #0003;
+  min-height: 200px;
 }
 
 .event-im {
