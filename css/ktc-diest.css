@@ -1000,7 +1000,7 @@ html {
 
 /* sponsor card inside the scrolling reel */
 .sponsor-reel-card {
-  background: var(--white-bg);
+  background: white;
   display: flex !important;
   flex-direction: column;
   overflow: hidden;
@@ -1013,7 +1013,7 @@ html {
   object-fit: contain;
   padding: 20px;
   display: block;
-  background: var(--white-bg);
+  background: white;
 }
 
 .sponsor-reel-name {
