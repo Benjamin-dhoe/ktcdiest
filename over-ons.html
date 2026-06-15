@@ -465,7 +465,11 @@
           el.className = "coach sponsor-reel-card w-inline-block";
           el.style.backgroundColor = 'white';
           if (d.websiteUrl) {
-            el.href = d.websiteUrl;
+            const absoluteUrl = url.startsWith("http://") || url.startsWith("https://")
+              ? url
+              : "https://" + url;
+          
+            el.href = absoluteUrl;
             el.target = "_blank";
             el.rel = "noopener noreferrer";
           }
