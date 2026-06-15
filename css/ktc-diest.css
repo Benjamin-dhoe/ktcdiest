@@ -1030,6 +1030,15 @@ html {
   text-overflow: ellipsis;
 }
 
+#sponsors-reel {
+  animation: scroll-left linear infinite;
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .sponsors-logo-grid {
   display: flex;
   flex-wrap: wrap;
