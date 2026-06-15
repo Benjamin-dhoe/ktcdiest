@@ -464,7 +464,8 @@
           const el = document.createElement(tag);
           el.className = "coach sponsor-reel-card w-inline-block";
           el.style.backgroundColor = 'white';
-          if (d.websiteUrl) {
+          const url = d.websiteUrl;
+          if (url) {
             const absoluteUrl = url.startsWith("http://") || url.startsWith("https://")
               ? url
               : "https://" + url;
