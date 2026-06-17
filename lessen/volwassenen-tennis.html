@@ -449,6 +449,14 @@ export async function loadTrainingInformation() {
         </div>
       `;
     }
+    let registrationLinksHtml = '';
+    data.registrationLinks.forEach(link => {
+      registrationLinksHtml += `
+        <a class="tsFaqButton" target="_blank" href="${link.url}">
+          ${link.name}
+        </a>
+      `;
+    });
     containers.inschrijven.innerHTML = `
       ${tennisDaysHtml}
       ${conditioningDaysHtml}
@@ -460,9 +468,7 @@ export async function loadTrainingInformation() {
 
       </div>
 
-      <a class="tsFaqButton" target="_blank" href="${data.registrationLink}">
-        Inschrijven
-      </a>
+      ${registrationLinksHtml}
     `;
 
 
