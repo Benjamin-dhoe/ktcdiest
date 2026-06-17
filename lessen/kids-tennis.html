@@ -484,7 +484,9 @@ export async function loadTrainingInformation() {
       ${conditioningDaysHtml}
       <div class="tsFaqPriceRow">
         <span class="tsFaqPriceLabel">Prijs</span>
-        <span class="tsFaqPriceValue">${data.price}</span>
+        <span class="tsFaqPriceValue">
+          ${data.price.replace(/\n/g, "<br>")}
+        </span>
       </div>
 
       <a class="tsFaqButton" target="_blank" href="${data.registrationLink}">
