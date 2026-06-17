@@ -568,7 +568,7 @@ export async function loadConditiePage() {
     
       // Price
       const priceValue = group.price || "";
-      document.getElementById(`${age}-price`).innerHTML = priceValue;
+      document.getElementById(`${age}-price`).innerHTML = priceValue.replace(/\n/g, "<br>");
     
       const priceRow = document.getElementById(`${age}-price-row`);
       if (priceRow) priceRow.style.display = priceValue ? "flex" : "none";
