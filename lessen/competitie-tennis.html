@@ -178,6 +178,7 @@
                         <button class="ageBtn" data-target="groep-u13">U13</button>
                         <button class="ageBtn" data-target="groep-u15">U15</button>
                         <button class="ageBtn" data-target="groep-15plus">15+</button>
+                        <button class="ageBtn" data-target="groep-studenten">Studententennis</button>
                       </div>
                     </div>
                   
@@ -317,6 +318,29 @@
                       </div>
                   
                       <a class="tsFaqButton" target="_blank" id="u17-link">Inschrijven</a>
+                    </div>
+                    
+                    <!-- Studenten -->
+                    <div class="tsFaqPriceCard" style="display:none" id="groep-studenten">
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Groep</span>
+                        <span class="tsFaqPriceValue">Studenten</span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Tennisdagen</span>
+                        <span class="tsFaqPriceValue" id="studenten-tennis"></span>
+                  
+                        <span class="tsFaqPriceLabel">Conditie</span>
+                        <span class="tsFaqPriceValue" id="studenten-conditie"></span>
+                      </div>
+                  
+                      <div class="tsFaqPriceRow">
+                        <span class="tsFaqPriceLabel">Prijs per uur</span>
+                        <span class="tsFaqPriceValue" id="studenten-price"></span>
+                      </div>
+                  
+                      <a class="tsFaqButton" target="_blank" id="studenten-link">Inschrijven</a>
                     </div>
                   </div>
 
@@ -551,7 +575,7 @@ import { showLoadingSpinner, removeLoadingSpinner } from "/js/Spinner.js";
 const db = getFirestore(app);
 const COMPETITIE_REF = doc(db, "training_information", "competitie");
 
-const AGE_GROUPS = ["kids", "u9", "u11", "u13", "u15", "u17"];
+const AGE_GROUPS = ["kids", "studenten", "u9", "u11", "u13", "u15", "u17"];
 
 export async function loadCompetitiePage() {
   const containers = {
