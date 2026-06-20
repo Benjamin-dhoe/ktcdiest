@@ -493,7 +493,7 @@ input:checked + .slider::before {
   justify-content: space-around;
   align-items: center;
   width: 80%;
-  max-width: 100px;
+  max-width: 140px;
   display: flex;
 }
 
