@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <!-- List bars -->
+  <rect x="2" y="5" width="13" height="2" rx="1" fill="#dbdbdb"/>
+  <rect x="2" y="11" width="13" height="2" rx="1" fill="#dbdbdb"/>
+  <rect x="2" y="17" width="13" height="2" rx="1" fill="#dbdbdb"/>
+  <!-- Up arrow -->
+  <path d="M20 2 L17 7 L23 7 Z" fill="#dbdbdb"/>
+  <!-- Down arrow -->
+  <path d="M20 22 L17 17 L23 17 Z" fill="#dbdbdb"/>
+</svg>
