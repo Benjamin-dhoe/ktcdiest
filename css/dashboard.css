@@ -1049,3 +1049,24 @@ input:checked + .slider::before {
 .reorder-down-btn:hover {
   background: #e0e0e0;
 }
+
+/* Copy event popup styles */
+.copy-event-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.copy-event-item {
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #eee;
+}
+
+.copy-event-item:hover {
+  background: #f5f5f5;
+}
