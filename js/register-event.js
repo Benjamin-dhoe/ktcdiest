@@ -3,7 +3,6 @@ import { showMessage } from '/js/uiMessage.js';
 const registerBtn = document.getElementById("register-btn");
 const loadingRegister = document.getElementById("loading-register");
 
-// IMPORTANT: make sure this exists globally or pass it in
 // fallback safety added below
 const eventFormFieldsSafe = window.eventFormFields || [];
 
@@ -18,8 +17,13 @@ if (registerBtn) {
       const email = document.querySelector('input[name="email"], #email')?.value || "";
       const name = document.querySelector('input[name="name"], #name')?.value || "";
 
-      const selectedPriceOption = document.querySelector('input[name="price_option"]:checked');
-      const priceOption = selectedPriceOption?.value || "";
+      const priceOptions = Array.from(document.querySelectorAll(".price-option-row"))
+        .map(row => ({
+          label: row.dataset.option,
+          price: row.dataset.price,
+          qty: parseInt(row.querySelector(".addon-qty-display").textContent) || 0
+        }))
+        .filter(a => a.qty > 0);
 
       const addOns = Array.from(document.querySelectorAll(".addon-option-row"))
         .map(row => ({
@@ -66,7 +70,7 @@ if (registerBtn) {
         answers,
         email,
         name,
-        priceOption,
+        priceOptions,
         addOns,
       };
 
