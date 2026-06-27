@@ -1112,6 +1112,11 @@ input:checked + .slider::before {
   color: #666;
 }
 
+.formules-detail-unit {
+  color: #666;
+  font-size: 13px;
+}
+
 .formules-detail-price {
   font-weight: 600;
 }
