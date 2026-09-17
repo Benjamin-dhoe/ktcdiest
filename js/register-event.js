@@ -25,7 +25,9 @@ if (registerBtn) {
         }))
         .filter(a => a.qty > 0);
 
-      const addOns = Array.from(document.querySelectorAll(".addon-option-row"))
+      // Formulerijen dragen ook .addon-option-row voor de opmaak; die horen
+      // hier niet bij, anders sturen we ze twee keer door.
+      const addOns = Array.from(document.querySelectorAll(".addon-option-row:not(.price-option-row)"))
         .map(row => ({
           option: row.dataset.option,
           qty: parseInt(row.querySelector(".addon-qty-display").textContent) || 0
