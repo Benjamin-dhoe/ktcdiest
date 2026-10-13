@@ -31,17 +31,17 @@ flatpickr(dateRangeInput, {
   }
 });
 
-// Set default filter range: today → 6 months ahead
+// Set default filter range: today → 1 year ahead
 const today = new Date();
-const sixMonthsAhead = new Date();
-sixMonthsAhead.setMonth(sixMonthsAhead.getMonth() + 6);
+const oneYearAhead = new Date();
+oneYearAhead.setFullYear(oneYearAhead.getFullYear() + 1);
 
 selectedStart = today;
-selectedEnd = sixMonthsAhead;
+selectedEnd = oneYearAhead;
 
 dateRangeInput.value =
   today.toLocaleDateString("nl-BE") + " tot " +
-  sixMonthsAhead.toLocaleDateString("nl-BE");
+  oneYearAhead.toLocaleDateString("nl-BE");
 
 // ----------------------
 // OPEN / CLOSE FILTER PANEL
